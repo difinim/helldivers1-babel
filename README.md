@@ -15,7 +15,22 @@
 > **Helldivers 1 Babel is strictly developed for Helldivers (2015) on PC (Steam).**
 > **It is NOT compatible with Helldivers 2 (2024)**, which is completely different and uses kernel-level anti-cheat.
 
+## Table of Contents
 
+- [1. Overview & Key Features](#1-overview--key-features)
+- [2. Setup](#2-setup)
+  - [Requirements](#requirements)
+  - [Setup AI API Key](#setup-ai-api-key)
+  - [Download & Installation (Pre-Built Release)](#download--installation-pre-built-release)
+- [3. Usage Guide](#3-usage-guide)
+  - [Getting Started](#getting-started)
+  - [In-Game Communication & Use Cases](#in-game-communication--use-cases)
+- [4. Development (Building from Source)](#4-development-building-from-source)
+  - [Developer Requirements](#developer-requirements)
+  - [Automated Environment Setup](#automated-environment-setup)
+  - [Master Build & Release Packaging](#master-build--release-packaging)
+  - [Manual Step-by-Step Build](#manual-step-by-step-build)
+- [5. License](#5-license)
 
 ## 1. Overview & Key Features
 
@@ -46,13 +61,28 @@
 - **Zero Telemetry & Complete Privacy:** This tool does not collect, log, or send any user data or telemetry data. All translation requests communicate directly and exclusively with your configured AI provider endpoint using your personal API credentials.
 - **100% Non-Invasive (Zero Game File Modification):** No game archives are unpacked or modified. Your game files remain 100% vanilla and untampered.
 
+
+
+
+## 2. Setup
+
+### Requirements
+If you are running the pre-compiled standalone release (`HD1-Babel.exe`):
+- **Operating System:** Windows 10 / 11 64-bit (x64).
+- **Desktop Runtime:** [Microsoft .NET 10 Desktop Runtime (x64)](https://aka.ms/dotnet/10.0/windowsdesktop-runtime-win-x64.exe) (direct installer).
+- **Target Game:** *Helldivers* (2015) on Steam (64-bit `helldivers.exe`).
+
+### Setup AI API Key
+- **AI Provider Credentials:** Google Gemini API Key (obtain free personal key from [Google AI Studio](https://aistudio.google.com/) ([See this tutorial video](https://www.youtube.com/watch?v=YHFMrZD-_3g)).
+- **Internet Access:** Required for translation API calls.
+
 ### Download & Installation (Pre-Built Release)
 
-You do **not** need to install developer tools or compile from source to use Babel:
+You do **not** need to install developer tools or compile from source to use Babel ([but if you want to](#4-development-building-from-source)):
 1. Navigate to the **[Releases](https://github.com/difinim/helldivers1-babel/releases)** section on the right side of the GitHub project page.
-2. Under the latest release (e.g. `v1.0.0`), expand the **Assets** list.
+2. Under the latest release, expand the **Assets** list.
 3. Download the standalone distribution archive: **`Helldivers1Babel-v<version>-win-x64.zip`**.
-4. Extract the zip file anywhere on your computer (e.g. `C:\Games\Helldivers1Babel`).
+4. Extract the zip file anywhere on your computer (e.g. `C:\GamesTools\Helldivers1Babel`).
 5. Open the folder and run **`HD1-Babel.exe`**.
 
 > [!NOTE]
@@ -63,7 +93,7 @@ You do **not** need to install developer tools or compile from source to use Bab
 
 
 
-## 2. Usage Guide
+## 3. Usage Guide
 
 ### Getting Started
 1. Start **Helldivers 1 Babel** (`HD1-Babel.exe`).
@@ -124,17 +154,9 @@ Squad chat messages containing `http://` or `https://` URLs are rendered as clic
 
 
 
-## 3. System Requirements
+## 4. Development (Building from Source)
 
-### Running the Tool (End-User Requirements)
-If you are running the pre-compiled standalone release (`HD1-Babel.exe`):
-- **Operating System:** Windows 10 / 11 64-bit (x64).
-- **Desktop Runtime:** [Microsoft .NET 10 Desktop Runtime (x64)](https://aka.ms/dotnet/10.0/windowsdesktop-runtime-win-x64.exe) (direct installer).
-- **Target Game:** *Helldivers* (2015) on Steam (64-bit `helldivers.exe`).
-- **AI Provider Credentials:** Google Gemini API Key (obtain free personal key from [Google AI Studio](https://aistudio.google.com/)).
-- **Internet Access:** Required for translation API calls.
-
-### Building from Source (Developer Requirements)
+### Developer Requirements
 If you are compiling and building the project from source:
 - **Operating System:** Windows 10 / 11 64-bit (x64).
 - **.NET 10 SDK:** [.NET 10 SDK](https://dotnet.microsoft.com/download/dotnet/10.0) (`net10.0-windows`).
@@ -142,18 +164,7 @@ If you are compiling and building the project from source:
 - **Git:** Git for Windows (with recursive submodules for MinHook amalgamation).
 
 
-
-## 4. Quick Start & Setup
-
-### Running the Pre-Built Release (End Users)
-1. Download the latest release package (`Helldivers1Babel-vX.X.X-win-x64.zip`) from [GitHub Releases](https://github.com/difinim/helldivers1-babel/releases).
-2. Extract the archive to any folder on your computer.
-3. Install the [.NET 10 Desktop Runtime (x64)](https://aka.ms/dotnet/10.0/windowsdesktop-runtime-win-x64.exe) if not already installed.
-4. Launch `HD1-Babel.exe` and follow the [Usage Guide](#2-usage-guide).
-
-### Building from Source (Developers)
-
-#### Automated Environment Setup
+### Automated Environment Setup
 Double-click `setup.bat` (or run `setup.ps1` in PowerShell) in the repository root. It automatically verifies and installs missing prerequisites:
 1. Verifies 64-bit Windows environment.
 2. Checks for .NET 10 SDK (auto-installs via `winget` if missing).
@@ -161,14 +172,14 @@ Double-click `setup.bat` (or run `setup.ps1` in PowerShell) in the repository ro
 4. Automatically ensures `C:\msys64\mingw64\bin` and `C:\msys64\usr\bin` are added to PATH.
 5. Verifies MinHook amalgamation dependencies and runs an initial build sanity check.
 
-#### Master Build & Release Packaging
+### Master Build & Release Packaging
 To clean previous artifacts, compile the native hook DLL, run all unit tests, and assemble the release package:
 ```powershell
 pwsh -File build.ps1
 ```
-The output directory will be packaged into `dist/Helldivers1Babel-v1.0.0/`.
+The output directory will be packaged into `dist/Helldivers1Babel-vX.Y.Z/`.
 
-#### Manual Step-by-Step Build
+### Manual Step-by-Step Build
 ```powershell
 # 1. Build the native hook DLL (automatically compiles babel_bootstrap.lua with luajit)
 pwsh -File src/Babel.Hook/build.ps1
