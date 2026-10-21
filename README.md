@@ -9,7 +9,7 @@
 
 *Dive together. Speak as one.*
 
-**Helldivers 1 Babel** is an open-source, non-invasive translation and tactical communication assistant for *Helldivers (2015)*, because *sweet liberty sounds better when everyone understands the plan*.
+**Helldivers 1 Babel** is an open-source, non-invasive chat translation and tactical communication assistant for *Helldivers (2015)*, because *sweet liberty sounds better when everyone understands the plan*.
 > [!IMPORTANT]
 > **Compatibility Disclaimer:**
 > **Helldivers 1 Babel is strictly developed for Helldivers (2015) on PC (Steam).**
