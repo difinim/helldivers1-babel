@@ -20,7 +20,7 @@
 - [1. Overview & Key Features](#1-overview--key-features)
 - [2. Setup](#2-setup)
   - [Requirements](#requirements)
-  - [Setup AI API Key](#setup-ai-api-key)
+  - [Setup a free AI API Key](#setup-a-free-ai-api-key)
   - [Download & Installation (Pre-Built Release)](#download--installation-pre-built-release)
 - [3. Usage Guide](#3-usage-guide)
   - [Getting Started](#getting-started)
@@ -72,7 +72,7 @@ If you are running the pre-compiled standalone release (`HD1-Babel.exe`):
 - **Desktop Runtime:** [Microsoft .NET 10 Desktop Runtime (x64)](https://aka.ms/dotnet/10.0/windowsdesktop-runtime-win-x64.exe) (direct installer).
 - **Target Game:** *Helldivers* (2015) on Steam (64-bit `helldivers.exe`).
 
-### Setup AI API Key
+### Setup a free AI API Key
 - **AI Provider Credentials:** Google Gemini API Key (obtain free personal key from [Google AI Studio](https://aistudio.google.com/) ([See this tutorial video](https://www.youtube.com/watch?v=YHFMrZD-_3g)).
 - **Internet Access:** Required for translation API calls.
 
