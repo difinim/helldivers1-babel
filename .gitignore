@@ -1,0 +1,42 @@
+## Build & Binary Outputs
+bin/
+obj/
+out/
+build/
+dist/
+TestResults/
+*.trx
+diag*.txt
+*.exe
+*.dll
+*.pdb
+*.lib
+*.exp
+*.ilk
+*.luajit
+src/Babel.Hook/src/*.luajit
+
+## Visual Studio & IDEs
+.vs/
+.vscode/
+.idea/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+## Native C++ / Clang build temporary files
+*.o
+*.obj
+*.d
+
+## OS & Logs
+*.log
+Thumbs.db
+[Dd]esktop.ini
+.DS_Store
+
+## App Local Configuration & Keys (Never commit secrets!)
+appsettings.local.json
+user_config.json
+*.key
