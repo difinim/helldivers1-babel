@@ -1,0 +1,11 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/Babel.App/Babel.App.csproj" />
+    <Project Path="src/Babel.Core/Babel.Core.csproj" />
+    <Project Path="src/Babel.Providers/Babel.Providers.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/Babel.Core.Tests/Babel.Core.Tests.csproj" />
+    <Project Path="tests/Babel.Providers.Tests/Babel.Providers.Tests.csproj" />
+  </Folder>
+</Solution>

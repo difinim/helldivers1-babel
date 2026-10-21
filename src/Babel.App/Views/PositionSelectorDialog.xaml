@@ -1,0 +1,189 @@
+<Window x:Class="Babel.App.Views.PositionSelectorDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Overlay Position Selector"
+        Icon="../Assets/hb.ico"
+        Height="410" Width="460"
+        WindowStartupLocation="CenterOwner"
+        ResizeMode="NoResize"
+        ShowInTaskbar="False"
+        Background="#15171E"
+        Foreground="#ECEFF4"
+        FontFamily="Segoe UI">
+
+    <Window.Resources>
+        <Style x:Key="AnchorButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="HitArea" Background="Transparent" CornerRadius="4">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="HitArea" Property="Background" Value="#22FFE600"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style TargetType="Button">
+            <Setter Property="Background" Value="#222630"/>
+            <Setter Property="Foreground" Value="#FFFFFF"/>
+            <Setter Property="BorderBrush" Value="#3B4252"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Padding" Value="16,6"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="border"
+                                Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="4"
+                                Padding="{TemplateBinding Padding}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="border" Property="Background" Value="#383E4C"/>
+                                <Setter TargetName="border" Property="BorderBrush" Value="#FFE600"/>
+                                <Setter Property="Foreground" Value="#FFE600"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+
+    <Border BorderBrush="#2D323F" BorderThickness="1" Padding="20">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <!-- Header -->
+            <StackPanel Grid.Row="0" Margin="0,0,0,14">
+                <TextBlock x:Name="HeaderTitle" Text="Configure Overlay Position" FontSize="15" FontWeight="Bold" Foreground="#FFE600"/>
+                <TextBlock Text="Click an arrow or the center circle to choose where the overlay appears." FontSize="11" Foreground="#A0A5B5" Margin="0,3,0,0"/>
+            </StackPanel>
+
+            <!-- Monitor Graphic Canvas (Drafted from positioning-selector.svg) -->
+            <Border Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center"
+                    Background="#282828" BorderBrush="#FFFFFF" BorderThickness="1"
+                    Width="374" Height="236" CornerRadius="2">
+                <Border.Effect>
+                    <DropShadowEffect BlurRadius="16" Direction="270" ShadowDepth="4" Opacity="0.5" Color="#000000"/>
+                </Border.Effect>
+
+                <Canvas Width="374" Height="236" ClipToBounds="True">
+                    <!-- Top-Left Anchor -->
+                    <Button Canvas.Left="4" Canvas.Top="4" Width="44" Height="44" Style="{StaticResource AnchorButtonStyle}"
+                            Tag="TopLeft" Click="OnAnchorClicked" ToolTip="Top Left (NW)">
+                        <Path x:Name="PathTopLeft" Data="M13.5,0 L25.191,12 L1.809,12 Z" Fill="#6D6D6D">
+                            <Path.RenderTransform>
+                                <RotateTransform Angle="-45" CenterX="13.5" CenterY="6"/>
+                            </Path.RenderTransform>
+                        </Path>
+                    </Button>
+
+                    <!-- Top-Center Anchor -->
+                    <Button Canvas.Left="165" Canvas.Top="4" Width="44" Height="44" Style="{StaticResource AnchorButtonStyle}"
+                            Tag="TopCenter" Click="OnAnchorClicked" ToolTip="Top Center (N)">
+                        <Path x:Name="PathTopCenter" Data="M13.5,0 L25.191,12 L1.809,12 Z" Fill="#6D6D6D"/>
+                    </Button>
+
+                    <!-- Top-Right Anchor -->
+                    <Button Canvas.Left="326" Canvas.Top="4" Width="44" Height="44" Style="{StaticResource AnchorButtonStyle}"
+                            Tag="TopRight" Click="OnAnchorClicked" ToolTip="Top Right (NE)">
+                        <Path x:Name="PathTopRight" Data="M13.5,0 L25.191,12 L1.809,12 Z" Fill="#6D6D6D">
+                            <Path.RenderTransform>
+                                <RotateTransform Angle="45" CenterX="13.5" CenterY="6"/>
+                            </Path.RenderTransform>
+                        </Path>
+                    </Button>
+
+                    <!-- Middle-Left Anchor -->
+                    <Button Canvas.Left="4" Canvas.Top="96" Width="44" Height="44" Style="{StaticResource AnchorButtonStyle}"
+                            Tag="MiddleLeft" Click="OnAnchorClicked" ToolTip="Middle Left (W)">
+                        <Path x:Name="PathMiddleLeft" Data="M13.5,0 L25.191,12 L1.809,12 Z" Fill="#6D6D6D">
+                            <Path.RenderTransform>
+                                <RotateTransform Angle="-90" CenterX="13.5" CenterY="6"/>
+                            </Path.RenderTransform>
+                        </Path>
+                    </Button>
+
+                    <!-- Center Circle Anchor -->
+                    <Button Canvas.Left="165" Canvas.Top="96" Width="44" Height="44" Style="{StaticResource AnchorButtonStyle}"
+                            Tag="Center" Click="OnAnchorClicked" ToolTip="Center (Screen Middle)">
+                        <Ellipse x:Name="PathCenter" Width="16" Height="16" Fill="#6D6D6D"/>
+                    </Button>
+
+                    <!-- Middle-Right Anchor -->
+                    <Button Canvas.Left="326" Canvas.Top="96" Width="44" Height="44" Style="{StaticResource AnchorButtonStyle}"
+                            Tag="MiddleRight" Click="OnAnchorClicked" ToolTip="Middle Right (E)">
+                        <Path x:Name="PathMiddleRight" Data="M13.5,0 L25.191,12 L1.809,12 Z" Fill="#6D6D6D">
+                            <Path.RenderTransform>
+                                <RotateTransform Angle="90" CenterX="13.5" CenterY="6"/>
+                            </Path.RenderTransform>
+                        </Path>
+                    </Button>
+
+                    <!-- Bottom-Left Anchor -->
+                    <Button Canvas.Left="4" Canvas.Top="188" Width="44" Height="44" Style="{StaticResource AnchorButtonStyle}"
+                            Tag="BottomLeft" Click="OnAnchorClicked" ToolTip="Bottom Left (SW)">
+                        <Path x:Name="PathBottomLeft" Data="M13.5,0 L25.191,12 L1.809,12 Z" Fill="#6D6D6D">
+                            <Path.RenderTransform>
+                                <RotateTransform Angle="-135" CenterX="13.5" CenterY="6"/>
+                            </Path.RenderTransform>
+                        </Path>
+                    </Button>
+
+                    <!-- Bottom-Center Anchor -->
+                    <Button Canvas.Left="165" Canvas.Top="188" Width="44" Height="44" Style="{StaticResource AnchorButtonStyle}"
+                            Tag="BottomCenter" Click="OnAnchorClicked" ToolTip="Bottom Center (S)">
+                        <Path x:Name="PathBottomCenter" Data="M13.5,0 L25.191,12 L1.809,12 Z" Fill="#6D6D6D">
+                            <Path.RenderTransform>
+                                <RotateTransform Angle="180" CenterX="13.5" CenterY="6"/>
+                            </Path.RenderTransform>
+                        </Path>
+                    </Button>
+
+                    <!-- Bottom-Right Anchor -->
+                    <Button Canvas.Left="326" Canvas.Top="188" Width="44" Height="44" Style="{StaticResource AnchorButtonStyle}"
+                            Tag="BottomRight" Click="OnAnchorClicked" ToolTip="Bottom Right (SE)">
+                        <Path x:Name="PathBottomRight" Data="M13.5,0 L25.191,12 L1.809,12 Z" Fill="#6D6D6D">
+                            <Path.RenderTransform>
+                                <RotateTransform Angle="135" CenterX="13.5" CenterY="6"/>
+                            </Path.RenderTransform>
+                        </Path>
+                    </Button>
+                </Canvas>
+            </Border>
+
+            <!-- Status Label -->
+            <StackPanel Grid.Row="2" HorizontalAlignment="Center" Margin="0,10,0,0">
+                <TextBlock x:Name="SelectedPositionLabel" Text="Selected: Top Right" FontWeight="Bold" FontSize="13" Foreground="#FFE600" HorizontalAlignment="Center"/>
+                <TextBlock Text="(Live 2s preview displayed on screen)" FontSize="10" Foreground="#6C7280" HorizontalAlignment="Center" Margin="0,2,0,0"/>
+            </StackPanel>
+
+            <!-- Footer Buttons -->
+            <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,14,0,0">
+                <Button Content="Done" IsDefault="True" Click="OnDoneClicked" MinWidth="90" Margin="0,0,10,0"/>
+                <Button Content="Cancel" IsCancel="True" Click="OnCancelClicked" MinWidth="80"/>
+            </StackPanel>
+        </Grid>
+    </Border>
+</Window>

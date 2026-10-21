@@ -1,0 +1,100 @@
+name: CodeQL
+
+on:
+  push:
+    branches:
+      - '**'
+  pull_request:
+    branches:
+      - '**'
+  schedule:
+    - cron: '0 3 * * 1'
+  workflow_dispatch:
+
+permissions:
+  actions: read
+  contents: read
+  security-events: write
+
+jobs:
+  analyze:
+    name: CodeQL Analysis (${{ matrix.name }})
+    runs-on: windows-latest
+    timeout-minutes: 60
+
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - language: csharp
+            name: "C#"
+          - language: c-cpp
+            name: "C/C++"
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      # --- Setup for C# ---
+      - name: Setup .NET 10
+        if: matrix.language == 'csharp'
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '10.0.x'
+
+      # --- Setup for C / C++ (Clang & LuaJIT toolchain) ---
+      - name: Setup MSYS2 Clang, GCC and LuaJIT toolchain
+        if: matrix.language == 'c-cpp'
+        uses: msys2/setup-msys2@v2
+        id: msys2
+        with:
+          msystem: MINGW64
+          update: true
+          install: mingw-w64-x86_64-clang mingw-w64-x86_64-gcc mingw-w64-x86_64-luajit
+          path-type: inherit
+
+      - name: Add MinGW64 to PATH
+        if: matrix.language == 'c-cpp'
+        shell: pwsh
+        run: |
+          $msysLocation = "${{ steps.msys2.outputs.msys2-location }}"
+          if (-not $msysLocation -or -not (Test-Path $msysLocation)) {
+              if (Test-Path "C:\msys64") {
+                  $msysLocation = "C:\msys64"
+              } elseif (Test-Path "$env:RUNNER_TEMP\msys64") {
+                  $msysLocation = "$env:RUNNER_TEMP\msys64"
+              }
+          }
+          Write-Host "MSYS2 Location resolved to: $msysLocation"
+          $mingwBin = Join-Path $msysLocation "mingw64\bin"
+          $usrBin = Join-Path $msysLocation "usr\bin"
+          Add-Content -Path $env:GITHUB_PATH -Value $mingwBin
+          Add-Content -Path $env:GITHUB_PATH -Value $usrBin
+
+      # --- CodeQL Initialization ---
+      - name: Initialize CodeQL
+        uses: github/codeql-action/init@v3
+        with:
+          languages: ${{ matrix.language }}
+          build-mode: manual
+
+      # --- Build Steps ---
+      - name: Build C# Solution
+        if: matrix.language == 'csharp'
+        shell: pwsh
+        run: |
+          dotnet build Helldivers1Babel.slnx -c Release --no-incremental
+
+      - name: Build C/C++ Hook DLL
+        if: matrix.language == 'c-cpp'
+        shell: pwsh
+        run: |
+          pwsh -File ./src/Babel.Hook/build.ps1 -Configuration Release
+
+      # --- CodeQL Analysis ---
+      - name: Perform CodeQL Analysis
+        uses: github/codeql-action/analyze@v3
+        with:
+          category: "/language:${{ matrix.language }}"
