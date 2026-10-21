@@ -450,6 +450,7 @@
                                 <CheckBox Content="Incoming Translation" IsChecked="{Binding IncomingEnabled}" Margin="0,0,16,0" VerticalAlignment="Center"/>
                                 <CheckBox Content="Outgoing Translation (&gt;&gt;)" IsChecked="{Binding OutgoingEnabled}" Margin="0,0,16,0" VerticalAlignment="Center"/>
                                 <CheckBox Content="Don't translate standard outgoing" IsChecked="{Binding DontTranslateStandardOutgoing}" ToolTip="When checked (default), your own messages that do not contain '&gt;&gt;' are not translated." Margin="0,0,16,0" VerticalAlignment="Center"/>
+                                <CheckBox Content="Don't translate incoming in target language" IsChecked="{Binding DontTranslateIncomingInTargetLanguage}" ToolTip="When checked (default), incoming teammate messages detected to already be in your target language are not injected as translations into in-game chat." Margin="0,0,16,0" VerticalAlignment="Center"/>
                             </WrapPanel>
 
                             <StackPanel Grid.Column="3" Orientation="Horizontal" VerticalAlignment="Center">

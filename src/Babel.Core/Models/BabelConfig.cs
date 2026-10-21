@@ -24,6 +24,7 @@ public class BabelConfig
     public bool OutgoingTranslationEnabled { get; set; } = true;
     public string OutgoingPrefix { get; set; } = ">>";
     public bool DontTranslateStandardOutgoing { get; set; } = true;
+    public bool DontTranslateIncomingInTargetLanguage { get; set; } = true;
     public bool SoundAlertEnabled { get; set; } = true;
     public double TimeoutSeconds { get; set; } = 5.0;
     public string GlobalPauseHotkey { get; set; } = "Ctrl+F10";

@@ -273,6 +273,17 @@ public class MainViewModel : INotifyPropertyChanged
         }
     }
 
+    public bool DontTranslateIncomingInTargetLanguage
+    {
+        get => _config.DontTranslateIncomingInTargetLanguage;
+        set
+        {
+            _config.DontTranslateIncomingInTargetLanguage = value;
+            OnPropertyChanged();
+            SaveConfig();
+        }
+    }
+
     public string GeminiApiKey
     {
         get => _config.ApiKeys.GetValueOrDefault("Gemini", "");
@@ -1011,6 +1022,7 @@ public class MainViewModel : INotifyPropertyChanged
         IncomingEnabled = defaults.IncomingTranslationEnabled;
         OutgoingEnabled = defaults.OutgoingTranslationEnabled;
         DontTranslateStandardOutgoing = defaults.DontTranslateStandardOutgoing;
+        DontTranslateIncomingInTargetLanguage = defaults.DontTranslateIncomingInTargetLanguage;
         _config.OutgoingPrefix = defaults.OutgoingPrefix;
         _config.SoundAlertEnabled = defaults.SoundAlertEnabled;
 

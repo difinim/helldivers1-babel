@@ -15,6 +15,7 @@ public class ConfigTests
         Assert.True(config.IncomingTranslationEnabled);
         Assert.True(config.OutgoingTranslationEnabled);
         Assert.True(config.DontTranslateStandardOutgoing);
+        Assert.True(config.DontTranslateIncomingInTargetLanguage);
         Assert.Equal(">>", config.OutgoingPrefix);
         Assert.Equal("Ctrl+F10", config.GlobalPauseHotkey);
         Assert.Equal("Ctrl+F11", config.ToggleTranslationHotkey);
@@ -62,7 +63,8 @@ public class ConfigTests
                 WindowHeight = 900,
                 WindowLeft = 150,
                 WindowTop = 80,
-                WindowMaximized = true
+                WindowMaximized = true,
+                DontTranslateIncomingInTargetLanguage = false
             };
             original.ApiKeys["Gemini"] = "AIzaSyTestKey123";
             original.LogColumnWidths["Time"] = 80;
@@ -101,6 +103,7 @@ public class ConfigTests
             Assert.Equal("Display 2", loaded.TargetDisplay);
             Assert.Equal(OverlayPosition.BottomLeft, loaded.ToastPosition);
             Assert.Equal(OverlayPosition.TopCenter, loaded.QuickChatOverlayPosition);
+            Assert.False(loaded.DontTranslateIncomingInTargetLanguage);
         }
         finally
         {
@@ -283,5 +286,22 @@ public class ConfigTests
         Assert.True(config.IncomingTranslationEnabled);
         Assert.True(config.OutgoingTranslationEnabled);
         Assert.True(config.DontTranslateStandardOutgoing);
+        Assert.True(config.DontTranslateIncomingInTargetLanguage);
+    }
+
+    [Fact]
+    public void ResetToDefaults_RestoresDontTranslateIncomingInTargetLanguage()
+    {
+        var config = new BabelConfig
+        {
+            DontTranslateIncomingInTargetLanguage = false
+        };
+
+        Assert.False(config.DontTranslateIncomingInTargetLanguage);
+
+        var defaults = new BabelConfig();
+        config.DontTranslateIncomingInTargetLanguage = defaults.DontTranslateIncomingInTargetLanguage;
+
+        Assert.True(config.DontTranslateIncomingInTargetLanguage);
     }
 }
