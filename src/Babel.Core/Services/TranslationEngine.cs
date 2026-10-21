@@ -191,21 +191,29 @@ public class TranslationEngine : ITranslationEngine, IDisposable
                 BabelLog.Info("TranslationEngine", $"Incoming translation successful ({result.LatencyMs}ms) [{result.DetectedSourceLanguage} -> {_config.TargetLanguage}]: \"{result.TranslatedText}\"");
                 UpdateLastIncomingLanguage(result);
 
-                string formattedText = FormatIncomingTranslation(result);
-
-                var injectPayload = new InjectChatMessagePayload
+                bool isSameLanguage = LanguageMatcher.IsSameLanguage(result.DetectedSourceLanguage, _config.TargetLanguage);
+                if (_config.DontTranslateIncomingInTargetLanguage && isSameLanguage)
                 {
-                    PlayerIndex = payload.PlayerIndex,
-                    PlayerName = payload.PlayerName,
-                    R = payload.R,
-                    G = payload.G,
-                    B = payload.B,
-                    Message = formattedText,
-                    PlaySound = _config.SoundAlertEnabled
-                };
+                    BabelLog.Info("TranslationEngine", $"Incoming message '{payload.Message}' is already in target language '{_config.TargetLanguage}' (detected: '{result.DetectedSourceLanguage}'). Suppressing in-game translation injection.");
+                }
+                else
+                {
+                    string formattedText = FormatIncomingTranslation(result);
 
-                var injectPacket = IpcPacket.Create(IpcPacketType.InjectChatMessage, injectPayload);
-                await _ipcServer.SendPacketAsync(injectPacket, ct).ConfigureAwait(false);
+                    var injectPayload = new InjectChatMessagePayload
+                    {
+                        PlayerIndex = payload.PlayerIndex,
+                        PlayerName = payload.PlayerName,
+                        R = payload.R,
+                        G = payload.G,
+                        B = payload.B,
+                        Message = formattedText,
+                        PlaySound = _config.SoundAlertEnabled
+                    };
+
+                    var injectPacket = IpcPacket.Create(IpcPacketType.InjectChatMessage, injectPayload);
+                    await _ipcServer.SendPacketAsync(injectPacket, ct).ConfigureAwait(false);
+                }
 
                 var chatMessage = new ChatMessage
                 {

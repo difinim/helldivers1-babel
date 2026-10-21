@@ -493,7 +493,8 @@ public class TranslationEngineTests
         var config = new BabelConfig
         {
             IncomingTranslationEnabled = true,
-            DontTranslateStandardOutgoing = false
+            DontTranslateStandardOutgoing = false,
+            DontTranslateIncomingInTargetLanguage = false
         };
         using var engine = new TranslationEngine(mockIpc, config, mockProvider);
 
@@ -607,5 +608,114 @@ public class TranslationEngineTests
 
         Assert.NotNull(failedError);
         Assert.Equal("API quota exceeded", failedError);
+    }
+
+    [Fact]
+    public async Task IncomingMessage_WhenAlreadyInTargetLanguageAndOptionEnabled_SuppressesInGameInjectionButLogsMessage()
+    {
+        var mockIpc = new MockIpcServer();
+        var mockProvider = new MockTranslationProvider
+        {
+            TranslateFunc = (req, cfg) => TranslationResult.Ok("Hello teammates!", "English", 70)
+        };
+        var config = new BabelConfig
+        {
+            IncomingTranslationEnabled = true,
+            TargetLanguage = "English",
+            DontTranslateIncomingInTargetLanguage = true
+        };
+
+        using var engine = new TranslationEngine(mockIpc, config, mockProvider);
+
+        ChatMessage? translatedChatMessage = null;
+        TranslationResult? translatedResult = null;
+        engine.MessageTranslated += (msg, res) =>
+        {
+            translatedChatMessage = msg;
+            translatedResult = res;
+        };
+
+        var incomingPayload = new IncomingChatMessagePayload
+        {
+            PlayerIndex = 2,
+            PlayerName = "Teammate",
+            Message = "Hello teammates!"
+        };
+
+        await engine.HandlePacketAsync(IpcPacket.Create(IpcPacketType.ChatMessageIncoming, incomingPayload));
+
+        // 1. Provider was called and LastIncomingLanguage was updated
+        Assert.Single(mockProvider.ReceivedRequests);
+        Assert.Equal("English", engine.LastIncomingLanguage);
+
+        // 2. In-game injection was suppressed
+        Assert.DoesNotContain(mockIpc.SentPackets, p => p.Type == IpcPacketType.InjectChatMessage);
+
+        // 3. Desktop log / table event was still fired
+        Assert.NotNull(translatedChatMessage);
+        Assert.Equal("Hello teammates!", translatedChatMessage.MessageText);
+        Assert.NotNull(translatedResult);
+        Assert.True(translatedResult.Success);
+    }
+
+    [Fact]
+    public async Task IncomingMessage_WhenAlreadyInTargetLanguageAndOptionDisabled_TranslatesAndInjects()
+    {
+        var mockIpc = new MockIpcServer();
+        var mockProvider = new MockTranslationProvider
+        {
+            TranslateFunc = (req, cfg) => TranslationResult.Ok("Hello teammates!", "English", 70)
+        };
+        var config = new BabelConfig
+        {
+            IncomingTranslationEnabled = true,
+            TargetLanguage = "English",
+            DontTranslateIncomingInTargetLanguage = false
+        };
+
+        using var engine = new TranslationEngine(mockIpc, config, mockProvider);
+
+        var incomingPayload = new IncomingChatMessagePayload
+        {
+            PlayerIndex = 2,
+            PlayerName = "Teammate",
+            Message = "Hello teammates!"
+        };
+
+        await engine.HandlePacketAsync(IpcPacket.Create(IpcPacketType.ChatMessageIncoming, incomingPayload));
+
+        // In-game injection packet was sent
+        Assert.Contains(mockIpc.SentPackets, p => p.Type == IpcPacketType.InjectChatMessage);
+    }
+
+    [Fact]
+    public async Task IncomingMessage_WhenDifferentLanguageAndOptionEnabled_TranslatesAndInjectsNormally()
+    {
+        var mockIpc = new MockIpcServer();
+        var mockProvider = new MockTranslationProvider
+        {
+            TranslateFunc = (req, cfg) => TranslationResult.Ok("(Russian): Hello team", "Russian", 90)
+        };
+        var config = new BabelConfig
+        {
+            IncomingTranslationEnabled = true,
+            TargetLanguage = "English",
+            DontTranslateIncomingInTargetLanguage = true
+        };
+
+        using var engine = new TranslationEngine(mockIpc, config, mockProvider);
+
+        var incomingPayload = new IncomingChatMessagePayload
+        {
+            PlayerIndex = 2,
+            PlayerName = "Teammate",
+            Message = "Привет команда"
+        };
+
+        await engine.HandlePacketAsync(IpcPacket.Create(IpcPacketType.ChatMessageIncoming, incomingPayload));
+
+        // In-game injection packet was sent because Russian != English
+        Assert.Contains(mockIpc.SentPackets, p => p.Type == IpcPacketType.InjectChatMessage);
+        Assert.Equal("Russian", engine.LastIncomingLanguage);
     }
 }
