@@ -325,6 +325,89 @@
             <Setter Property="VerticalAlignment" Value="Center"/>
             <Setter Property="Margin" Value="0,-1,0,0"/>
         </Style>
+
+        <!-- Logs ContextMenu and MenuItem Styles -->
+        <Style x:Key="LogsMenuItemStyle" TargetType="MenuItem">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Foreground" Value="#ECEFF4"/>
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="Padding" Value="10,6"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="MenuItem">
+                        <Border x:Name="ItemBorder"
+                                Background="{TemplateBinding Background}"
+                                BorderThickness="0"
+                                Padding="{TemplateBinding Padding}"
+                                SnapsToDevicePixels="True">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="Auto" SharedSizeGroup="ShortcutText"/>
+                                </Grid.ColumnDefinitions>
+                                <ContentPresenter Grid.Column="0"
+                                                  ContentSource="Header"
+                                                  RecognizesAccessKey="True"
+                                                  VerticalAlignment="Center"/>
+                                <TextBlock Grid.Column="1"
+                                           Text="{TemplateBinding InputGestureText}"
+                                           Margin="24,0,4,0"
+                                           Foreground="#8B949E"
+                                           VerticalAlignment="Center"
+                                           FontSize="11"/>
+                            </Grid>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsHighlighted" Value="True">
+                                <Setter TargetName="ItemBorder" Property="Background" Value="#2D3340"/>
+                                <Setter Property="Foreground" Value="#FFE600"/>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter Property="Foreground" Value="#555C6D"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="LogsMenuSeparatorStyle" TargetType="Separator">
+            <Setter Property="Background" Value="#2D323F"/>
+            <Setter Property="Margin" Value="4,3"/>
+            <Setter Property="Height" Value="1"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Separator">
+                        <Border Background="{TemplateBinding Background}" Height="1" Margin="{TemplateBinding Margin}" SnapsToDevicePixels="True"/>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="LogsContextMenuStyle" TargetType="ContextMenu">
+            <Setter Property="Background" Value="#1C1F26"/>
+            <Setter Property="BorderBrush" Value="#3B4252"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Foreground" Value="#ECEFF4"/>
+            <Setter Property="Padding" Value="2"/>
+            <Setter Property="Grid.IsSharedSizeScope" Value="True"/>
+            <Setter Property="SnapsToDevicePixels" Value="True"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ContextMenu">
+                        <Border Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="4"
+                                Padding="{TemplateBinding Padding}"
+                                SnapsToDevicePixels="True">
+                            <StackPanel IsItemsHost="True" KeyboardNavigation.DirectionalNavigation="Cycle"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
     </Window.Resources>
 
     <Grid>
@@ -463,11 +546,24 @@
                     <!-- Translation History Grid -->
                     <DataGrid x:Name="HistoryDataGrid" Grid.Row="1" ItemsSource="{Binding History}" AutoGenerateColumns="False"
                               IsReadOnly="True" CanUserAddRows="False" CanUserResizeColumns="True"
+                              ClipboardCopyMode="ExcludeHeader"
+                              PreviewMouseRightButtonDown="HistoryDataGrid_PreviewMouseRightButtonDown"
+                              ContextMenuOpening="HistoryDataGrid_ContextMenuOpening"
                               Background="#15171D" BorderBrush="#262B36" BorderThickness="1"
                               RowBackground="#181B22" AlternatingRowBackground="#1D2028"
                               HeadersVisibility="Column" GridLinesVisibility="Horizontal"
                               HorizontalGridLinesBrush="#262B36"
                               Foreground="#ECEFF4">
+                        <DataGrid.ContextMenu>
+                            <ContextMenu Style="{StaticResource LogsContextMenuStyle}">
+                                <MenuItem Header="Copy" InputGestureText="Ctrl+C" Style="{StaticResource LogsMenuItemStyle}" Click="OnCopyRowClicked"/>
+                                <MenuItem Header="Copy Formatted Line" Style="{StaticResource LogsMenuItemStyle}" Click="OnCopyFormattedLineClicked"/>
+                                <Separator Style="{StaticResource LogsMenuSeparatorStyle}"/>
+                                <MenuItem Header="Copy Player Name" Style="{StaticResource LogsMenuItemStyle}" Click="OnCopyPlayerNameClicked"/>
+                                <MenuItem Header="Copy Original Message" Style="{StaticResource LogsMenuItemStyle}" Click="OnCopyOriginalMessageClicked"/>
+                                <MenuItem Header="Copy Translated Message" Style="{StaticResource LogsMenuItemStyle}" Click="OnCopyTranslatedMessageClicked"/>
+                            </ContextMenu>
+                        </DataGrid.ContextMenu>
                         <DataGrid.Resources>
                             <Style TargetType="DataGridRow">
                                 <Setter Property="Foreground" Value="#ECEFF4"/>
@@ -510,7 +606,7 @@
                         </DataGrid.Resources>
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="Time" Binding="{Binding Time}" Width="75" ElementStyle="{StaticResource LogTextColStyle}"/>
-                            <DataGridTemplateColumn Header="Player" Width="140">
+                            <DataGridTemplateColumn Header="Player" Width="140" ClipboardContentBinding="{Binding Author}">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
                                         <TextBlock Text="{Binding Author}" FontWeight="Bold" Foreground="{Binding ColorHex}" VerticalAlignment="Center" Margin="4,0"/>
@@ -518,7 +614,7 @@
                                 </DataGridTemplateColumn.CellTemplate>
                             </DataGridTemplateColumn>
                             <DataGridTextColumn Header="Detected" Binding="{Binding SourceLang}" Width="90" ElementStyle="{StaticResource LogTextColStyle}"/>
-                            <DataGridTemplateColumn Header="Original Message" Width="*" SortMemberPath="OriginalMessage">
+                            <DataGridTemplateColumn Header="Original Message" Width="*" SortMemberPath="OriginalMessage" ClipboardContentBinding="{Binding OriginalMessage}">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
                                         <TextBlock controls:LinkAwareTextBlock.FormattedText="{Binding OriginalMessage}"
