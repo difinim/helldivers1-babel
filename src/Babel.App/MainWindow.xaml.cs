@@ -4,10 +4,13 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Interop;
+using System.Windows.Media;
 using System.Windows.Threading;
 using Babel.App.Services;
 using Babel.App.ViewModels;
+using Babel.Core.Models;
 using Babel.Core.Services;
+using Babel.Core.Utilities;
 
 namespace Babel.App;
 
@@ -287,6 +290,133 @@ public partial class MainWindow : Window
     private void OnClearLogsClicked(object sender, RoutedEventArgs e)
     {
         _viewModel.ClearHistory();
+    }
+
+    private void HistoryDataGrid_PreviewMouseRightButtonDown(object sender, MouseButtonEventArgs e)
+    {
+        var dep = e.OriginalSource as DependencyObject;
+        while (dep != null && dep is not DataGridRow)
+        {
+            dep = VisualTreeHelper.GetParent(dep);
+        }
+
+        if (dep is DataGridRow row)
+        {
+            if (!row.IsSelected)
+            {
+                HistoryDataGrid.SelectedItem = row.Item;
+            }
+        }
+    }
+
+    private void HistoryDataGrid_ContextMenuOpening(object sender, ContextMenuEventArgs e)
+    {
+        var dep = e.OriginalSource as DependencyObject;
+        while (dep != null && dep is not DataGridRow)
+        {
+            if (dep is System.Windows.Controls.Primitives.DataGridColumnHeader)
+            {
+                e.Handled = true;
+                return;
+            }
+            dep = VisualTreeHelper.GetParent(dep);
+        }
+
+        if (HistoryDataGrid.SelectedItems.Count == 0)
+        {
+            e.Handled = true;
+        }
+    }
+
+    private List<TranslationLogEntry> GetSelectedOrCurrentLogEntries()
+    {
+        var selected = HistoryDataGrid.SelectedItems.OfType<TranslationLogEntry>().ToList();
+        if (selected.Count == 0 && HistoryDataGrid.SelectedItem is TranslationLogEntry current)
+        {
+            selected.Add(current);
+        }
+        return selected;
+    }
+
+    private void OnCopyRowClicked(object sender, RoutedEventArgs e)
+    {
+        try
+        {
+            if (ApplicationCommands.Copy.CanExecute(null, HistoryDataGrid))
+            {
+                ApplicationCommands.Copy.Execute(null, HistoryDataGrid);
+                return;
+            }
+        }
+        catch (Exception ex)
+        {
+            BabelLog.Warn("MainWindow", $"Native DataGrid copy failed, falling back to manual copy: {ex.Message}");
+        }
+
+        var selected = GetSelectedOrCurrentLogEntries();
+        if (selected.Count > 0)
+        {
+            SafeSetClipboardText(LogClipboardFormatter.FormatTabSeparatedRows(selected));
+        }
+    }
+
+    private void OnCopyFormattedLineClicked(object sender, RoutedEventArgs e)
+    {
+        var selected = GetSelectedOrCurrentLogEntries();
+        if (selected.Count > 0)
+        {
+            SafeSetClipboardText(LogClipboardFormatter.FormatSingleLines(selected));
+        }
+    }
+
+    private void OnCopyPlayerNameClicked(object sender, RoutedEventArgs e)
+    {
+        var selected = GetSelectedOrCurrentLogEntries();
+        if (selected.Count > 0)
+        {
+            SafeSetClipboardText(LogClipboardFormatter.FormatPlayerNames(selected));
+        }
+    }
+
+    private void OnCopyOriginalMessageClicked(object sender, RoutedEventArgs e)
+    {
+        var selected = GetSelectedOrCurrentLogEntries();
+        if (selected.Count > 0)
+        {
+            SafeSetClipboardText(LogClipboardFormatter.FormatOriginalMessages(selected));
+        }
+    }
+
+    private void OnCopyTranslatedMessageClicked(object sender, RoutedEventArgs e)
+    {
+        var selected = GetSelectedOrCurrentLogEntries();
+        if (selected.Count > 0)
+        {
+            SafeSetClipboardText(LogClipboardFormatter.FormatTranslatedMessages(selected));
+        }
+    }
+
+    private static void SafeSetClipboardText(string text)
+    {
+        if (string.IsNullOrEmpty(text)) return;
+
+        for (int i = 0; i < 3; i++)
+        {
+            try
+            {
+                Clipboard.SetText(text);
+                return;
+            }
+            catch (System.Runtime.InteropServices.ExternalException)
+            {
+                System.Threading.Thread.Sleep(25);
+            }
+            catch (Exception ex)
+            {
+                BabelLog.Warn("MainWindow", $"Failed to set clipboard text: {ex.Message}");
+                break;
+            }
+        }
     }
 
     private async void OnClearLogsMemoryClicked(object sender, RoutedEventArgs e)
