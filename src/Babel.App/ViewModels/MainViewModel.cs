@@ -31,8 +31,33 @@ public class MacroSlotViewModel : INotifyPropertyChanged
     public string MessageText
     {
         get => _messageText;
-        set { _messageText = value; OnPropertyChanged(); }
+        set
+        {
+            var clamped = value != null && value.Length > QuickChatMacro.MaxMessageLength
+                ? value[..QuickChatMacro.MaxMessageLength]
+                : (value ?? string.Empty);
+
+            if (_messageText != clamped)
+            {
+                _messageText = clamped;
+                OnPropertyChanged();
+                OnPropertyChanged(nameof(CharacterCount));
+                OnPropertyChanged(nameof(CharacterCountDisplay));
+                OnPropertyChanged(nameof(CharacterCountColor));
+            }
+        }
     }
+
+    public int CharacterCount => _messageText?.Length ?? 0;
+
+    public string CharacterCountDisplay => $"{CharacterCount}/{QuickChatMacro.MaxMessageLength}";
+
+    public string CharacterCountColor => CharacterCount switch
+    {
+        >= QuickChatMacro.MaxMessageLength => "#E06C75",
+        >= 250 => "#FFE600",
+        _ => "#737988"
+    };
 
     public bool IsEnabled
     {

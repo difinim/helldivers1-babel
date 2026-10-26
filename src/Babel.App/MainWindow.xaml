@@ -669,7 +669,20 @@
 
                                                 <controls:ShortcutRecorder Grid.Column="0" Hotkey="{Binding Keybinding, Mode=TwoWay}" Margin="0,0,10,0"/>
                                                 
-                                                <TextBox Grid.Column="1" Text="{Binding MessageText, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,10,0" ToolTip="In-game chat message"/>
+                                                <Grid Grid.Column="1" Margin="0,0,10,0">
+                                                    <TextBox Text="{Binding MessageText, UpdateSourceTrigger=PropertyChanged}"
+                                                             MaxLength="300"
+                                                             Padding="6,4,58,4"
+                                                             ToolTip="In-game chat message (up to 300 characters)"/>
+                                                    <TextBlock Text="{Binding CharacterCountDisplay}"
+                                                               Foreground="{Binding CharacterCountColor}"
+                                                               FontSize="11"
+                                                               FontWeight="SemiBold"
+                                                               HorizontalAlignment="Right"
+                                                               VerticalAlignment="Center"
+                                                               Margin="0,0,8,0"
+                                                               IsHitTestVisible="False"/>
+                                                </Grid>
 
                                                 <CheckBox Grid.Column="2" Content="Active" IsChecked="{Binding IsEnabled}" VerticalAlignment="Center"/>
 
