@@ -168,6 +168,26 @@ static int l_babel_on_outgoing(lua_State* L) {
     return 0;
 }
 
+static int l_babel_on_player_joined(lua_State* L) {
+    if (!ipc_client_is_connected() || ipc_client_is_paused()) return 0;
+    if (!p_lua_tolstring) return 0;
+
+    PlayerJoinedPayload payload;
+    const char* peer = p_lua_tolstring(L, 1, nullptr);
+    payload.peer_id = peer ? peer : "";
+    const char* name = (p_lua_gettop && p_lua_gettop(L) >= 2) ? p_lua_tolstring(L, 2, nullptr) : "Player";
+    payload.player_name = name ? name : "Player";
+    if (p_lua_gettop && p_lua_toboolean && p_lua_gettop(L) >= 3) {
+        payload.is_host = (p_lua_toboolean(L, 3) != 0);
+    } else {
+        payload.is_host = true;
+    }
+
+    hook_log("l_babel_on_player_joined: peer=%s, name=%s, is_host=%d", payload.peer_id.c_str(), payload.player_name.c_str(), payload.is_host ? 1 : 0);
+    ipc_send_player_joined(payload);
+    return 0;
+}
+
 // ============================================================================
 // Lua Hook Injection Script
 // ============================================================================
@@ -192,6 +212,9 @@ static void setup_lua_environment(lua_State* L) {
 
     p_lua_pushcclosure(L, l_babel_on_outgoing, 0);
     p_lua_setfield(L, -10002, "_babel_on_outgoing");
+
+    p_lua_pushcclosure(L, l_babel_on_player_joined, 0);
+    p_lua_setfield(L, -10002, "_babel_on_player_joined");
 
     hook_log("setup_lua_environment: C callbacks registered. Running precompiled bootstrap bytecode...");
 

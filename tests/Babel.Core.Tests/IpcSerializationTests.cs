@@ -74,4 +74,25 @@ public class IpcSerializationTests
         Assert.NotNull(payload);
         Assert.True(payload.IsPaused);
     }
+
+    [Fact]
+    public void PlayerJoined_SerializesAndDeserializes()
+    {
+        var joined = new PlayerJoinedPayload
+        {
+            PeerId = "steam_11000010abc1234",
+            PlayerName = "HelldiverGuest",
+            IsHost = true
+        };
+        var packet = IpcPacket.Create(IpcPacketType.PlayerJoined, joined);
+        var restored = IpcPacket.FromJsonLine(packet.ToJsonLine());
+
+        Assert.NotNull(restored);
+        Assert.Equal(IpcPacketType.PlayerJoined, restored.Type);
+        var payload = restored.DeserializePayload<PlayerJoinedPayload>();
+        Assert.NotNull(payload);
+        Assert.Equal("steam_11000010abc1234", payload.PeerId);
+        Assert.Equal("HelldiverGuest", payload.PlayerName);
+        Assert.True(payload.IsHost);
+    }
 }

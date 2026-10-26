@@ -456,6 +456,11 @@ public partial class MainWindow : Window
         }
     }
 
+    private async void OnTestSendWelcomeMessageClicked(object sender, RoutedEventArgs e)
+    {
+        await _viewModel.TestSendWelcomeMessageAsync();
+    }
+
     private void OnImportQuickChatClicked(object sender, RoutedEventArgs e)
     {
         try

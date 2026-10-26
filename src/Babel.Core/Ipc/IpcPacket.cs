@@ -13,7 +13,8 @@ public enum IpcPacketType
     InjectChatMessage = 4,
     ExecuteChatBroadcast = 5,
     PlaySound = 6,
-    StateUpdate = 7
+    StateUpdate = 7,
+    PlayerJoined = 8
 }
 
 public class IpcPacket
@@ -132,4 +133,16 @@ public class StateUpdatePayload
 {
     [JsonPropertyName("is_paused")]
     public bool IsPaused { get; set; }
+}
+
+public class PlayerJoinedPayload
+{
+    [JsonPropertyName("peer_id")]
+    public string PeerId { get; set; } = string.Empty;
+
+    [JsonPropertyName("player_name")]
+    public string PlayerName { get; set; } = string.Empty;
+
+    [JsonPropertyName("is_host")]
+    public bool IsHost { get; set; } = false;
 }

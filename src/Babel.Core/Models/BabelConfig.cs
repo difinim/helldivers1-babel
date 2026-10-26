@@ -178,6 +178,24 @@ public class BabelConfig
 
     public List<QuickChatMacro> QuickChatMacros { get; set; } = CreateDefaultMacros();
 
+    /// <summary>
+    /// Whether to automatically send a tactical welcome quick chat message when the user is host and a guest player joins.
+    /// </summary>
+    public bool WelcomeMessageEnabled { get; set; } = true;
+
+    private string _welcomeMessage = "Welcome to the squad! Glad to have you with us.";
+
+    /// <summary>
+    /// Tactical welcome quick chat message text, clamped to QuickChatMacro.MaxMessageLength (300 characters).
+    /// </summary>
+    public string WelcomeMessage
+    {
+        get => _welcomeMessage;
+        set => _welcomeMessage = value != null && value.Length > QuickChatMacro.MaxMessageLength
+            ? value[..QuickChatMacro.MaxMessageLength]
+            : (value ?? string.Empty);
+    }
+
     public static List<QuickChatMacro> CreateDefaultMacros()
     {
         return new List<QuickChatMacro>

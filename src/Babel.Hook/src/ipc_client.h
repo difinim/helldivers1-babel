@@ -14,7 +14,14 @@ enum class IpcPacketType {
     InjectChatMessage = 4,
     ExecuteChatBroadcast = 5,
     PlaySound = 6,
-    StateUpdate = 7
+    StateUpdate = 7,
+    PlayerJoined = 8
+};
+
+struct PlayerJoinedPayload {
+    std::string peer_id;
+    std::string player_name = "Player";
+    bool is_host = false;
 };
 
 struct IncomingChatPayload {
@@ -60,6 +67,7 @@ bool ipc_client_is_paused();
 // Outbound queue (called from game thread or Lua callback - non-blocking)
 void ipc_send_incoming_chat(const IncomingChatPayload& payload);
 void ipc_send_outgoing_chat(const OutgoingChatPayload& payload);
+void ipc_send_player_joined(const PlayerJoinedPayload& payload);
 void ipc_send_heartbeat();
 
 // Inbound queue polling (called by game thread on update loop - non-blocking)
