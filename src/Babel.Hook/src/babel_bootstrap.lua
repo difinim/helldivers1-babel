@@ -195,9 +195,11 @@ if not _G.__babel_bootstrap_done then
         local orig_rpc = state_class.rpc_on_join_session_request
         if orig_rpc then
             state_class.rpc_on_join_session_request = function(self, sender_peer_id, state_name, seed, player_name, num_local_players)
-                if sender_peer_id and player_name then
-                    _G.__babel_pending_join_names[tostring(sender_peer_id)] = tostring(player_name)
-                end
+                pcall(function()
+                    if sender_peer_id and player_name then
+                        _G.__babel_pending_join_names[tostring(sender_peer_id)] = tostring(player_name)
+                    end
+                end)
                 return orig_rpc(self, sender_peer_id, state_name, seed, player_name, num_local_players)
             end
         end
@@ -215,21 +217,23 @@ if not _G.__babel_bootstrap_done then
         NSH.add_peer = function(self, peer_id)
             orig_add_peer(self, peer_id)
 
-            if _babel_is_connected and _babel_is_connected() and peer_id then
-                local my_peer = (Network and Network.peer_id and Network.peer_id()) or "local"
-                local is_host = (NetworkGlobal and NetworkGlobal.lobby and NetworkGlobal.lobby.is_host and NetworkGlobal.lobby:is_host()) or false
-                local is_remote = (tostring(peer_id) ~= tostring(my_peer))
+            pcall(function()
+                if _babel_is_connected and _babel_is_connected() and peer_id then
+                    local my_peer = (Network and Network.peer_id and Network.peer_id()) or "local"
+                    local is_host = (NetworkGlobal and NetworkGlobal.lobby and NetworkGlobal.lobby.is_host and NetworkGlobal.lobby:is_host()) or false
+                    local is_remote = (tostring(peer_id) ~= tostring(my_peer))
 
-                if is_host and is_remote then
-                    local p_name = (_G.__babel_pending_join_names and _G.__babel_pending_join_names[tostring(peer_id)]) or "Player"
-                    if _G._babel_log then
-                        _G._babel_log("Guest player joined session as host: peer=" .. tostring(peer_id) .. ", name=" .. tostring(p_name))
-                    end
-                    if _babel_on_player_joined then
-                        _babel_on_player_joined(tostring(peer_id), tostring(p_name), true)
+                    if is_host and is_remote then
+                        local p_name = (_G.__babel_pending_join_names and _G.__babel_pending_join_names[tostring(peer_id)]) or "Player"
+                        if _G._babel_log then
+                            _G._babel_log("Guest player joined session as host: peer=" .. tostring(peer_id) .. ", name=" .. tostring(p_name))
+                        end
+                        if _babel_on_player_joined then
+                            _babel_on_player_joined(tostring(peer_id), tostring(p_name), true)
+                        end
                     end
                 end
-            end
+            end)
         end
     end
 

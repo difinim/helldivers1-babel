@@ -32,14 +32,33 @@ $bootstrapHeader = Join-Path $PSScriptRoot "src\babel_bootstrap_bytecode.h"
 $bootstrapLuajit = Join-Path $PSScriptRoot "src\babel_bootstrap.luajit"
 
 # Detect Lua compiler (LuaJIT)
+# IMPORTANT: Helldivers 1 (2015) embeds LuaJIT 2.0 (bytecode version 1). LuaJIT 2.1 produces bytecode version 2,
+# which Helldivers' luaL_loadbuffer rejects with: "cannot load incompatible bytecode".
+# We must find and use LuaJIT 2.0 specifically.
 $luaCompiler = $null
+$candidateCompilers = @(
+    "C:\cygwin64\bin\luajit.exe",
+    "C:\cygwin64\home\Diego\Projects\bitsquid-toolkit\tools\bin\luajit.exe"
+)
+if (Get-Command luajit -ErrorAction SilentlyContinue) {
+    $candidateCompilers += (Get-Command luajit).Source
+}
+$candidateCompilers += "C:\msys64\mingw64\bin\luajit.exe"
 
-if (Test-Path "C:\msys64\mingw64\bin\luajit.exe") {
-    $luaCompiler = "C:\msys64\mingw64\bin\luajit.exe"
-} elseif (Get-Command luajit -ErrorAction SilentlyContinue) {
-    $luaCompiler = (Get-Command luajit).Source
-} elseif (Test-Path "C:\cygwin64\bin\luajit.exe") {
-    $luaCompiler = "C:\cygwin64\bin\luajit.exe"
+foreach ($cand in $candidateCompilers) {
+    if (Test-Path $cand) {
+        $ver = & $cand -v 2>&1
+        if ($ver -match "LuaJIT 2\.0") {
+            $luaCompiler = $cand
+            break
+        }
+    }
+}
+
+if (-not $luaCompiler) {
+    foreach ($cand in $candidateCompilers) {
+        if (Test-Path $cand) { $luaCompiler = $cand; break }
+    }
 }
 
 if ($luaCompiler -and (Test-Path $bootstrapLua)) {
@@ -50,6 +69,10 @@ if ($luaCompiler -and (Test-Path $bootstrapLua)) {
             & $luaCompiler -b $bootstrapLua $tempLuajit
             if ($LASTEXITCODE -eq 0 -and (Test-Path $tempLuajit)) {
                 $bytes = [System.IO.File]::ReadAllBytes($tempLuajit)
+                if ($bytes.Length -ge 4 -and ($bytes[0] -ne 0x1b -or $bytes[1] -ne 0x4c -or $bytes[2] -ne 0x4a -or $bytes[3] -ne 0x01)) {
+                    Write-Error "[Babel.Hook] Incompatible bytecode detected! Header version is 0x{0:x2}, expected 0x01 (LuaJIT 2.0). Helldivers 1 will reject this bytecode!" -f $bytes[3]
+                    exit 1
+                }
                 $sb = [System.Text.StringBuilder]::new()
                 [void]$sb.AppendLine("// Auto-generated from babel_bootstrap.lua")
                 [void]$sb.AppendLine("#pragma once")
