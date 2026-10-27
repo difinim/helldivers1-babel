@@ -15,6 +15,7 @@ diag*.txt
 *.ilk
 *.luajit
 src/Babel.Hook/src/*.luajit
+src/Babel.Hook/src/babel_bootstrap_bytecode.h
 
 ## Visual Studio & IDEs
 .vs/
