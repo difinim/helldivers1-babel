@@ -726,13 +726,6 @@ public class MainViewModel : INotifyPropertyChanged
             () => IsPaused || IsQuickChatPaused,
             msg => TranslationEngine?.RegisterRecentBroadcast(msg));
 
-        WelcomeMessageService.WelcomeMessageSent += msg =>
-        {
-            Application.Current?.Dispatcher?.Invoke(() =>
-            {
-                ToastNotificationService.Show("Host Welcome Message", $"Auto-sent: \"{msg}\"", ToastType.Success, 4000);
-            });
-        };
         ProcessMonitor = new ProcessMonitorService("helldivers", TimeSpan.FromMilliseconds(1500), appLogger);
         InjectorService = new InjectorService(appLogger);
 
