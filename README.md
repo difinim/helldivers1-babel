@@ -160,17 +160,18 @@ Squad chat messages containing `http://` or `https://` URLs are rendered as clic
 If you are compiling and building the project from source:
 - **Operating System:** Windows 10 / 11 64-bit (x64).
 - **.NET 10 SDK:** [.NET 10 SDK](https://dotnet.microsoft.com/download/dotnet/10.0) (`net10.0-windows`).
-- **MSYS2 MinGW64 Toolchain (Clang++ & LuaJIT):** [MSYS2](https://www.msys2.org/) with `mingw-w64-x86_64-clang`, `mingw-w64-x86_64-gcc`, and `mingw-w64-x86_64-luajit` packages - required for compiling the native hook library (`BabelHook.dll`) and compiling the in-game bootstrap script (`babel_bootstrap.lua`) into bytecode.
-- **Git:** Git for Windows (with recursive submodules for MinHook amalgamation).
+- **MSYS2 MinGW64 Toolchain (Clang++, GCC, Make):** [MSYS2](https://www.msys2.org/) with `mingw-w64-x86_64-clang`, `mingw-w64-x86_64-gcc`, and `mingw-w64-x86_64-make` packages - required for compiling the native hook library (`BabelHook.dll`) and building the official LuaJIT 2.0 submodule (`vendor/luajit`) to compile the in-game bootstrap script (`babel_bootstrap.lua`) into bytecode.
+- **Git:** Git for Windows (with recursive submodules for MinHook amalgamation and LuaJIT 2.0).
 
 
 ### Automated Environment Setup
 Double-click `setup.bat` (or run `setup.ps1` in PowerShell) in the repository root. It automatically verifies and installs missing prerequisites:
 1. Verifies 64-bit Windows environment.
 2. Checks for .NET 10 SDK (auto-installs via `winget` if missing).
-3. Checks for the MSYS2 MinGW64 toolchain (Clang++, GCC, and LuaJIT). If missing, auto-installs MSYS2 via `winget` and installs the required packages (`mingw-w64-x86_64-clang`, `mingw-w64-x86_64-gcc`, and `mingw-w64-x86_64-luajit`) via `pacman`.
-4. Automatically ensures `C:\msys64\mingw64\bin` and `C:\msys64\usr\bin` are added to PATH.
-5. Verifies MinHook amalgamation dependencies and runs an initial build sanity check.
+3. Checks for the MSYS2 MinGW64 toolchain (Clang++, GCC, and Make). If missing, auto-installs MSYS2 via `winget` and installs the required packages (`mingw-w64-x86_64-clang`, `mingw-w64-x86_64-gcc`, and `mingw-w64-x86_64-make`) via `pacman`.
+4. Initializes and builds the LuaJIT 2.0 compiler from the submodule (`vendor/luajit`).
+5. Automatically ensures `C:\msys64\mingw64\bin` and `C:\msys64\usr\bin` are added to PATH.
+6. Verifies MinHook amalgamation dependencies and runs an initial build sanity check.
 
 ### Master Build & Release Packaging
 To clean previous artifacts, compile the native hook DLL, run all unit tests, and assemble the release package:
