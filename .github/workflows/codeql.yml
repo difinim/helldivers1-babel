@@ -44,15 +44,15 @@ jobs:
         with:
           dotnet-version: '10.0.x'
 
-      # --- Setup for C / C++ (Clang & LuaJIT toolchain) ---
-      - name: Setup MSYS2 Clang, GCC and LuaJIT toolchain
+      # --- Setup for C / C++ (Clang, GCC & Make toolchain) ---
+      - name: Setup MSYS2 Clang, GCC and Make toolchain
         if: matrix.language == 'c-cpp'
         uses: msys2/setup-msys2@v2
         id: msys2
         with:
           msystem: MINGW64
           update: true
-          install: mingw-w64-x86_64-clang mingw-w64-x86_64-gcc mingw-w64-x86_64-luajit
+          install: mingw-w64-x86_64-clang mingw-w64-x86_64-gcc mingw-w64-x86_64-make
           path-type: inherit
 
       - name: Add MinGW64 to PATH

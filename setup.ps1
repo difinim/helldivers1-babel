@@ -46,14 +46,14 @@ if (-not $hasDotNet10) {
     }
 }
 
-# 3. Check C++ Compiler and LuaJIT Toolchain (MSYS2 MinGW64)
-Write-Host "Checking MSYS2 MinGW64 Toolchain (Clang++, GCC, LuaJIT)..." -ForegroundColor Yellow
+# 3. Check C++ & Lua Compiler Toolchain (MSYS2 MinGW64: Clang++, GCC, Make)
+Write-Host "Checking MSYS2 MinGW64 Toolchain (Clang++, GCC, Make)..." -ForegroundColor Yellow
 
 $msysClang = "C:\msys64\mingw64\bin\clang++.exe"
-$msysLua = "C:\msys64\mingw64\bin\luajit.exe"
+$msysMake = "C:\msys64\mingw64\bin\mingw32-make.exe"
 $msysPacman = "C:\msys64\usr\bin\pacman.exe"
 
-$hasToolchain = (Test-Path $msysClang) -and (Test-Path $msysLua)
+$hasToolchain = (Test-Path $msysClang) -and (Test-Path $msysMake)
 
 if (-not $hasToolchain) {
     if (-not (Test-Path $msysPacman)) {
@@ -68,9 +68,9 @@ if (-not $hasToolchain) {
     }
 
     if (Test-Path $msysPacman) {
-        Write-Host "Installing GitHub Actions toolchain packages via pacman..." -ForegroundColor Cyan
-        Write-Host "  Packages: mingw-w64-x86_64-clang mingw-w64-x86_64-gcc mingw-w64-x86_64-luajit" -ForegroundColor DarkGray
-        & $msysPacman -S --noconfirm --needed mingw-w64-x86_64-clang mingw-w64-x86_64-gcc mingw-w64-x86_64-luajit
+        Write-Host "Installing toolchain packages via pacman..." -ForegroundColor Cyan
+        Write-Host "  Packages: mingw-w64-x86_64-clang mingw-w64-x86_64-gcc mingw-w64-x86_64-make" -ForegroundColor DarkGray
+        & $msysPacman -S --noconfirm --needed mingw-w64-x86_64-clang mingw-w64-x86_64-gcc mingw-w64-x86_64-make
     }
 }
 
@@ -93,12 +93,27 @@ if (Test-Path $msysClang) {
     Write-Host "[ERROR] MSYS2 Clang++ could not be found at $msysClang." -ForegroundColor Red
 }
 
-if (Test-Path $msysLua) {
-    Write-Host "[OK] MSYS2 LuaJIT detected: $msysLua" -ForegroundColor Green
-} elseif (Get-Command luajit -ErrorAction SilentlyContinue) {
-    Write-Host "[OK] LuaJIT compiler detected: $( (Get-Command luajit).Source )" -ForegroundColor Green
+# 4. Check LuaJIT 2.0 Submodule and Build Compiler
+Write-Host "Checking LuaJIT 2.0 submodule and compiler..." -ForegroundColor Yellow
+$vendorLuajit = Join-Path $PSScriptRoot "vendor\luajit"
+$vendorLuajitSrc = Join-Path $vendorLuajit "src"
+$vendorLuajitExe = Join-Path $vendorLuajitSrc "luajit.exe"
+
+if (-not (Test-Path (Join-Path $vendorLuajitSrc "Makefile"))) {
+    Write-Host "Initializing vendor/luajit submodule..." -ForegroundColor Cyan
+    git submodule update --init --recursive vendor/luajit
+}
+
+if (-not (Test-Path $vendorLuajitExe) -and (Test-Path (Join-Path $vendorLuajitSrc "Makefile"))) {
+    Write-Host "Building LuaJIT 2.0 from submodule..." -ForegroundColor Cyan
+    $makeCmd = if (Test-Path $msysMake) { $msysMake } else { "mingw32-make" }
+    & $makeCmd -C $vendorLuajitSrc -j4
+}
+
+if (Test-Path $vendorLuajitExe) {
+    Write-Host "[OK] LuaJIT 2.0 compiler is built and ready: $vendorLuajitExe" -ForegroundColor Green
 } else {
-    Write-Host "[WARN] LuaJIT compiler not found." -ForegroundColor Yellow
+    Write-Host "[WARN] LuaJIT 2.0 compiler could not be built automatically. Ensure MinGW make is installed." -ForegroundColor Yellow
 }
 
 # 5. Verify MinHook Amalgamation

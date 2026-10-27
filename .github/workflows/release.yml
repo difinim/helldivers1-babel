@@ -33,13 +33,13 @@ jobs:
         with:
           submodules: recursive
 
-      - name: Setup MSYS2 Clang, GCC and LuaJIT toolchain
+      - name: Setup MSYS2 Clang, GCC and Make toolchain
         uses: msys2/setup-msys2@v2
         id: msys2
         with:
           msystem: MINGW64
           update: true
-          install: mingw-w64-x86_64-clang mingw-w64-x86_64-gcc mingw-w64-x86_64-luajit
+          install: mingw-w64-x86_64-clang mingw-w64-x86_64-gcc mingw-w64-x86_64-make
           path-type: inherit
 
       - name: Add MinGW64 to PATH
@@ -78,10 +78,17 @@ jobs:
           Write-Host "Found clang++: $($clang.Source)"
           & clang++ --version
 
-          Write-Host "`nChecking LuaJIT compiler:"
-          $luajit = Get-Command luajit -ErrorAction Stop
-          Write-Host "Found luajit: $($luajit.Source)"
-          & luajit -v
+          Write-Host "`nChecking MinGW Make:"
+          $make = Get-Command mingw32-make -ErrorAction Stop
+          Write-Host "Found mingw32-make: $($make.Source)"
+          & mingw32-make --version
+
+          Write-Host "`nChecking LuaJIT 2.0 submodule:"
+          if (-not (Test-Path "./vendor/luajit/src/Makefile")) {
+              Write-Error "vendor/luajit submodule is missing!"
+              exit 1
+          }
+          Write-Host "Found vendor/luajit submodule"
 
           Write-Host "`n[OK] All build dependencies verified." -ForegroundColor Green
 
