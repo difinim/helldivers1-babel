@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using Babel.Core.Interfaces;
@@ -11,6 +12,8 @@ namespace Babel.Core.Services;
 /// Service managing the automated tactical Welcome Quick Chat message broadcast.
 /// Automatically greets guest players when the user is the host, with a 5-second debounce window
 /// that coalesces multiple rapid joins (e.g. 2nd, 3rd, and 4th players) into a single broadcast.
+/// Remembers players in an in-memory sliding cache for 2 hours to avoid duplicate welcomes across
+/// mission results, dropship transitions, and lobby re-entries.
 /// </summary>
 public class WelcomeMessageService : IDisposable
 {
@@ -18,6 +21,8 @@ public class WelcomeMessageService : IDisposable
     private readonly BabelConfig _config;
     private readonly Func<bool>? _isPausedFunc;
     private readonly Action<string>? _onBroadcastSent;
+    private readonly Func<DateTimeOffset> _utcNowFunc;
+    private readonly Dictionary<string, DateTimeOffset> _seenPlayers = new(StringComparer.OrdinalIgnoreCase);
     private readonly object _lock = new();
 
     private bool _isDebounceActive;
@@ -31,6 +36,12 @@ public class WelcomeMessageService : IDisposable
     public TimeSpan DebounceDelay { get; set; } = TimeSpan.FromSeconds(5.0);
 
     /// <summary>
+    /// Duration to keep player identifiers in memory to suppress duplicate welcome messages.
+    /// Defaults to 2 hours. Can be customized in unit tests for deterministic testing.
+    /// </summary>
+    public TimeSpan PlayerMemoryExpiration { get; set; } = TimeSpan.FromHours(2.0);
+
+    /// <summary>
     /// Indicates whether a debounce window is currently active and coalescing incoming player joins.
     /// </summary>
     public bool IsDebounceActive
@@ -40,6 +51,20 @@ public class WelcomeMessageService : IDisposable
             lock (_lock)
             {
                 return _isDebounceActive;
+            }
+        }
+    }
+
+    /// <summary>
+    /// Number of tracked player identifiers currently stored in memory.
+    /// </summary>
+    public int TrackedPlayersCount
+    {
+        get
+        {
+            lock (_lock)
+            {
+                return _seenPlayers.Count;
             }
         }
     }
@@ -58,12 +83,14 @@ public class WelcomeMessageService : IDisposable
         IIpcServer ipcServer,
         BabelConfig config,
         Func<bool>? isPausedFunc = null,
-        Action<string>? onBroadcastSent = null)
+        Action<string>? onBroadcastSent = null,
+        Func<DateTimeOffset>? utcNowFunc = null)
     {
         _ipcServer = ipcServer ?? throw new ArgumentNullException(nameof(ipcServer));
         _config = config ?? throw new ArgumentNullException(nameof(config));
         _isPausedFunc = isPausedFunc;
         _onBroadcastSent = onBroadcastSent;
+        _utcNowFunc = utcNowFunc ?? (() => DateTimeOffset.UtcNow);
 
         _ipcServer.PacketReceived += OnPacketReceived;
     }
@@ -72,8 +99,9 @@ public class WelcomeMessageService : IDisposable
         IIpcServer ipcServer,
         BabelConfig config,
         ITranslationEngine translationEngine,
-        Func<bool>? isPausedFunc = null)
-        : this(ipcServer, config, isPausedFunc, msg => translationEngine?.RegisterRecentBroadcast(msg))
+        Func<bool>? isPausedFunc = null,
+        Func<DateTimeOffset>? utcNowFunc = null)
+        : this(ipcServer, config, isPausedFunc, msg => translationEngine?.RegisterRecentBroadcast(msg), utcNowFunc)
     {
     }
 
@@ -89,8 +117,38 @@ public class WelcomeMessageService : IDisposable
     }
 
     /// <summary>
+    /// Checks whether a player identifier is currently remembered in active (unexpired) memory.
+    /// </summary>
+    public bool IsPlayerInMemory(string identifier)
+    {
+        if (string.IsNullOrWhiteSpace(identifier)) return false;
+
+        lock (_lock)
+        {
+            if (_seenPlayers.TryGetValue(identifier, out var expiresAt))
+            {
+                return expiresAt > _utcNowFunc();
+            }
+            return false;
+        }
+    }
+
+    /// <summary>
+    /// Clears all remembered player identifiers from memory.
+    /// </summary>
+    public void ClearSeenPlayers()
+    {
+        lock (_lock)
+        {
+            _seenPlayers.Clear();
+        }
+    }
+
+    /// <summary>
     /// Evaluates a player join event. If the user is host, the feature is enabled, and not paused,
-    /// schedules a welcome message at the end of the debounce window. If already in a window, coalesces the event.
+    /// checks the 2-hour in-memory cache:
+    /// - If the player is already known within 2 hours, renews their expiration and suppresses the welcome.
+    /// - If the player is a newcomer, records them and schedules a welcome message at the end of the 5-second debounce window.
     /// </summary>
     public async Task HandlePlayerJoinedAsync(PlayerJoinedPayload payload, CancellationToken ct = default)
     {
@@ -128,15 +186,42 @@ public class WelcomeMessageService : IDisposable
             return;
         }
 
+        string identifier = !string.IsNullOrWhiteSpace(payload.PeerId)
+            ? payload.PeerId.Trim()
+            : payload.PlayerName?.Trim() ?? string.Empty;
+
+        var now = _utcNowFunc();
         CancellationToken linkedToken;
+
         lock (_lock)
         {
             if (_isDisposed) return;
 
+            // In-memory 2-hour sliding lookup
+            if (!string.IsNullOrWhiteSpace(identifier))
+            {
+                if (_seenPlayers.TryGetValue(identifier, out var expiresAt) && expiresAt > now)
+                {
+                    // Already in memory within 2 hours: renew expiration and suppress welcome message
+                    var newExpires = now + PlayerMemoryExpiration;
+                    _seenPlayers[identifier] = newExpires;
+
+                    string reason = $"Player '{payload.PlayerName}' (Id='{identifier}') already seen in memory within active window. Expiration renewed to {newExpires:u}. Suppressing welcome message.";
+                    BabelLog.Info("WelcomeMessageService", reason);
+                    WelcomeMessageSuppressed?.Invoke(reason);
+                    return;
+                }
+
+                // Newcomer or expired: record with fresh expiration
+                _seenPlayers[identifier] = now + PlayerMemoryExpiration;
+            }
+
+            PurgeExpiredPlayersLocked(now);
+
             if (_isDebounceActive)
             {
                 BabelLog.Info("WelcomeMessageService",
-                    $"Guest player '{payload.PlayerName}' (PeerId={payload.PeerId}) joined during active debounce window. Coalescing into existing broadcast timer.");
+                    $"Newcomer guest player '{payload.PlayerName}' (Id='{identifier}') joined during active debounce window. Coalescing into existing broadcast timer.");
                 return;
             }
 
@@ -145,10 +230,29 @@ public class WelcomeMessageService : IDisposable
             linkedToken = _debounceCts.Token;
 
             BabelLog.Info("WelcomeMessageService",
-                $"Guest player '{payload.PlayerName}' (PeerId={payload.PeerId}) joined as host. Starting {DebounceDelay.TotalSeconds:F1}s debounce window.");
+                $"Newcomer guest player '{payload.PlayerName}' (Id='{identifier}') joined as host. Starting {DebounceDelay.TotalSeconds:F1}s debounce window.");
         }
 
         _ = RunDebounceAsync(linkedToken);
+    }
+
+    private void PurgeExpiredPlayersLocked(DateTimeOffset now)
+    {
+        if (_seenPlayers.Count > 100)
+        {
+            var expired = new List<string>();
+            foreach (var kvp in _seenPlayers)
+            {
+                if (kvp.Value <= now)
+                {
+                    expired.Add(kvp.Key);
+                }
+            }
+            foreach (var key in expired)
+            {
+                _seenPlayers.Remove(key);
+            }
+        }
     }
 
     private async Task RunDebounceAsync(CancellationToken ct)
