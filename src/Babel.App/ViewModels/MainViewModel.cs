@@ -99,6 +99,7 @@ public class MainViewModel : INotifyPropertyChanged
     public NamedPipeServer PipeServer { get; }
     public TranslationEngine TranslationEngine { get; }
     public MacroService MacroService { get; }
+    public WelcomeMessageService WelcomeMessageService { get; }
     public ProcessMonitorService ProcessMonitor { get; }
     public InjectorService InjectorService { get; }
     public PersistentChatLogService PersistentLogService => _persistentLogService;
@@ -719,6 +720,12 @@ public class MainViewModel : INotifyPropertyChanged
 
         TranslationEngine = new TranslationEngine(PipeServer, _config, null, id => ProviderFactory.GetProvider(id));
         MacroService = new MacroService(PipeServer, _config, () => IsPaused, msg => TranslationEngine?.RegisterRecentBroadcast(msg));
+        WelcomeMessageService = new WelcomeMessageService(
+            PipeServer,
+            _config,
+            () => IsPaused || IsQuickChatPaused,
+            msg => TranslationEngine?.RegisterRecentBroadcast(msg));
+
         ProcessMonitor = new ProcessMonitorService("helldivers", TimeSpan.FromMilliseconds(1500), appLogger);
         InjectorService = new InjectorService(appLogger);
 
@@ -791,6 +798,12 @@ public class MainViewModel : INotifyPropertyChanged
         try
         {
             PipeServer.Dispose();
+        }
+        catch { }
+
+        try
+        {
+            WelcomeMessageService?.Dispose();
         }
         catch { }
 
@@ -1148,6 +1161,58 @@ public class MainViewModel : INotifyPropertyChanged
     public async Task TestSendMacroAsync(int slotId)
     {
         await MacroService.ExecuteMacroAsync(slotId);
+    }
+
+    public bool WelcomeMessageEnabled
+    {
+        get => _config.WelcomeMessageEnabled;
+        set
+        {
+            if (_config.WelcomeMessageEnabled != value)
+            {
+                _config.WelcomeMessageEnabled = value;
+                OnPropertyChanged();
+            }
+        }
+    }
+
+    public string WelcomeMessageText
+    {
+        get => _config.WelcomeMessage;
+        set
+        {
+            var clamped = value != null && value.Length > QuickChatMacro.MaxMessageLength
+                ? value[..QuickChatMacro.MaxMessageLength]
+                : (value ?? string.Empty);
+
+            if (_config.WelcomeMessage != clamped)
+            {
+                _config.WelcomeMessage = clamped;
+                OnPropertyChanged();
+                OnPropertyChanged(nameof(WelcomeMessageCharCount));
+                OnPropertyChanged(nameof(WelcomeMessageCharCountDisplay));
+                OnPropertyChanged(nameof(WelcomeMessageCharCountColor));
+            }
+        }
+    }
+
+    public int WelcomeMessageCharCount => _config.WelcomeMessage?.Length ?? 0;
+
+    public string WelcomeMessageCharCountDisplay => $"{WelcomeMessageCharCount}/{QuickChatMacro.MaxMessageLength}";
+
+    public string WelcomeMessageCharCountColor => WelcomeMessageCharCount switch
+    {
+        >= QuickChatMacro.MaxMessageLength => "#E06C75",
+        >= 250 => "#FFE600",
+        _ => "#737988"
+    };
+
+    public async Task TestSendWelcomeMessageAsync()
+    {
+        if (WelcomeMessageService != null)
+        {
+            await WelcomeMessageService.SendWelcomeMessageAsync();
+        }
     }
 
     public event PropertyChangedEventHandler? PropertyChanged;

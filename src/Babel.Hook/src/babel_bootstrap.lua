@@ -186,14 +186,82 @@ if not _G.__babel_bootstrap_done then
         end
     end
 
-    -- 7. Periodic Hook Check
+    -- 7. Hook NetworkSessionHandler to detect guest players joining
+    _G.__babel_pending_join_names = _G.__babel_pending_join_names or {}
+
+    local function capture_join_request(state_class)
+        if not state_class or state_class.__babel_join_hooked then return end
+        state_class.__babel_join_hooked = true
+        local orig_rpc = state_class.rpc_on_join_session_request
+        if orig_rpc then
+            state_class.rpc_on_join_session_request = function(self, sender_peer_id, state_name, seed, player_name, num_local_players)
+                pcall(function()
+                    if sender_peer_id and player_name then
+                        _G.__babel_pending_join_names[tostring(sender_peer_id)] = tostring(player_name)
+                    end
+                end)
+                return orig_rpc(self, sender_peer_id, state_name, seed, player_name, num_local_players)
+            end
+        end
+    end
+
+    _G.__babel_hook_network = function(NSH)
+        if not NSH or NSH.__babel_hooked then return end
+        NSH.__babel_hooked = true
+
+        if _G._babel_log then
+            _G._babel_log("__babel_hook_network: Hooking NetworkSessionHandler successfully.")
+        end
+
+        local orig_add_peer = NSH.add_peer
+        NSH.add_peer = function(self, peer_id)
+            orig_add_peer(self, peer_id)
+
+            pcall(function()
+                if _babel_is_connected and _babel_is_connected() and peer_id then
+                    local my_peer = (Network and Network.peer_id and Network.peer_id()) or "local"
+                    local is_host = (NetworkGlobal and NetworkGlobal.lobby and NetworkGlobal.lobby.is_host and NetworkGlobal.lobby:is_host()) or false
+                    local is_remote = (tostring(peer_id) ~= tostring(my_peer))
+
+                    if is_host and is_remote then
+                        local p_name = (_G.__babel_pending_join_names and _G.__babel_pending_join_names[tostring(peer_id)]) or "Player"
+                        if _G._babel_log then
+                            _G._babel_log("Guest player joined session as host: peer=" .. tostring(peer_id) .. ", name=" .. tostring(p_name))
+                        end
+                        if _babel_on_player_joined then
+                            _babel_on_player_joined(tostring(peer_id), tostring(p_name), true)
+                        end
+                    end
+                end
+            end)
+        end
+    end
+
+    -- 8. Periodic Hook Check
     _G.__babel_check_hook = function()
         if _G.TextChat and not _G.TextChat.__babel_hooked then
             _G.__babel_hook_chat(_G.TextChat)
         end
+        if _G.NetworkSessionHandler and not _G.NetworkSessionHandler.__babel_hooked then
+            _G.__babel_hook_network(_G.NetworkSessionHandler)
+        end
+        if _G.StateGame and not _G.StateGame.__babel_join_hooked then
+            capture_join_request(_G.StateGame)
+        end
+        if _G.StateMenu and not _G.StateMenu.__babel_join_hooked then
+            capture_join_request(_G.StateMenu)
+        end
+        if _G.StateMissionStart and not _G.StateMissionStart.__babel_join_hooked then
+            capture_join_request(_G.StateMissionStart)
+        end
+        if _G.StateMissionEnd and not _G.StateMissionEnd.__babel_join_hooked then
+            capture_join_request(_G.StateMissionEnd)
+        end
     end
 end
 
-if _G.TextChat and not _G.TextChat.__babel_hooked then
+if _G.__babel_check_hook then
+    _G.__babel_check_hook()
+elseif _G.TextChat and not _G.TextChat.__babel_hooked then
     _G.__babel_hook_chat(_G.TextChat)
 end

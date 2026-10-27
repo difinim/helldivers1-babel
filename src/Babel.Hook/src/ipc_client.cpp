@@ -250,6 +250,17 @@ static std::string format_outgoing_chat_packet(const OutgoingChatPayload& p) {
     return outer;
 }
 
+static std::string format_player_joined_packet(const PlayerJoinedPayload& p) {
+    std::string inner = "{";
+    inner += "\"peer_id\":\"" + json_escape(p.peer_id) + "\",";
+    inner += "\"player_name\":\"" + json_escape(p.player_name) + "\",";
+    inner += "\"is_host\":" + std::string(p.is_host ? "true" : "false");
+    inner += "}";
+
+    std::string outer = "{\"type\":\"PlayerJoined\",\"payload\":\"" + json_escape(inner) + "\"}\n";
+    return outer;
+}
+
 static std::string format_heartbeat_packet() {
     return "{\"type\":\"Heartbeat\",\"payload\":\"\"}\n";
 }
@@ -536,6 +547,16 @@ void ipc_send_outgoing_chat(const OutgoingChatPayload& payload) {
     if (!g_is_connected.load() || g_is_paused.load()) return;
 
     std::string packet = format_outgoing_chat_packet(payload);
+    std::lock_guard<std::mutex> lock(g_out_mutex);
+    if (g_outgoing_queue.size() < 200) {
+        g_outgoing_queue.push_back(packet);
+    }
+}
+
+void ipc_send_player_joined(const PlayerJoinedPayload& payload) {
+    if (!g_is_connected.load() || g_is_paused.load()) return;
+
+    std::string packet = format_player_joined_packet(payload);
     std::lock_guard<std::mutex> lock(g_out_mutex);
     if (g_outgoing_queue.size() < 200) {
         g_outgoing_queue.push_back(packet);

@@ -635,6 +635,7 @@
                 <Grid Margin="0,12,0,0">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
                         <RowDefinition Height="*"/>
                         <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
@@ -642,8 +643,61 @@
                     <TextBlock Grid.Row="0" Text="Bind pre-defined tactical callouts to hotkeys. These will be immediately broadcast to teammates in in-game chat."
                                Foreground="#A0A5B5" FontSize="12" Margin="0,0,0,10"/>
 
+                    <!-- Host Welcome Message Card -->
+                    <Border Grid.Row="1" Background="#181B22" BorderBrush="#262B36" BorderThickness="1" CornerRadius="4" Padding="12" Margin="0,0,0,12">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+
+                            <!-- Header: Title, Tooltip, and Toggle -->
+                            <Grid Grid.Row="0" Margin="0,0,0,8">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+
+                                <StackPanel Grid.Column="0" Orientation="Horizontal" VerticalAlignment="Center">
+                                    <TextBlock Text="Host Welcome Message" FontWeight="SemiBold" FontSize="13" Foreground="#FFFFFF" VerticalAlignment="Center"/>
+                                    <Border Style="{StaticResource InfoIconStyle}" Margin="8,0,0,0"
+                                            ToolTip="Automatically sends this message to in-game chat when you are hosting and a guest player joins. If multiple players join in rapid succession, a 5-second debounce window ensures only one welcome message is sent.">
+                                        <TextBlock Style="{StaticResource InfoGlyphStyle}"/>
+                                    </Border>
+                                </StackPanel>
+
+                                <CheckBox Grid.Column="1" Content="Enable Auto-Welcome" IsChecked="{Binding WelcomeMessageEnabled}" VerticalAlignment="Center"/>
+                            </Grid>
+
+                            <!-- Message Input Box with Character Counter & Test Send Button -->
+                            <Grid Grid.Row="1">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+
+                                <Grid Grid.Column="0" Margin="0,0,10,0">
+                                    <TextBox Text="{Binding WelcomeMessageText, UpdateSourceTrigger=PropertyChanged}"
+                                             MaxLength="300"
+                                             Padding="6,6,58,6"
+                                             ToolTip="Message automatically broadcast when a guest joins your hosted match (up to 300 characters)"/>
+                                    <TextBlock Text="{Binding WelcomeMessageCharCountDisplay}"
+                                               Foreground="{Binding WelcomeMessageCharCountColor}"
+                                               FontSize="11"
+                                               FontWeight="SemiBold"
+                                               HorizontalAlignment="Right"
+                                               VerticalAlignment="Center"
+                                               Margin="0,0,8,0"
+                                               IsHitTestVisible="False"/>
+                                </Grid>
+
+                                <Button Grid.Column="1" Content="Test Send" Click="OnTestSendWelcomeMessageClicked" Padding="16,6"/>
+                            </Grid>
+                        </Grid>
+                    </Border>
+
                     <!-- Quick Chat List -->
-                    <Border Grid.Row="1" Background="#181B22" BorderBrush="#262B36" BorderThickness="1" CornerRadius="4" Padding="12">
+                    <Border Grid.Row="2" Background="#181B22" BorderBrush="#262B36" BorderThickness="1" CornerRadius="4" Padding="12">
                         <ScrollViewer VerticalScrollBarVisibility="Auto">
                             <ItemsControl ItemsSource="{Binding Macros}">
                                 <ItemsControl.ItemTemplate>
@@ -695,7 +749,7 @@
                         </ScrollViewer>
                     </Border>
 
-                    <Grid Grid.Row="2" Margin="0,12,0,0">
+                    <Grid Grid.Row="3" Margin="0,12,0,0">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto"/>
                             <ColumnDefinition Width="*"/>

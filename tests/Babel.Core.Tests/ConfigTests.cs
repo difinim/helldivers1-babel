@@ -41,6 +41,8 @@ public class ConfigTests
         Assert.Equal("Auto", config.TargetDisplay);
         Assert.Equal(OverlayPosition.TopRight, config.ToastPosition);
         Assert.Equal(OverlayPosition.MiddleRight, config.QuickChatOverlayPosition);
+        Assert.True(config.WelcomeMessageEnabled);
+        Assert.Equal("Welcome to the squad! Glad to have you with us.", config.WelcomeMessage);
     }
 
     [Fact]
@@ -75,6 +77,8 @@ public class ConfigTests
             original.TargetDisplay = "Display 2";
             original.ToastPosition = OverlayPosition.BottomLeft;
             original.QuickChatOverlayPosition = OverlayPosition.TopCenter;
+            original.WelcomeMessageEnabled = false;
+            original.WelcomeMessage = "Custom Welcome Message!";
 
             service.Save(original);
 
@@ -104,11 +108,26 @@ public class ConfigTests
             Assert.Equal(OverlayPosition.BottomLeft, loaded.ToastPosition);
             Assert.Equal(OverlayPosition.TopCenter, loaded.QuickChatOverlayPosition);
             Assert.False(loaded.DontTranslateIncomingInTargetLanguage);
+            Assert.False(loaded.WelcomeMessageEnabled);
+            Assert.Equal("Custom Welcome Message!", loaded.WelcomeMessage);
         }
         finally
         {
             if (File.Exists(tempFile)) File.Delete(tempFile);
         }
+    }
+
+    [Fact]
+    public void WelcomeMessage_ClampsTo300Characters()
+    {
+        var config = new BabelConfig
+        {
+            WelcomeMessage = new string('A', 350)
+        };
+        Assert.Equal(300, config.WelcomeMessage.Length);
+
+        config.WelcomeMessage = null!;
+        Assert.Equal(string.Empty, config.WelcomeMessage);
     }
 
     [Fact]
@@ -267,6 +286,8 @@ public class ConfigTests
         Assert.Equal("Auto", config.TargetDisplay);
         Assert.Equal(OverlayPosition.TopRight, config.ToastPosition);
         Assert.Equal(OverlayPosition.MiddleRight, config.QuickChatOverlayPosition);
+        Assert.True(config.WelcomeMessageEnabled);
+        Assert.Equal("Welcome to the squad! Glad to have you with us.", config.WelcomeMessage);
     }
 
     [Fact]
