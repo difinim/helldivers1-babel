@@ -719,12 +719,19 @@ public class MainViewModel : INotifyPropertyChanged
         }
 
         TranslationEngine = new TranslationEngine(PipeServer, _config, null, id => ProviderFactory.GetProvider(id));
-        MacroService = new MacroService(PipeServer, _config, () => IsPaused, msg => TranslationEngine?.RegisterRecentBroadcast(msg));
+        MacroService = new MacroService(
+            PipeServer,
+            _config,
+            () => IsPaused,
+            msg => TranslationEngine?.RegisterRecentBroadcast(msg),
+            () => TranslationEngine?.LocalPlayerIndex ?? 1);
         WelcomeMessageService = new WelcomeMessageService(
             PipeServer,
             _config,
             () => IsPaused || IsQuickChatPaused,
-            msg => TranslationEngine?.RegisterRecentBroadcast(msg));
+            msg => TranslationEngine?.RegisterRecentBroadcast(msg),
+            null,
+            () => TranslationEngine?.LocalPlayerIndex ?? 1);
 
         ProcessMonitor = new ProcessMonitorService("helldivers", TimeSpan.FromMilliseconds(1500), appLogger);
         InjectorService = new InjectorService(appLogger);
@@ -744,6 +751,7 @@ public class MainViewModel : INotifyPropertyChanged
 
         // Hook engine events
         TranslationEngine.MessageTranslated += OnMessageTranslated;
+        TranslationEngine.TranslationRequestFailed += OnTranslationRequestFailed;
         TranslationEngine.TranslationFailed += error =>
         {
             Application.Current?.Dispatcher.Invoke(() =>
@@ -751,6 +759,8 @@ public class MainViewModel : INotifyPropertyChanged
                 ToastNotificationService.Show("Translation Error", error, ToastType.Error, durationMs: 3500);
             });
         };
+        WelcomeMessageService.WelcomeMessageSent += OnWelcomeMessageSent;
+        MacroService.MacroExecuted += OnMacroExecuted;
 
         PipeServer.ClientConnected += () =>
         {
@@ -886,28 +896,109 @@ public class MainViewModel : INotifyPropertyChanged
         }
     }
 
-    private void OnMessageTranslated(ChatMessage msg, TranslationResult res)
+    public static string ResolveAuthor(string? playerName, int playerIndex)
     {
-        Application.Current?.Dispatcher.Invoke(() =>
-        {
-            var hex = $"#{msg.PlayerColor.R:X2}{msg.PlayerColor.G:X2}{msg.PlayerColor.B:X2}";
-            var entry = new TranslationLogEntry
-            {
-                Time = DateTime.Now.ToString("HH:mm:ss"),
-                Author = string.IsNullOrWhiteSpace(msg.PlayerName) ? $"P{msg.PlayerIndex}" : msg.PlayerName,
-                SourceLang = res.DetectedSourceLanguage,
-                OriginalMessage = msg.MessageText,
-                TranslatedMessage = res.Success ? res.TranslatedText : $"[Error: {res.ErrorMessage}]",
-                Latency = $"{res.LatencyMs}ms",
-                ColorHex = hex
-            };
+        return !string.IsNullOrWhiteSpace(playerName) ? playerName.Trim() : $"P{playerIndex}";
+    }
 
+    public static string ResolveColorHex(int playerIndex, ColorDto? specificColor = null)
+    {
+        var color = specificColor ?? ColorDto.FromPlayerIndex(playerIndex);
+        return $"#{color.R:X2}{color.G:X2}{color.B:X2}";
+    }
+
+    private void AddLogEntry(TranslationLogEntry entry)
+    {
+        void Insert()
+        {
             History.Insert(0, entry);
             _persistentLogService.Enqueue(entry);
 
             // Limit in-memory history to 500 entries
-            while (History.Count > 500) History.RemoveAt(History.Count - 1);
-        });
+            while (History.Count > 500)
+            {
+                History.RemoveAt(History.Count - 1);
+            }
+        }
+
+        if (Application.Current?.Dispatcher != null && !Application.Current.Dispatcher.CheckAccess())
+        {
+            Application.Current.Dispatcher.Invoke(Insert);
+        }
+        else
+        {
+            Insert();
+        }
+    }
+
+    private void OnMessageTranslated(ChatMessage msg, TranslationResult res)
+    {
+        var entry = new TranslationLogEntry
+        {
+            Time = DateTime.Now.ToString("HH:mm:ss"),
+            Author = ResolveAuthor(msg.PlayerName, msg.PlayerIndex),
+            SourceLang = res.DetectedSourceLanguage,
+            OriginalMessage = msg.MessageText,
+            TranslatedMessage = res.Success ? res.TranslatedText : $"[Error: {res.ErrorMessage}]",
+            Latency = $"{res.LatencyMs}ms",
+            ColorHex = ResolveColorHex(msg.PlayerIndex, msg.PlayerColor)
+        };
+
+        AddLogEntry(entry);
+    }
+
+    private void OnTranslationRequestFailed(TranslationRequest req, string error)
+    {
+        var entry = new TranslationLogEntry
+        {
+            Time = DateTime.Now.ToString("HH:mm:ss"),
+            Author = ResolveAuthor(req.PlayerName, req.PlayerIndex),
+            SourceLang = "-",
+            OriginalMessage = req.Text,
+            TranslatedMessage = $"[Error: {error}]",
+            Latency = "-",
+            ColorHex = ResolveColorHex(req.PlayerIndex, req.PlayerColor)
+        };
+
+        AddLogEntry(entry);
+    }
+
+    private void OnWelcomeMessageSent(string message)
+    {
+        int pIdx = TranslationEngine?.LocalPlayerIndex ?? 1;
+        string pName = TranslationEngine?.LocalPlayerName ?? string.Empty;
+
+        var entry = new TranslationLogEntry
+        {
+            Time = DateTime.Now.ToString("HH:mm:ss"),
+            Author = ResolveAuthor(pName, pIdx),
+            SourceLang = "-",
+            OriginalMessage = message,
+            TranslatedMessage = "-",
+            Latency = "-",
+            ColorHex = ResolveColorHex(pIdx)
+        };
+
+        AddLogEntry(entry);
+    }
+
+    private void OnMacroExecuted(int slotId, string message)
+    {
+        int pIdx = TranslationEngine?.LocalPlayerIndex ?? 1;
+        string pName = TranslationEngine?.LocalPlayerName ?? string.Empty;
+
+        var entry = new TranslationLogEntry
+        {
+            Time = DateTime.Now.ToString("HH:mm:ss"),
+            Author = ResolveAuthor(pName, pIdx),
+            SourceLang = "-",
+            OriginalMessage = message,
+            TranslatedMessage = "-",
+            Latency = "-",
+            ColorHex = ResolveColorHex(pIdx)
+        };
+
+        AddLogEntry(entry);
     }
 
     public void TogglePause()

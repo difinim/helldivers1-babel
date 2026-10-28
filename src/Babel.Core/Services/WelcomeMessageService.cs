@@ -22,6 +22,7 @@ public class WelcomeMessageService : IDisposable
     private readonly Func<bool>? _isPausedFunc;
     private readonly Action<string>? _onBroadcastSent;
     private readonly Func<DateTimeOffset> _utcNowFunc;
+    private readonly Func<int>? _getPlayerIndexFunc;
     private readonly Dictionary<string, DateTimeOffset> _seenPlayers = new(StringComparer.OrdinalIgnoreCase);
     private readonly object _lock = new();
 
@@ -84,13 +85,15 @@ public class WelcomeMessageService : IDisposable
         BabelConfig config,
         Func<bool>? isPausedFunc = null,
         Action<string>? onBroadcastSent = null,
-        Func<DateTimeOffset>? utcNowFunc = null)
+        Func<DateTimeOffset>? utcNowFunc = null,
+        Func<int>? getPlayerIndexFunc = null)
     {
         _ipcServer = ipcServer ?? throw new ArgumentNullException(nameof(ipcServer));
         _config = config ?? throw new ArgumentNullException(nameof(config));
         _isPausedFunc = isPausedFunc;
         _onBroadcastSent = onBroadcastSent;
         _utcNowFunc = utcNowFunc ?? (() => DateTimeOffset.UtcNow);
+        _getPlayerIndexFunc = getPlayerIndexFunc;
 
         _ipcServer.PacketReceived += OnPacketReceived;
     }
@@ -101,7 +104,7 @@ public class WelcomeMessageService : IDisposable
         ITranslationEngine translationEngine,
         Func<bool>? isPausedFunc = null,
         Func<DateTimeOffset>? utcNowFunc = null)
-        : this(ipcServer, config, isPausedFunc, msg => translationEngine?.RegisterRecentBroadcast(msg), utcNowFunc)
+        : this(ipcServer, config, isPausedFunc, msg => translationEngine?.RegisterRecentBroadcast(msg), utcNowFunc, () => translationEngine?.LocalPlayerIndex ?? 1)
     {
     }
 
@@ -320,9 +323,11 @@ public class WelcomeMessageService : IDisposable
 
         BabelLog.Info("WelcomeMessageService", $"Dispatching Welcome Quick Chat message: \"{message}\" (PipeConnected={_ipcServer.IsClientConnected})");
 
+        int playerIndex = _getPlayerIndexFunc?.Invoke() ?? 1;
+
         var broadcastPayload = new ExecuteBroadcastPayload
         {
-            PlayerIndex = 1,
+            PlayerIndex = playerIndex,
             Message = message
         };
 

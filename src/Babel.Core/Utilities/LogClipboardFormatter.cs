@@ -41,13 +41,15 @@ public static class LogClipboardFormatter
         var original = entry.OriginalMessage?.Trim() ?? string.Empty;
         var translated = entry.TranslatedMessage?.Trim() ?? string.Empty;
 
+        bool hasTranslation = !string.IsNullOrEmpty(translated) && !string.Equals(translated, "-", StringComparison.Ordinal);
+
         string messageText;
-        if (!string.IsNullOrEmpty(translated) && !string.IsNullOrEmpty(original) &&
+        if (hasTranslation && !string.IsNullOrEmpty(original) &&
             !string.Equals(translated, original, StringComparison.OrdinalIgnoreCase))
         {
             messageText = $"{translated} (Original: {original})";
         }
-        else if (!string.IsNullOrEmpty(translated))
+        else if (hasTranslation)
         {
             messageText = translated;
         }

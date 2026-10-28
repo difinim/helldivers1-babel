@@ -8,6 +8,8 @@ public interface ITranslationEngine
     bool IsPaused { get; }
     string LastIncomingLanguage { get; set; }
     BabelConfig Config { get; set; }
+    int LocalPlayerIndex { get; set; }
+    string LocalPlayerName { get; set; }
 
     void TogglePause();
     void SetPaused(bool isPaused);

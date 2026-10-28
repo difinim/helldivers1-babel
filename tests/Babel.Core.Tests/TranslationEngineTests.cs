@@ -718,4 +718,165 @@ public class TranslationEngineTests
         Assert.Contains(mockIpc.SentPackets, p => p.Type == IpcPacketType.InjectChatMessage);
         Assert.Equal("Russian", engine.LastIncomingLanguage);
     }
+
+    [Fact]
+    public async Task IncomingMessage_Failure_FiresTranslationRequestFailedWithAccurateMetadata()
+    {
+        var mockIpc = new MockIpcServer();
+        var mockProvider = new MockTranslationProvider
+        {
+            TranslateFunc = (req, cfg) => TranslationResult.Failed("Network timeout", 500)
+        };
+        var config = new BabelConfig { IncomingTranslationEnabled = true, TargetLanguage = "English" };
+        using var engine = new TranslationEngine(mockIpc, config, mockProvider);
+
+        TranslationRequest? failedReq = null;
+        string? failedError = null;
+        engine.TranslationRequestFailed += (req, err) =>
+        {
+            failedReq = req;
+            failedError = err;
+        };
+
+        var incomingPayload = new IncomingChatMessagePayload
+        {
+            PlayerIndex = 3,
+            PlayerName = "Boris",
+            R = 180,
+            G = 80,
+            B = 255,
+            Message = "Need help!"
+        };
+
+        await engine.HandlePacketAsync(IpcPacket.Create(IpcPacketType.ChatMessageIncoming, incomingPayload));
+
+        Assert.NotNull(failedReq);
+        Assert.Equal(3, failedReq.PlayerIndex);
+        Assert.Equal("Boris", failedReq.PlayerName);
+        Assert.Equal("Need help!", failedReq.Text);
+        Assert.Equal(180, failedReq.PlayerColor.R);
+        Assert.Equal(80, failedReq.PlayerColor.G);
+        Assert.Equal(255, failedReq.PlayerColor.B);
+        Assert.False(failedReq.IsOutgoing);
+        Assert.Equal("Network timeout", failedError);
+    }
+
+    [Fact]
+    public async Task OutgoingMessage_Failure_FiresTranslationRequestFailedWithAccurateMetadata()
+    {
+        var mockIpc = new MockIpcServer();
+        var mockProvider = new MockTranslationProvider
+        {
+            TranslateFunc = (req, cfg) => TranslationResult.Failed("API Quota Exceeded (429)", 20)
+        };
+        var config = new BabelConfig { OutgoingTranslationEnabled = true, OutgoingPrefix = ">>" };
+        using var engine = new TranslationEngine(mockIpc, config, mockProvider)
+        {
+            LastIncomingLanguage = "Russian"
+        };
+
+        TranslationRequest? failedReq = null;
+        string? failedError = null;
+        engine.TranslationRequestFailed += (req, err) =>
+        {
+            failedReq = req;
+            failedError = err;
+        };
+
+        var outgoingPayload = new OutgoingChatMessagePayload
+        {
+            PlayerIndex = 2,
+            PlayerName = "Diego",
+            Message = ">>Retreat to extraction!"
+        };
+
+        await engine.HandlePacketAsync(IpcPacket.Create(IpcPacketType.ChatMessageOutgoing, outgoingPayload));
+
+        Assert.NotNull(failedReq);
+        Assert.Equal(2, failedReq.PlayerIndex);
+        Assert.Equal("Diego", failedReq.PlayerName);
+        Assert.Equal("Retreat to extraction!", failedReq.Text);
+        Assert.True(failedReq.IsOutgoing);
+        Assert.Equal("API Quota Exceeded (429)", failedError);
+    }
+
+    [Fact]
+    public async Task LocalPlayerTracking_UpdatesFromIncomingAndOutgoingPackets()
+    {
+        var mockIpc = new MockIpcServer();
+        var mockProvider = new MockTranslationProvider();
+        var config = new BabelConfig { IncomingTranslationEnabled = true, OutgoingTranslationEnabled = true };
+        using var engine = new TranslationEngine(mockIpc, config, mockProvider);
+
+        Assert.Equal(1, engine.LocalPlayerIndex);
+        Assert.Equal(string.Empty, engine.LocalPlayerName);
+
+        // 1. Incoming local chat from Player 3
+        var incomingLocal = new IncomingChatMessagePayload
+        {
+            PlayerIndex = 3,
+            PlayerName = "PlayerThree",
+            IsLocal = true,
+            Message = "Hello from local slot 3"
+        };
+        await engine.HandlePacketAsync(IpcPacket.Create(IpcPacketType.ChatMessageIncoming, incomingLocal));
+
+        Assert.Equal(3, engine.LocalPlayerIndex);
+        Assert.Equal("PlayerThree", engine.LocalPlayerName);
+
+        // 2. Outgoing chat from Player 4
+        var outgoingChat = new OutgoingChatMessagePayload
+        {
+            PlayerIndex = 4,
+            PlayerName = "PlayerFour",
+            Message = "Standard chat without prefix"
+        };
+        await engine.HandlePacketAsync(IpcPacket.Create(IpcPacketType.ChatMessageOutgoing, outgoingChat));
+
+        Assert.Equal(4, engine.LocalPlayerIndex);
+        Assert.Equal("PlayerFour", engine.LocalPlayerName);
+    }
+
+    [Fact]
+    public async Task QuickChatMacro_Suppression_RespectsDynamicLocalPlayerIndex()
+    {
+        var mockIpc = new MockIpcServer();
+        var mockProvider = new MockTranslationProvider
+        {
+            TranslateFunc = (req, cfg) => TranslationResult.Ok("Translated", "English", 50)
+        };
+        var config = new BabelConfig
+        {
+            IncomingTranslationEnabled = true,
+            DontTranslateStandardOutgoing = true,
+            QuickChatMacros = new List<QuickChatMacro>
+            {
+                new() { SlotId = 1, MessageText = "Affirmative!", IsEnabled = true }
+            }
+        };
+        using var engine = new TranslationEngine(mockIpc, config, mockProvider)
+        {
+            LocalPlayerIndex = 2
+        };
+
+        // Incoming message matching quick chat from P2 (which is LocalPlayerIndex): should be suppressed!
+        var incomingFromP2 = new IncomingChatMessagePayload
+        {
+            PlayerIndex = 2,
+            PlayerName = "LocalGuest",
+            Message = "Affirmative!"
+        };
+        await engine.HandlePacketAsync(IpcPacket.Create(IpcPacketType.ChatMessageIncoming, incomingFromP2));
+        Assert.Empty(mockProvider.ReceivedRequests);
+
+        // Incoming message from P1 (host teammate): should NOT be suppressed as local quick chat!
+        var incomingFromP1 = new IncomingChatMessagePayload
+        {
+            PlayerIndex = 1,
+            PlayerName = "HostPlayer",
+            Message = "Affirmative!"
+        };
+        await engine.HandlePacketAsync(IpcPacket.Create(IpcPacketType.ChatMessageIncoming, incomingFromP1));
+        Assert.Single(mockProvider.ReceivedRequests);
+    }
 }
