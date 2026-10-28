@@ -11,6 +11,7 @@ public class MacroService : IMacroService
     private readonly Func<bool>? _isPausedFunc;
     private readonly ITranslationEngine? _translationEngine;
     private readonly Action<string>? _onBroadcastSent;
+    private readonly Func<int>? _getPlayerIndexFunc;
     private readonly Dictionary<int, QuickChatMacro> _macros = new();
     private readonly object _lock = new();
     private readonly object _floodLock = new();
@@ -44,18 +45,24 @@ public class MacroService : IMacroService
         SetPaused(!_isExplicitlyPaused);
     }
 
-    public MacroService(IIpcServer ipcServer, BabelConfig config, Func<bool>? isPausedFunc = null, Action<string>? onBroadcastSent = null)
+    public MacroService(
+        IIpcServer ipcServer,
+        BabelConfig config,
+        Func<bool>? isPausedFunc = null,
+        Action<string>? onBroadcastSent = null,
+        Func<int>? getPlayerIndexFunc = null)
     {
         _ipcServer = ipcServer ?? throw new ArgumentNullException(nameof(ipcServer));
         _config = config ?? throw new ArgumentNullException(nameof(config));
         _isPausedFunc = isPausedFunc;
         _onBroadcastSent = onBroadcastSent;
+        _getPlayerIndexFunc = getPlayerIndexFunc;
 
         UpdateMacros(_config.QuickChatMacros ?? BabelConfig.CreateDefaultMacros());
     }
 
     public MacroService(IIpcServer ipcServer, BabelConfig config, ITranslationEngine translationEngine)
-        : this(ipcServer, config, null, msg => translationEngine?.RegisterRecentBroadcast(msg))
+        : this(ipcServer, config, null, msg => translationEngine?.RegisterRecentBroadcast(msg), () => translationEngine?.LocalPlayerIndex ?? 1)
     {
         _translationEngine = translationEngine;
     }
@@ -138,9 +145,11 @@ public class MacroService : IMacroService
 
         BabelLog.Info("MacroService", $"Executing Macro Slot {slotId} [{macro.Keybinding}]: \"{macro.MessageText}\" (PipeConnected={_ipcServer.IsClientConnected})");
 
+        int playerIndex = _getPlayerIndexFunc?.Invoke() ?? _translationEngine?.LocalPlayerIndex ?? 1;
+
         var broadcastPayload = new ExecuteBroadcastPayload
         {
-            PlayerIndex = 1,
+            PlayerIndex = playerIndex,
             Message = macro.MessageText
         };
 

@@ -16,6 +16,8 @@ public class TranslationEngine : ITranslationEngine, IDisposable
 
     public bool IsPaused { get; private set; }
     public string LastIncomingLanguage { get; set; } = string.Empty;
+    public int LocalPlayerIndex { get; set; } = 1;
+    public string LocalPlayerName { get; set; } = string.Empty;
 
     public BabelConfig Config
     {
@@ -143,13 +145,22 @@ public class TranslationEngine : ITranslationEngine, IDisposable
             return;
         }
 
+        if (payload.IsLocal)
+        {
+            LocalPlayerIndex = payload.PlayerIndex;
+            if (!string.IsNullOrWhiteSpace(payload.PlayerName))
+            {
+                LocalPlayerName = payload.PlayerName.Trim();
+            }
+        }
+
         PruneExpiredBroadcasts();
         string trimmedMsg = payload.Message.Trim();
 
         bool isRecentOutbound = _recentBroadcasts.TryGetValue(trimmedMsg, out var timestamp) &&
                                 (DateTime.UtcNow - timestamp) <= BroadcastTtl;
 
-        bool isQuickChatMacro = (payload.PlayerIndex == 1) &&
+        bool isQuickChatMacro = (payload.PlayerIndex == LocalPlayerIndex) &&
                                 (_config.QuickChatMacros?.Any(m => m.IsEnabled &&
                                     string.Equals(m.MessageText?.Trim(), trimmedMsg, StringComparison.OrdinalIgnoreCase)) ?? false);
 
@@ -171,6 +182,7 @@ public class TranslationEngine : ITranslationEngine, IDisposable
             Text = payload.Message,
             SourceLanguage = "auto",
             TargetLanguage = _config.TargetLanguage,
+            PlayerIndex = payload.PlayerIndex,
             PlayerName = payload.PlayerName,
             PlayerColor = new ColorDto(payload.R, payload.G, payload.B),
             IsOutgoing = false
@@ -266,6 +278,12 @@ public class TranslationEngine : ITranslationEngine, IDisposable
             return;
         }
 
+        LocalPlayerIndex = payload.PlayerIndex;
+        if (!string.IsNullOrWhiteSpace(payload.PlayerName))
+        {
+            LocalPlayerName = payload.PlayerName.Trim();
+        }
+
         string prefix = string.IsNullOrWhiteSpace(_config.OutgoingPrefix) ? ">>" : _config.OutgoingPrefix;
         if (!payload.Message.Contains(prefix, StringComparison.Ordinal))
         {
@@ -288,6 +306,7 @@ public class TranslationEngine : ITranslationEngine, IDisposable
             Text = textToTranslate,
             SourceLanguage = "auto",
             TargetLanguage = targetLang,
+            PlayerIndex = payload.PlayerIndex,
             PlayerName = payload.PlayerName,
             PlayerColor = ColorDto.FromPlayerIndex(payload.PlayerIndex),
             IsOutgoing = true

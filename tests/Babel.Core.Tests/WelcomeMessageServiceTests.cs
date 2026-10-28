@@ -567,4 +567,32 @@ public class WelcomeMessageServiceTests
         var broadcasts = mockIpc.SentPackets.Where(p => p.Type == IpcPacketType.ExecuteChatBroadcast).ToList();
         Assert.Equal(2, broadcasts.Count);
     }
+
+    [Fact]
+    public async Task SendWelcomeMessageAsync_WithDynamicPlayerIndex_UsesResolvedPlayerIndexAndFiresEvent()
+    {
+        var mockIpc = new MockIpcServer();
+        var config = new BabelConfig { WelcomeMessage = "Welcome from Host!" };
+        int activePlayerIndex = 2;
+        using var service = new WelcomeMessageService(
+            mockIpc,
+            config,
+            isPausedFunc: null,
+            onBroadcastSent: null,
+            utcNowFunc: null,
+            getPlayerIndexFunc: () => activePlayerIndex);
+
+        string? sentMsg = null;
+        service.WelcomeMessageSent += msg => sentMsg = msg;
+
+        await service.SendWelcomeMessageAsync();
+
+        Assert.Equal("Welcome from Host!", sentMsg);
+        var broadcastPacket = mockIpc.SentPackets.FirstOrDefault(p => p.Type == IpcPacketType.ExecuteChatBroadcast);
+        Assert.NotNull(broadcastPacket);
+        var payload = broadcastPacket.DeserializePayload<ExecuteBroadcastPayload>();
+        Assert.NotNull(payload);
+        Assert.Equal("Welcome from Host!", payload.Message);
+        Assert.Equal(2, payload.PlayerIndex);
+    }
 }

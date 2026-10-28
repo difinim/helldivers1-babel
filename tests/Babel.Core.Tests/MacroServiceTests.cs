@@ -227,4 +227,26 @@ public class MacroServiceTests
         await service.ExecuteMacroAsync(1);
         Assert.Single(mockIpc.SentPackets, p => p.Type == IpcPacketType.ExecuteChatBroadcast);
     }
+
+    [Fact]
+    public async Task ExecuteMacroAsync_WithDynamicPlayerIndex_UsesResolvedPlayerIndex()
+    {
+        var mockIpc = new MockIpcServer();
+        var config = new BabelConfig();
+        int currentPlayerIndex = 3;
+        var service = new MacroService(
+            mockIpc,
+            config,
+            isPausedFunc: null,
+            onBroadcastSent: null,
+            getPlayerIndexFunc: () => currentPlayerIndex);
+
+        await service.ExecuteMacroAsync(1);
+
+        var broadcastPacket = mockIpc.SentPackets.FirstOrDefault(p => p.Type == IpcPacketType.ExecuteChatBroadcast);
+        Assert.NotNull(broadcastPacket);
+        var broadcastPayload = broadcastPacket.DeserializePayload<ExecuteBroadcastPayload>();
+        Assert.NotNull(broadcastPayload);
+        Assert.Equal(3, broadcastPayload.PlayerIndex);
+    }
 }

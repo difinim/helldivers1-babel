@@ -194,4 +194,53 @@ public class LogClipboardFormatterTests
         Assert.Equal("Translated 1", lines[0]);
         Assert.Equal("Translated 2", lines[1]);
     }
+
+    [Fact]
+    public void FormatSingleLine_WhenTranslatedIsDash_FallsBackToOriginal()
+    {
+        var entry = new TranslationLogEntry
+        {
+            Time = "12:00:00",
+            Author = "P1",
+            OriginalMessage = "Welcome to the squad!",
+            TranslatedMessage = "-"
+        };
+
+        var result = LogClipboardFormatter.FormatSingleLine(entry);
+
+        Assert.Equal("[12:00:00] P1: Welcome to the squad!", result);
+    }
+
+    [Fact]
+    public void FormatSingleLine_WhenTranslationError_FormatsErrorWithOriginal()
+    {
+        var entry = new TranslationLogEntry
+        {
+            Time = "12:00:00",
+            Author = "Boris",
+            OriginalMessage = "Привет",
+            TranslatedMessage = "[Error: Request timed out]"
+        };
+
+        var result = LogClipboardFormatter.FormatSingleLine(entry);
+
+        Assert.Equal("[12:00:00] Boris: [Error: Request timed out] (Original: Привет)", result);
+    }
+
+    [Fact]
+    public void FormatSingleLine_WithDynamicPlayerNumbers_FormatsCorrectly()
+    {
+        var p2Entry = new TranslationLogEntry
+        {
+            Time = "14:15:16",
+            Author = "P2",
+            OriginalMessage = "Affirmative!",
+            TranslatedMessage = "-"
+        };
+
+        var result = LogClipboardFormatter.FormatSingleLine(p2Entry);
+
+        Assert.Equal("[14:15:16] P2: Affirmative!", result);
+        Assert.DoesNotContain("You", result);
+    }
 }
