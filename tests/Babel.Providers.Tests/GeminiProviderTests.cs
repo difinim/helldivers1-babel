@@ -505,4 +505,155 @@ public class GeminiProviderTests
         Assert.False(isValid);
         Assert.Equal(0, mockHandler.CallCount);
     }
+
+    [Fact]
+    public async Task TranslateAsync_CasualTone_Outgoing_UsesCasualPrompt()
+    {
+        const string responseJson = """
+        {
+          "candidates": [
+            {
+              "content": {
+                "parts": [
+                  { "text": "vamos nessa" }
+                ]
+              }
+            }
+          ]
+        }
+        """;
+
+        var mockHandler = new MockHttpMessageHandler(HttpStatusCode.OK, responseJson);
+        using var httpClient = new HttpClient(mockHandler);
+        using var provider = new GeminiProvider(httpClient);
+
+        var config = CreateDefaultConfig();
+        config.TranslationTone = TranslationTone.Casual;
+        var request = new TranslationRequest
+        {
+            Text = "let's go",
+            TargetLanguage = "Portuguese (PT-BR)",
+            IsOutgoing = true
+        };
+
+        var result = await provider.TranslateAsync(request, config);
+
+        Assert.True(result.Success);
+        Assert.NotNull(mockHandler.LastRequestBody);
+        Assert.Contains("Casual, lowercase, keep acronyms uppercase. Only return translation.", mockHandler.LastRequestBody);
+    }
+
+    [Fact]
+    public async Task TranslateAsync_NormalTone_Outgoing_UsesNormalPrompt_WithoutProperCapitalization()
+    {
+        const string responseJson = """
+        {
+          "candidates": [
+            {
+              "content": {
+                "parts": [
+                  { "text": "Vamos lá" }
+                ]
+              }
+            }
+          ]
+        }
+        """;
+
+        var mockHandler = new MockHttpMessageHandler(HttpStatusCode.OK, responseJson);
+        using var httpClient = new HttpClient(mockHandler);
+        using var provider = new GeminiProvider(httpClient);
+
+        var config = CreateDefaultConfig();
+        config.TranslationTone = TranslationTone.Normal;
+        var request = new TranslationRequest
+        {
+            Text = "let's go",
+            TargetLanguage = "Portuguese (PT-BR)",
+            IsOutgoing = true
+        };
+
+        var result = await provider.TranslateAsync(request, config);
+
+        Assert.True(result.Success);
+        Assert.NotNull(mockHandler.LastRequestBody);
+        Assert.Contains("Standard, natural tone, keep acronyms uppercase. Only return translation.", mockHandler.LastRequestBody);
+        Assert.DoesNotContain("proper capitalization", mockHandler.LastRequestBody, StringComparison.OrdinalIgnoreCase);
+    }
+
+    [Fact]
+    public async Task TranslateAsync_CasualTone_Incoming_UsesNormalizedLanguagePrompt()
+    {
+        const string responseJson = """
+        {
+          "candidates": [
+            {
+              "content": {
+                "parts": [
+                  { "text": "(English): Watch out for the patrol" }
+                ]
+              }
+            }
+          ]
+        }
+        """;
+
+        var mockHandler = new MockHttpMessageHandler(HttpStatusCode.OK, responseJson);
+        using var httpClient = new HttpClient(mockHandler);
+        using var provider = new GeminiProvider(httpClient);
+
+        var config = CreateDefaultConfig();
+        config.TranslationTone = TranslationTone.Casual;
+        var request = new TranslationRequest
+        {
+            Text = "Cuidado com a patrulha",
+            TargetLanguage = "English",
+            IsOutgoing = false
+        };
+
+        var result = await provider.TranslateAsync(request, config);
+
+        Assert.True(result.Success);
+        Assert.Equal("English", result.DetectedSourceLanguage);
+        Assert.NotNull(mockHandler.LastRequestBody);
+        Assert.Contains("Prefix with source language name: (<language name in English>): <translation>. Casual. Only return translation.", mockHandler.LastRequestBody);
+    }
+
+    [Fact]
+    public async Task TranslateAsync_NormalTone_Incoming_UsesNormalizedLanguagePrompt()
+    {
+        const string responseJson = """
+        {
+          "candidates": [
+            {
+              "content": {
+                "parts": [
+                  { "text": "(English): Beware of the patrol" }
+                ]
+              }
+            }
+          ]
+        }
+        """;
+
+        var mockHandler = new MockHttpMessageHandler(HttpStatusCode.OK, responseJson);
+        using var httpClient = new HttpClient(mockHandler);
+        using var provider = new GeminiProvider(httpClient);
+
+        var config = CreateDefaultConfig();
+        config.TranslationTone = TranslationTone.Normal;
+        var request = new TranslationRequest
+        {
+            Text = "Cuidado com a patrulha",
+            TargetLanguage = "English",
+            IsOutgoing = false
+        };
+
+        var result = await provider.TranslateAsync(request, config);
+
+        Assert.True(result.Success);
+        Assert.Equal("English", result.DetectedSourceLanguage);
+        Assert.NotNull(mockHandler.LastRequestBody);
+        Assert.Contains("Prefix with source language name: (<language name in English>): <translation>. Standard, natural tone. Only return translation.", mockHandler.LastRequestBody);
+    }
 }

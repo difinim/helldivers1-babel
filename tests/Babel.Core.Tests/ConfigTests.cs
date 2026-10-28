@@ -43,6 +43,7 @@ public class ConfigTests
         Assert.Equal(OverlayPosition.MiddleRight, config.QuickChatOverlayPosition);
         Assert.True(config.WelcomeMessageEnabled);
         Assert.Equal("Welcome to the squad! Glad to have you with us.", config.WelcomeMessage);
+        Assert.Equal(TranslationTone.Casual, config.TranslationTone);
     }
 
     [Fact]
@@ -288,6 +289,7 @@ public class ConfigTests
         Assert.Equal(OverlayPosition.MiddleRight, config.QuickChatOverlayPosition);
         Assert.True(config.WelcomeMessageEnabled);
         Assert.Equal("Welcome to the squad! Glad to have you with us.", config.WelcomeMessage);
+        Assert.Equal(TranslationTone.Casual, config.TranslationTone);
     }
 
     [Fact]
@@ -324,5 +326,33 @@ public class ConfigTests
         config.DontTranslateIncomingInTargetLanguage = defaults.DontTranslateIncomingInTargetLanguage;
 
         Assert.True(config.DontTranslateIncomingInTargetLanguage);
+    }
+
+    [Theory]
+    [InlineData(TranslationTone.Casual, "Casual")]
+    [InlineData(TranslationTone.Normal, "Normal")]
+    public void TranslationTone_SerializesAndDeserializesCorrectly(TranslationTone tone, string expectedString)
+    {
+        var original = new BabelConfig { TranslationTone = tone };
+        var json = System.Text.Json.JsonSerializer.Serialize(original);
+        Assert.Contains($"\"TranslationTone\":\"{expectedString}\"", json);
+
+        var deserialized = System.Text.Json.JsonSerializer.Deserialize<BabelConfig>(json);
+        Assert.NotNull(deserialized);
+        Assert.Equal(tone, deserialized.TranslationTone);
+    }
+
+    [Fact]
+    public void ResetToDefaults_RestoresTranslationToneToCasual()
+    {
+        var config = new BabelConfig
+        {
+            TranslationTone = TranslationTone.Normal
+        };
+        Assert.Equal(TranslationTone.Normal, config.TranslationTone);
+
+        var defaults = new BabelConfig();
+        config.TranslationTone = defaults.TranslationTone;
+        Assert.Equal(TranslationTone.Casual, config.TranslationTone);
     }
 }

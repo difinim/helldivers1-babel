@@ -16,10 +16,18 @@ public enum OverlayPosition
     BottomRight
 }
 
+[JsonConverter(typeof(JsonStringEnumConverter))]
+public enum TranslationTone
+{
+    Casual,
+    Normal
+}
+
 public class BabelConfig
 {
     public string ActiveProvider { get; set; } = "Gemini";
     public string TargetLanguage { get; set; } = "English";
+    public TranslationTone TranslationTone { get; set; } = TranslationTone.Casual;
     public bool IncomingTranslationEnabled { get; set; } = true;
     public bool OutgoingTranslationEnabled { get; set; } = true;
     public string OutgoingPrefix { get; set; } = ">>";
