@@ -1086,17 +1086,18 @@
                         </Hyperlink>
                     </TextBlock>
                     <TextBlock FontSize="11" VerticalAlignment="Center">
-                        <Hyperlink Click="OnGitHubLinkClicked" Foreground="#58A6FF" TextDecorations="Underline" Cursor="Hand">
+                        <Hyperlink Click="OnAboutClicked" Foreground="#8B949E" TextDecorations="None" Cursor="Hand">
                             <Hyperlink.Style>
                                 <Style TargetType="Hyperlink">
                                     <Style.Triggers>
                                         <Trigger Property="IsMouseOver" Value="True">
-                                            <Setter Property="Foreground" Value="#79C0FF"/>
+                                            <Setter Property="Foreground" Value="#FFE600"/>
+                                            <Setter Property="TextDecorations" Value="Underline"/>
                                         </Trigger>
                                     </Style.Triggers>
                                 </Style>
                             </Hyperlink.Style>
-                            github.com/difinim/helldivers1-babel
+                            About
                         </Hyperlink>
                     </TextBlock>
                 </StackPanel>
