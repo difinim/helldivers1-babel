@@ -3,6 +3,7 @@ using System.IO;
 using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Interop;
+using Babel.Core.Services;
 
 namespace Babel.App.Services;
 
@@ -85,7 +86,7 @@ public class TrayIconService : IDisposable
             uFlags = NifMessage | NifIcon | NifTip,
             uCallbackMessage = WmTrayNotify,
             hIcon = hIcon,
-            szTip = "Helldivers 1 Babel (Active)"
+            szTip = LocalizationService.Instance.GetString("Tray_TipActive")
         };
 
         _isAdded = Shell_NotifyIcon(NimAdd, ref _nid);
@@ -124,7 +125,7 @@ public class TrayIconService : IDisposable
 
         var menu = new System.Windows.Controls.ContextMenu();
 
-        var openItem = new System.Windows.Controls.MenuItem { Header = "Open Helldivers 1 Babel" };
+        var openItem = new System.Windows.Controls.MenuItem { Header = LocalizationService.Instance.GetString("Tray_Open") };
         openItem.Click += (_, _) =>
         {
             menu.IsOpen = false;
@@ -132,7 +133,7 @@ public class TrayIconService : IDisposable
         };
         menu.Items.Add(openItem);
 
-        var pauseItem = new System.Windows.Controls.MenuItem { Header = "Toggle Pause (Ctrl+F10)" };
+        var pauseItem = new System.Windows.Controls.MenuItem { Header = LocalizationService.Instance.Format("Tray_TogglePause", "Ctrl+F10") };
         pauseItem.Click += (_, _) =>
         {
             menu.IsOpen = false;
@@ -142,7 +143,7 @@ public class TrayIconService : IDisposable
 
         menu.Items.Add(new System.Windows.Controls.Separator());
 
-        var exitItem = new System.Windows.Controls.MenuItem { Header = "Exit" };
+        var exitItem = new System.Windows.Controls.MenuItem { Header = LocalizationService.Instance.GetString("Tray_Exit") };
         exitItem.Click += (_, _) =>
         {
             menu.IsOpen = false;

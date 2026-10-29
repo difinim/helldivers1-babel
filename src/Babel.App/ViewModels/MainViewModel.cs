@@ -81,7 +81,9 @@ public class MainViewModel : INotifyPropertyChanged
     private readonly ConfigurationService _configService;
     private BabelConfig _config;
 
-    private string _gameStatusText = "Waiting for Helldivers (2015)...";
+    private string _gameStatusKey = "Status_GameWaiting";
+    private object[] _gameStatusArgs = Array.Empty<object>();
+    private string _gameStatusText = string.Empty;
     private bool _isGameRunning;
     private bool _isPipeConnected;
     private bool _isPaused;
@@ -223,11 +225,11 @@ public class MainViewModel : INotifyPropertyChanged
     {
         get
         {
-            if (IsPaused) return "PAUSED";
-            if (IsTranslationPaused && IsQuickChatPaused) return "ALL MUTED";
-            if (IsTranslationPaused) return "TRANS. PAUSED";
-            if (IsQuickChatPaused) return "QC PAUSED";
-            return "ACTIVE";
+            if (IsPaused) return LocalizationService.Instance.GetString("Badge_Paused");
+            if (IsTranslationPaused && IsQuickChatPaused) return LocalizationService.Instance.GetString("Badge_AllMuted");
+            if (IsTranslationPaused) return LocalizationService.Instance.GetString("Badge_TransPaused");
+            if (IsQuickChatPaused) return LocalizationService.Instance.GetString("Badge_QcPaused");
+            return LocalizationService.Instance.GetString("Badge_Active");
         }
     }
 
@@ -241,7 +243,9 @@ public class MainViewModel : INotifyPropertyChanged
         }
     }
 
-    public string PauseResumeButtonText => IsPaused ? $"Resume ({PauseHotkey})" : $"Pause ({PauseHotkey})";
+    public string PauseResumeButtonText => IsPaused
+        ? LocalizationService.Instance.Format("Btn_Resume", PauseHotkey)
+        : LocalizationService.Instance.Format("Btn_Pause", PauseHotkey);
 
     public string TestApiStatus
     {
@@ -260,10 +264,36 @@ public class MainViewModel : INotifyPropertyChanged
         get => _config.TargetLanguage;
         set
         {
-            _config.TargetLanguage = value;
-            OnPropertyChanged();
-            SaveConfig();
+            if (_config.TargetLanguage != value)
+            {
+                _config.TargetLanguage = value;
+                OnPropertyChanged();
+                SaveConfig();
+                AppLocalizationManager.SetLanguage(value);
+                RefreshLocalizedProperties();
+            }
         }
+    }
+
+    public void RefreshLocalizedProperties()
+    {
+        OnPropertyChanged(nameof(StatusBadgeText));
+        OnPropertyChanged(nameof(PauseResumeButtonText));
+        OnPropertyChanged(nameof(ToastPositionDisplay));
+        OnPropertyChanged(nameof(QuickChatOverlayPositionDisplay));
+        UpdateGameStatusText();
+    }
+
+    public void SetGameStatus(string key, params object[] args)
+    {
+        _gameStatusKey = key;
+        _gameStatusArgs = args;
+        UpdateGameStatusText();
+    }
+
+    public void UpdateGameStatusText()
+    {
+        GameStatusText = LocalizationService.Instance.Format(_gameStatusKey, _gameStatusArgs);
     }
 
     public bool IncomingEnabled
@@ -690,6 +720,10 @@ public class MainViewModel : INotifyPropertyChanged
     {
         _configService = new ConfigurationService();
         _config = _configService.Load();
+        AppLocalizationManager.Initialize(_config.TargetLanguage);
+        LocalizationService.Instance.LanguageChanged += (_, _) => RefreshLocalizedProperties();
+        SetGameStatus("Status_GameWaiting");
+
         BabelLog.IsEnabled = _config.DebugLoggingEnabled;
         ToastNotificationService.IsEnabled = _config.ShowToastOverlay;
         ToastNotificationService.ScaleFactor = _config.OverlayScaleFactor;
@@ -769,7 +803,7 @@ public class MainViewModel : INotifyPropertyChanged
                 IsPipeConnected = true;
                 if (IsGameRunning)
                 {
-                    GameStatusText = "Helldivers running - Connected & Active";
+                    SetGameStatus("Status_GameRunningConnected");
                 }
             });
         };
@@ -780,7 +814,7 @@ public class MainViewModel : INotifyPropertyChanged
                 IsPipeConnected = false;
                 if (IsGameRunning)
                 {
-                    GameStatusText = "Helldivers running - Hook Disconnected";
+                    SetGameStatus("Status_GameRunningHookDisconnected");
                 }
             });
         };
@@ -833,7 +867,7 @@ public class MainViewModel : INotifyPropertyChanged
         await dispatcher.InvokeAsync(async () =>
         {
             IsGameRunning = true;
-            GameStatusText = $"Helldivers detected (PID: {proc.Id}), preparing injection...";
+            SetGameStatus("Status_GameDetectedPreparing", proc.Id);
 
             // Delay injection by 1.5s to let the game complete PE loading, CRT startup, and unpacking
             await Task.Delay(1500);
@@ -843,14 +877,12 @@ public class MainViewModel : INotifyPropertyChanged
                 if (!proc.HasExited)
                 {
                     bool injected = TryInjectDll(proc.Id);
-                    GameStatusText = injected
-                        ? $"Helldivers running (PID: {proc.Id}) - Hook Injected"
-                        : $"Helldivers running (PID: {proc.Id}) - Injection Failed";
+                    SetGameStatus(injected ? "Status_GameRunningInjected" : "Status_GameRunningInjectionFailed", proc.Id);
                 }
             }
             catch (Exception ex)
             {
-                GameStatusText = $"Helldivers running (PID: {proc.Id}) - Error: {ex.Message}";
+                SetGameStatus("Status_GameRunningError", proc.Id, ex.Message);
             }
         });
     }
@@ -861,7 +893,7 @@ public class MainViewModel : INotifyPropertyChanged
         Application.Current?.Dispatcher.Invoke(() =>
         {
             IsGameRunning = false;
-            GameStatusText = "Waiting for Helldivers (2015)...";
+            SetGameStatus("Status_GameWaiting");
         });
     }
 
@@ -1007,11 +1039,11 @@ public class MainViewModel : INotifyPropertyChanged
 
         if (IsPaused)
         {
-            ToastNotificationService.Show("Helldivers 1 Babel", $"Assistant Paused ({PauseHotkey} to resume)", ToastType.Warning);
+            ToastNotificationService.Show("Helldivers 1 Babel", LocalizationService.Instance.Format("Toast_AssistantPaused", PauseHotkey), ToastType.Warning);
         }
         else
         {
-            ToastNotificationService.Show("Helldivers 1 Babel", "Assistant Active (Resumed)", ToastType.Success);
+            ToastNotificationService.Show("Helldivers 1 Babel", LocalizationService.Instance.GetString("Toast_AssistantResumed"), ToastType.Success);
         }
     }
 
@@ -1021,11 +1053,11 @@ public class MainViewModel : INotifyPropertyChanged
 
         if (IsTranslationPaused)
         {
-            ToastNotificationService.Show("Translation", $"Translation Paused ({ToggleTranslationHotkey} to resume)", ToastType.Warning);
+            ToastNotificationService.Show(LocalizationService.Instance.GetString("Tab_TranslationAndLogs"), LocalizationService.Instance.Format("Toast_TranslationPaused", ToggleTranslationHotkey), ToastType.Warning);
         }
         else
         {
-            ToastNotificationService.Show("Translation", "Translation Active", ToastType.Success);
+            ToastNotificationService.Show(LocalizationService.Instance.GetString("Tab_TranslationAndLogs"), LocalizationService.Instance.GetString("Toast_TranslationActive"), ToastType.Success);
         }
     }
 
@@ -1035,11 +1067,11 @@ public class MainViewModel : INotifyPropertyChanged
 
         if (IsQuickChatPaused)
         {
-            ToastNotificationService.Show("Quick Chat", $"Quick Chat Paused ({ToggleQuickChatHotkey} to resume)", ToastType.Warning);
+            ToastNotificationService.Show(LocalizationService.Instance.GetString("Tab_QuickChat"), LocalizationService.Instance.Format("Toast_QuickChatPaused", ToggleQuickChatHotkey), ToastType.Warning);
         }
         else
         {
-            ToastNotificationService.Show("Quick Chat", "Quick Chat Active", ToastType.Success);
+            ToastNotificationService.Show(LocalizationService.Instance.GetString("Tab_QuickChat"), LocalizationService.Instance.GetString("Toast_QuickChatActive"), ToastType.Success);
         }
     }
 
@@ -1210,7 +1242,7 @@ public class MainViewModel : INotifyPropertyChanged
     public async Task TestApiConnectionAsync()
     {
         IsTestingApi = true;
-        TestApiStatus = "Testing connection to Gemini...";
+        TestApiStatus = LocalizationService.Instance.GetString("Api_TestingConnection");
 
         try
         {
@@ -1232,16 +1264,16 @@ public class MainViewModel : INotifyPropertyChanged
                     string src = string.IsNullOrWhiteSpace(res.DetectedSourceLanguage) ? "Portuguese" : res.DetectedSourceLanguage;
                     resultText = $"({src}): {resultText}";
                 }
-                TestApiStatus = $"Connected! Latency: {res.LatencyMs}ms - Result: \"{resultText}\"";
+                TestApiStatus = LocalizationService.Instance.Format("Api_ConnectedResult", res.LatencyMs, resultText);
             }
             else
             {
-                TestApiStatus = $"Connection Failed: {res.ErrorMessage}";
+                TestApiStatus = LocalizationService.Instance.Format("Api_ConnectionFailed", res.ErrorMessage ?? string.Empty);
             }
         }
         catch (Exception ex)
         {
-            TestApiStatus = $"Connection Failed: {ex.Message}";
+            TestApiStatus = LocalizationService.Instance.Format("Api_ConnectionFailed", ex.Message);
         }
         finally
         {
