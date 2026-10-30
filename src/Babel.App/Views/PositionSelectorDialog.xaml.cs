@@ -4,6 +4,7 @@ using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Shapes;
 using Babel.Core.Models;
+using Babel.Core.Services;
 
 namespace Babel.App.Views;
 
@@ -46,7 +47,7 @@ public partial class PositionSelectorDialog : Window
         SetAnchorBrush(PathBottomCenter, SelectedPosition == OverlayPosition.BottomCenter);
         SetAnchorBrush(PathBottomRight, SelectedPosition == OverlayPosition.BottomRight);
 
-        SelectedPositionLabel.Text = $"Selected: {GetPositionDisplayName(SelectedPosition)}";
+        SelectedPositionLabel.Text = LocalizationService.Instance.Format("Pos_SelectedPrefix", GetPositionDisplayName(SelectedPosition));
     }
 
     private static void SetAnchorBrush(Shape shape, bool isSelected)
@@ -59,15 +60,15 @@ public partial class PositionSelectorDialog : Window
 
     public static string GetPositionDisplayName(OverlayPosition position) => position switch
     {
-        OverlayPosition.TopLeft => "Top Left (↖)",
-        OverlayPosition.TopCenter => "Top Center (↑)",
-        OverlayPosition.TopRight => "Top Right (↗)",
-        OverlayPosition.MiddleLeft => "Middle Left (←)",
-        OverlayPosition.Center => "Center (⏺)",
-        OverlayPosition.MiddleRight => "Middle Right (→)",
-        OverlayPosition.BottomLeft => "Bottom Left (↙)",
-        OverlayPosition.BottomCenter => "Bottom Center (↓)",
-        OverlayPosition.BottomRight => "Bottom Right (↘)",
+        OverlayPosition.TopLeft => LocalizationService.Instance.GetString("Pos_TopLeft"),
+        OverlayPosition.TopCenter => LocalizationService.Instance.GetString("Pos_TopCenter"),
+        OverlayPosition.TopRight => LocalizationService.Instance.GetString("Pos_TopRight"),
+        OverlayPosition.MiddleLeft => LocalizationService.Instance.GetString("Pos_MiddleLeft"),
+        OverlayPosition.Center => LocalizationService.Instance.GetString("Pos_Center"),
+        OverlayPosition.MiddleRight => LocalizationService.Instance.GetString("Pos_MiddleRight"),
+        OverlayPosition.BottomLeft => LocalizationService.Instance.GetString("Pos_BottomLeft"),
+        OverlayPosition.BottomCenter => LocalizationService.Instance.GetString("Pos_BottomCenter"),
+        OverlayPosition.BottomRight => LocalizationService.Instance.GetString("Pos_BottomRight"),
         _ => position.ToString()
     };
 

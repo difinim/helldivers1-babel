@@ -7,7 +7,8 @@
         xmlns:controls="clr-namespace:Babel.App.Controls"
         xmlns:vm="clr-namespace:Babel.App.ViewModels"
         mc:Ignorable="d"
-        Title="Helldivers 1 Babel — Tactical Translation Assistant"
+        Title="{DynamicResource App_Title}"
+        FlowDirection="{DynamicResource App_FlowDirection}"
         Icon="Assets/hb.ico"
         Height="851" Width="1128"
         MinHeight="550" MinWidth="800"
@@ -431,8 +432,8 @@
 
                 <StackPanel Grid.Column="0" Orientation="Horizontal" VerticalAlignment="Center">
                     <Image Source="Assets/hb.png" Width="22" Height="22" Margin="0,0,8,0" VerticalAlignment="Center" RenderOptions.BitmapScalingMode="HighQuality"/>
-                    <TextBlock Text="HELLDIVERS 1 BABEL" FontWeight="Bold" FontSize="16" Foreground="#FFE600" VerticalAlignment="Center"/>
-                    <TextBlock Text="{Binding AppVersion}" FontSize="11" Foreground="#6C7280" Margin="8,4,0,0" VerticalAlignment="Center"/>
+                    <TextBlock Text="{DynamicResource App_HeaderTitle}" FontWeight="Bold" FontSize="16" Foreground="#FFE600" VerticalAlignment="Center"/>
+                    <TextBlock Text="{Binding AppVersion}" FlowDirection="LeftToRight" FontSize="11" Foreground="#6C7280" Margin="8,4,0,0" VerticalAlignment="Center"/>
                 </StackPanel>
 
                 <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
@@ -473,10 +474,10 @@
                             <TextBlock FontSize="12" Foreground="#D8DEE9">
                                 <TextBlock.Style>
                                     <Style TargetType="TextBlock">
-                                        <Setter Property="Text" Value="Pipe: Disconnected"/>
+                                        <Setter Property="Text" Value="{DynamicResource Status_PipeDisconnected}"/>
                                         <Style.Triggers>
                                             <DataTrigger Binding="{Binding IsPipeConnected}" Value="True">
-                                                <Setter Property="Text" Value="Pipe: Connected"/>
+                                                <Setter Property="Text" Value="{DynamicResource Status_PipeConnected}"/>
                                             </DataTrigger>
                                         </Style.Triggers>
                                     </Style>
@@ -509,7 +510,7 @@
         <!-- Main Tab Control -->
         <TabControl Grid.Row="1" Background="#111317" BorderBrush="#262B36" BorderThickness="0" Margin="16,12,16,8">
             <!-- TAB 1: TRANSLATION & LOGS -->
-            <TabItem Header="Translation &amp; Logs">
+            <TabItem Header="{DynamicResource Tab_TranslationAndLogs}">
                 <Grid Margin="0,12,0,0">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
@@ -526,19 +527,19 @@
                                 <ColumnDefinition Width="Auto"/>
                             </Grid.ColumnDefinitions>
 
-                            <TextBlock Grid.Column="0" Text="Target Language:" VerticalAlignment="Center" Margin="0,0,8,0" FontWeight="SemiBold"/>
+                            <TextBlock Grid.Column="0" Text="{DynamicResource Trans_TargetLanguage}" VerticalAlignment="Center" Margin="0,0,8,0" FontWeight="SemiBold"/>
                             <ComboBox Grid.Column="1" ItemsSource="{Binding AvailableLanguages}" SelectedItem="{Binding TargetLanguage}" Margin="0,0,16,0"/>
 
                             <WrapPanel Grid.Column="2" VerticalAlignment="Center">
-                                <CheckBox Content="Incoming Translation" IsChecked="{Binding IncomingEnabled}" Margin="0,0,16,0" VerticalAlignment="Center"/>
-                                <CheckBox Content="Outgoing Translation (&gt;&gt;)" IsChecked="{Binding OutgoingEnabled}" Margin="0,0,16,0" VerticalAlignment="Center"/>
-                                <CheckBox Content="Don't translate standard outgoing" IsChecked="{Binding DontTranslateStandardOutgoing}" ToolTip="When checked (default), your own messages that do not contain '&gt;&gt;' are not translated." Margin="0,0,16,0" VerticalAlignment="Center"/>
-                                <CheckBox Content="Don't translate incoming in target language" IsChecked="{Binding DontTranslateIncomingInTargetLanguage}" ToolTip="When checked (default), incoming teammate messages detected to already be in your target language are not injected as translations into in-game chat." Margin="0,0,16,0" VerticalAlignment="Center"/>
+                                <CheckBox Content="{DynamicResource Trans_IncomingTranslation}" IsChecked="{Binding IncomingEnabled}" Margin="0,0,16,0" VerticalAlignment="Center"/>
+                                <CheckBox Content="{DynamicResource Trans_OutgoingTranslation}" IsChecked="{Binding OutgoingEnabled}" Margin="0,0,16,0" VerticalAlignment="Center"/>
+                                <CheckBox Content="{DynamicResource Trans_DontTranslateStandardOutgoing}" IsChecked="{Binding DontTranslateStandardOutgoing}" ToolTip="{DynamicResource Trans_DontTranslateStandardOutgoing_Tooltip}" Margin="0,0,16,0" VerticalAlignment="Center"/>
+                                <CheckBox Content="{DynamicResource Trans_DontTranslateIncomingInTargetLanguage}" IsChecked="{Binding DontTranslateIncomingInTargetLanguage}" ToolTip="{DynamicResource Trans_DontTranslateIncomingInTargetLanguage_Tooltip}" Margin="0,0,16,0" VerticalAlignment="Center"/>
                             </WrapPanel>
 
                             <StackPanel Grid.Column="3" Orientation="Horizontal" VerticalAlignment="Center">
-                                <Button Content="Export Logs" Click="OnExportLogsClicked" Margin="0,0,8,0"/>
-                                <Button Content="Clear Logs" Click="OnClearLogsClicked"/>
+                                <Button Content="{DynamicResource Trans_Btn_ExportLogs}" Click="OnExportLogsClicked" Margin="0,0,8,0"/>
+                                <Button Content="{DynamicResource Trans_Btn_ClearLogs}" Click="OnClearLogsClicked"/>
                             </StackPanel>
                         </Grid>
                     </Border>
@@ -556,12 +557,12 @@
                               Foreground="#ECEFF4">
                         <DataGrid.ContextMenu>
                             <ContextMenu Style="{StaticResource LogsContextMenuStyle}">
-                                <MenuItem Header="Copy" InputGestureText="Ctrl+C" Style="{StaticResource LogsMenuItemStyle}" Click="OnCopyRowClicked"/>
-                                <MenuItem Header="Copy Formatted Line" Style="{StaticResource LogsMenuItemStyle}" Click="OnCopyFormattedLineClicked"/>
+                                <MenuItem Header="{DynamicResource Menu_Copy}" InputGestureText="Ctrl+C" Style="{StaticResource LogsMenuItemStyle}" Click="OnCopyRowClicked"/>
+                                <MenuItem Header="{DynamicResource Menu_CopyFormattedLine}" Style="{StaticResource LogsMenuItemStyle}" Click="OnCopyFormattedLineClicked"/>
                                 <Separator Style="{StaticResource LogsMenuSeparatorStyle}"/>
-                                <MenuItem Header="Copy Player Name" Style="{StaticResource LogsMenuItemStyle}" Click="OnCopyPlayerNameClicked"/>
-                                <MenuItem Header="Copy Original Message" Style="{StaticResource LogsMenuItemStyle}" Click="OnCopyOriginalMessageClicked"/>
-                                <MenuItem Header="Copy Translated Message" Style="{StaticResource LogsMenuItemStyle}" Click="OnCopyTranslatedMessageClicked"/>
+                                <MenuItem Header="{DynamicResource Menu_CopyPlayerName}" Style="{StaticResource LogsMenuItemStyle}" Click="OnCopyPlayerNameClicked"/>
+                                <MenuItem Header="{DynamicResource Menu_CopyOriginalMessage}" Style="{StaticResource LogsMenuItemStyle}" Click="OnCopyOriginalMessageClicked"/>
+                                <MenuItem Header="{DynamicResource Menu_CopyTranslatedMessage}" Style="{StaticResource LogsMenuItemStyle}" Click="OnCopyTranslatedMessageClicked"/>
                             </ContextMenu>
                         </DataGrid.ContextMenu>
                         <DataGrid.Resources>
@@ -605,16 +606,16 @@
                             </Style>
                         </DataGrid.Resources>
                         <DataGrid.Columns>
-                            <DataGridTextColumn Header="Time" Binding="{Binding Time}" Width="75" ElementStyle="{StaticResource LogTextColStyle}"/>
-                            <DataGridTemplateColumn Header="Player" Width="140" ClipboardContentBinding="{Binding Author}">
+                            <DataGridTextColumn Header="{DynamicResource Col_Time}" Binding="{Binding Time}" Width="75" ElementStyle="{StaticResource LogTextColStyle}"/>
+                            <DataGridTemplateColumn Header="{DynamicResource Col_Player}" Width="140" ClipboardContentBinding="{Binding Author}">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
                                         <TextBlock Text="{Binding Author}" FontWeight="Bold" Foreground="{Binding ColorHex}" VerticalAlignment="Center" Margin="4,0"/>
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
                             </DataGridTemplateColumn>
-                            <DataGridTextColumn Header="Detected" Binding="{Binding SourceLang}" Width="90" ElementStyle="{StaticResource LogTextColStyle}"/>
-                            <DataGridTemplateColumn Header="Original Message" Width="*" SortMemberPath="OriginalMessage" ClipboardContentBinding="{Binding OriginalMessage}">
+                            <DataGridTextColumn Header="{DynamicResource Col_Detected}" Binding="{Binding SourceLang}" Width="90" ElementStyle="{StaticResource LogTextColStyle}"/>
+                            <DataGridTemplateColumn Header="{DynamicResource Col_OriginalMessage}" Width="*" SortMemberPath="OriginalMessage" ClipboardContentBinding="{Binding OriginalMessage}">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
                                         <TextBlock controls:LinkAwareTextBlock.FormattedText="{Binding OriginalMessage}"
@@ -623,15 +624,15 @@
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
                             </DataGridTemplateColumn>
-                            <DataGridTextColumn Header="Translated Message" Binding="{Binding TranslatedMessage}" Width="*" ElementStyle="{StaticResource LogTextColStyle}"/>
-                            <DataGridTextColumn Header="Latency" Binding="{Binding Latency}" Width="70" ElementStyle="{StaticResource LogTextColStyle}"/>
+                            <DataGridTextColumn Header="{DynamicResource Col_TranslatedMessage}" Binding="{Binding TranslatedMessage}" Width="*" ElementStyle="{StaticResource LogTextColStyle}"/>
+                            <DataGridTextColumn Header="{DynamicResource Col_Latency}" Binding="{Binding Latency}" Width="70" ElementStyle="{StaticResource LogTextColStyle}"/>
                         </DataGrid.Columns>
                     </DataGrid>
                 </Grid>
             </TabItem>
 
             <!-- TAB 2: QUICK CHAT -->
-            <TabItem Header="Quick Chat">
+            <TabItem Header="{DynamicResource Tab_QuickChat}">
                 <Grid Margin="0,12,0,0">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
@@ -640,7 +641,7 @@
                         <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
 
-                    <TextBlock Grid.Row="0" Text="Bind pre-defined tactical callouts to hotkeys. These will be immediately broadcast to teammates in in-game chat."
+                    <TextBlock Grid.Row="0" Text="{DynamicResource QC_Description}"
                                Foreground="#A0A5B5" FontSize="12" Margin="0,0,0,10"/>
 
                     <!-- Host Welcome Message Card -->
@@ -659,14 +660,14 @@
                                 </Grid.ColumnDefinitions>
 
                                 <StackPanel Grid.Column="0" Orientation="Horizontal" VerticalAlignment="Center">
-                                    <TextBlock Text="Host Welcome Message" FontWeight="SemiBold" FontSize="13" Foreground="#FFFFFF" VerticalAlignment="Center"/>
+                                    <TextBlock Text="{DynamicResource QC_HostWelcomeTitle}" FontWeight="SemiBold" FontSize="13" Foreground="#FFFFFF" VerticalAlignment="Center"/>
                                     <Border Style="{StaticResource InfoIconStyle}" Margin="8,0,0,0"
-                                            ToolTip="Automatically sends this message to in-game chat when you are hosting and a guest player joins. If multiple players join in rapid succession, a 5-second debounce window ensures only one welcome message is sent.">
+                                            ToolTip="{DynamicResource QC_HostWelcome_Tooltip}">
                                         <TextBlock Style="{StaticResource InfoGlyphStyle}"/>
                                     </Border>
                                 </StackPanel>
 
-                                <CheckBox Grid.Column="1" Content="Enable Auto-Welcome" IsChecked="{Binding WelcomeMessageEnabled}" VerticalAlignment="Center"/>
+                                <CheckBox Grid.Column="1" Content="{DynamicResource QC_EnableAutoWelcome}" IsChecked="{Binding WelcomeMessageEnabled}" VerticalAlignment="Center"/>
                             </Grid>
 
                             <!-- Message Input Box with Character Counter & Test Send Button -->
@@ -680,7 +681,7 @@
                                     <TextBox Text="{Binding WelcomeMessageText, UpdateSourceTrigger=PropertyChanged}"
                                              MaxLength="300"
                                              Padding="6,6,58,6"
-                                             ToolTip="Message automatically broadcast when a guest joins your hosted match (up to 300 characters)"/>
+                                             ToolTip="{DynamicResource QC_WelcomeMessage_Tooltip}"/>
                                     <TextBlock Text="{Binding WelcomeMessageCharCountDisplay}"
                                                Foreground="{Binding WelcomeMessageCharCountColor}"
                                                FontSize="11"
@@ -691,7 +692,7 @@
                                                IsHitTestVisible="False"/>
                                 </Grid>
 
-                                <Button Grid.Column="1" Content="Test Send" Click="OnTestSendWelcomeMessageClicked" Padding="16,6"/>
+                                <Button Grid.Column="1" Content="{DynamicResource QC_Btn_TestSend}" Click="OnTestSendWelcomeMessageClicked" Padding="16,6"/>
                             </Grid>
                         </Grid>
                     </Border>
@@ -721,13 +722,13 @@
                                                     <ColumnDefinition Width="90"/>
                                                 </Grid.ColumnDefinitions>
 
-                                                <controls:ShortcutRecorder Grid.Column="0" Hotkey="{Binding Keybinding, Mode=TwoWay}" Margin="0,0,10,0"/>
+                                                <controls:ShortcutRecorder Grid.Column="0" Hotkey="{Binding Keybinding, Mode=TwoWay}" FlowDirection="LeftToRight" Margin="0,0,10,0"/>
                                                 
                                                 <Grid Grid.Column="1" Margin="0,0,10,0">
                                                     <TextBox Text="{Binding MessageText, UpdateSourceTrigger=PropertyChanged}"
                                                              MaxLength="300"
                                                              Padding="6,4,58,4"
-                                                             ToolTip="In-game chat message (up to 300 characters)"/>
+                                                             ToolTip="{DynamicResource QC_Message_Tooltip}"/>
                                                     <TextBlock Text="{Binding CharacterCountDisplay}"
                                                                Foreground="{Binding CharacterCountColor}"
                                                                FontSize="11"
@@ -738,9 +739,9 @@
                                                                IsHitTestVisible="False"/>
                                                 </Grid>
 
-                                                <CheckBox Grid.Column="2" Content="Active" IsChecked="{Binding IsEnabled}" VerticalAlignment="Center"/>
+                                                <CheckBox Grid.Column="2" Content="{DynamicResource QC_SlotActive}" IsChecked="{Binding IsEnabled}" VerticalAlignment="Center"/>
 
-                                                <Button Grid.Column="3" Content="Test Send" Tag="{Binding SlotId}" Click="OnTestSendMacroClicked"/>
+                                                <Button Grid.Column="3" Content="{DynamicResource QC_Btn_TestSend}" Tag="{Binding SlotId}" Click="OnTestSendMacroClicked"/>
                                             </Grid>
                                         </Border>
                                     </DataTemplate>
@@ -756,23 +757,22 @@
                             <ColumnDefinition Width="Auto"/>
                         </Grid.ColumnDefinitions>
                         <StackPanel Grid.Column="0" Orientation="Horizontal">
-                            <Button Content="Import Messages" Click="OnImportQuickChatClicked" Margin="0,0,8,0" Padding="14,8" ToolTip="Import Quick Chat messages from a JSON file (shortcuts and active states remain unchanged)"/>
-                            <Button Content="Export Messages" Click="OnExportQuickChatClicked" Padding="14,8" ToolTip="Export Quick Chat messages to a JSON file"/>
+                            <Button Content="{DynamicResource QC_Btn_ImportMessages}" Click="OnImportQuickChatClicked" Margin="0,0,8,0" Padding="14,8" ToolTip="{DynamicResource QC_Btn_ImportMessages_Tooltip}"/>
+                            <Button Content="{DynamicResource QC_Btn_ExportMessages}" Click="OnExportQuickChatClicked" Padding="14,8" ToolTip="{DynamicResource QC_Btn_ExportMessages_Tooltip}"/>
                         </StackPanel>
-                        <Button Grid.Column="2" Content="Save Quick Chat" Click="OnSaveMacrosClicked" Padding="16,8"/>
+                        <Button Grid.Column="2" Content="{DynamicResource QC_Btn_SaveQuickChat}" Click="OnSaveMacrosClicked" Padding="16,8"/>
                     </Grid>
                 </Grid>
             </TabItem>
 
-            <!-- TAB 3: SETTINGS & PROVIDERS -->
             <!-- TAB 3: SETTINGS -->
-            <TabItem Header="Settings">
+            <TabItem Header="{DynamicResource Tab_Settings}">
                 <ScrollViewer Margin="0,12,0,0" VerticalScrollBarVisibility="Auto">
                     <StackPanel Margin="0,0,10,0">
                         <!-- Group 1: General -->
                         <Border Background="#181B22" BorderBrush="#262B36" BorderThickness="1" CornerRadius="4" Padding="16" Margin="0,0,0,16">
                             <StackPanel>
-                                <TextBlock Text="General" FontSize="14" FontWeight="Bold" Foreground="#FFE600" Margin="0,0,0,14"/>
+                                <TextBlock Text="{DynamicResource Settings_General}" FontSize="14" FontWeight="Bold" Foreground="#FFE600" Margin="0,0,0,14"/>
 
                                 <Grid>
                                     <Grid.RowDefinitions>
@@ -787,39 +787,39 @@
 
                                     <!-- Saved Messages Limit -->
                                     <StackPanel Grid.Row="0" Grid.Column="0" Orientation="Horizontal" VerticalAlignment="Center" Margin="0,6">
-                                        <TextBlock Text="Saved Messages Limit:" Style="{StaticResource SettingLabelStyle}"/>
-                                        <Border Style="{StaticResource InfoIconStyle}" ToolTip="Limits persistent table chat logs on disk from 0 to 100 MB. Setting to 0 MB disables persistent chat logging to disk.">
+                                        <TextBlock Text="{DynamicResource Settings_SavedMessagesLimit}" Style="{StaticResource SettingLabelStyle}"/>
+                                        <Border Style="{StaticResource InfoIconStyle}" ToolTip="{DynamicResource Settings_SavedMessagesLimit_Tooltip}">
                                             <TextBlock Style="{StaticResource InfoGlyphStyle}"/>
                                         </Border>
                                     </StackPanel>
                                     <StackPanel Grid.Row="0" Grid.Column="1" Orientation="Horizontal" Margin="0,6" VerticalAlignment="Center">
                                         <Slider Width="180" Minimum="0" Maximum="100" TickFrequency="1" IsSnapToTickEnabled="True" Value="{Binding ChatHistoryLimitMb, Mode=TwoWay}" VerticalAlignment="Center"/>
-                                        <TextBlock Text="{Binding ChatHistoryLimitDisplay}" Width="85" Margin="12,0,0,0" VerticalAlignment="Center" FontWeight="Bold" Foreground="#FFE600"/>
-                                        <Button Content="Clear logs memory" Click="OnClearLogsMemoryClicked" Margin="16,0,0,0" Padding="10,4"/>
+                                        <TextBlock Text="{Binding ChatHistoryLimitDisplay}" Width="85" Margin="12,0,0,0" VerticalAlignment="Center" FontWeight="Bold" Foreground="#FFE600" FlowDirection="LeftToRight"/>
+                                        <Button Content="{DynamicResource Settings_Btn_ClearLogsMemory}" Click="OnClearLogsMemoryClicked" Margin="16,0,0,0" Padding="10,4"/>
                                     </StackPanel>
 
                                     <!-- Request Timeout -->
                                     <StackPanel Grid.Row="1" Grid.Column="0" Orientation="Horizontal" VerticalAlignment="Center" Margin="0,6">
-                                        <TextBlock Text="Request Timeout:" Style="{StaticResource SettingLabelStyle}"/>
-                                        <Border Style="{StaticResource InfoIconStyle}" ToolTip="Maximum wait time for AI provider translation responses before timing out (1 to 15 seconds).">
+                                        <TextBlock Text="{DynamicResource Settings_RequestTimeout}" Style="{StaticResource SettingLabelStyle}"/>
+                                        <Border Style="{StaticResource InfoIconStyle}" ToolTip="{DynamicResource Settings_RequestTimeout_Tooltip}">
                                             <TextBlock Style="{StaticResource InfoGlyphStyle}"/>
                                         </Border>
                                     </StackPanel>
                                     <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Horizontal" Margin="0,6">
                                         <Slider Width="200" Minimum="1" Maximum="15" Value="{Binding TimeoutSeconds}" VerticalAlignment="Center"/>
-                                        <TextBlock Text="{Binding TimeoutSeconds, StringFormat='{}{0:F1}s'}" Margin="12,0,0,0" VerticalAlignment="Center" FontWeight="Bold" Foreground="#FFE600"/>
+                                        <TextBlock Text="{Binding TimeoutSeconds, StringFormat='{}{0:F1}s'}" Margin="12,0,0,0" VerticalAlignment="Center" FontWeight="Bold" Foreground="#FFE600" FlowDirection="LeftToRight"/>
                                     </StackPanel>
 
                                     <!-- Diagnostic Logs -->
                                     <StackPanel Grid.Row="2" Grid.Column="0" Orientation="Horizontal" VerticalAlignment="Center" Margin="0,6">
-                                        <TextBlock Text="Diagnostic Logs:" Style="{StaticResource SettingLabelStyle}"/>
-                                        <Border Style="{StaticResource InfoIconStyle}" ToolTip="Enable file logging to app.log, hook.log, and injector.log in AppData for troubleshooting.">
+                                        <TextBlock Text="{DynamicResource Settings_DiagnosticLogs}" Style="{StaticResource SettingLabelStyle}"/>
+                                        <Border Style="{StaticResource InfoIconStyle}" ToolTip="{DynamicResource Settings_DiagnosticLogs_Tooltip}">
                                             <TextBlock Style="{StaticResource InfoGlyphStyle}"/>
                                         </Border>
                                     </StackPanel>
                                     <StackPanel Grid.Row="2" Grid.Column="1" Orientation="Horizontal" Margin="0,6" VerticalAlignment="Center">
-                                        <CheckBox Content="Enable File Logging (app.log, hook.log, injector.log)" IsChecked="{Binding DebugLoggingEnabled}" VerticalAlignment="Center" Foreground="#E0E0E0"/>
-                                        <Button Content="Open Logs Folder" Click="OnOpenLogsClicked" Margin="16,0,0,0" Padding="10,4"/>
+                                        <CheckBox Content="{DynamicResource Settings_EnableFileLogging}" IsChecked="{Binding DebugLoggingEnabled}" VerticalAlignment="Center" Foreground="#E0E0E0"/>
+                                        <Button Content="{DynamicResource Settings_Btn_OpenLogsFolder}" Click="OnOpenLogsClicked" Margin="16,0,0,0" Padding="10,4"/>
                                     </StackPanel>
                                 </Grid>
                             </StackPanel>
@@ -828,7 +828,7 @@
                         <!-- Group 2: Global Shortcuts -->
                         <Border Background="#181B22" BorderBrush="#262B36" BorderThickness="1" CornerRadius="4" Padding="16" Margin="0,0,0,16">
                             <StackPanel>
-                                <TextBlock Text="Global Shortcuts" FontSize="14" FontWeight="Bold" Foreground="#FFE600" Margin="0,0,0,14"/>
+                                <TextBlock Text="{DynamicResource Settings_GlobalShortcuts}" FontSize="14" FontWeight="Bold" Foreground="#FFE600" Margin="0,0,0,14"/>
 
                                 <Grid>
                                     <Grid.RowDefinitions>
@@ -844,47 +844,47 @@
 
                                     <!-- Global Pause/Resume Shortcut -->
                                     <StackPanel Grid.Row="0" Grid.Column="0" Orientation="Horizontal" VerticalAlignment="Center" Margin="0,6">
-                                        <TextBlock Text="Pause/Resume Shortcut:" Style="{StaticResource SettingLabelStyle}"/>
-                                        <Border Style="{StaticResource InfoIconStyle}" ToolTip="Master shortcut to pause or resume both Translation and Quick Chat simultaneously.">
+                                        <TextBlock Text="{DynamicResource Settings_PauseResumeShortcut}" Style="{StaticResource SettingLabelStyle}"/>
+                                        <Border Style="{StaticResource InfoIconStyle}" ToolTip="{DynamicResource Settings_PauseResumeShortcut_Tooltip}">
                                             <TextBlock Style="{StaticResource InfoGlyphStyle}"/>
                                         </Border>
                                     </StackPanel>
                                     <StackPanel Grid.Row="0" Grid.Column="1" Orientation="Horizontal" Margin="0,6">
-                                        <controls:ShortcutRecorder Hotkey="{Binding PauseHotkey, Mode=TwoWay}" Width="160"/>
+                                        <controls:ShortcutRecorder Hotkey="{Binding PauseHotkey, Mode=TwoWay}" Width="160" FlowDirection="LeftToRight"/>
                                     </StackPanel>
 
                                     <!-- Toggle Translation Shortcut -->
                                     <StackPanel Grid.Row="1" Grid.Column="0" Orientation="Horizontal" VerticalAlignment="Center" Margin="0,6">
-                                        <TextBlock Text="Toggle Translation Shortcut:" Style="{StaticResource SettingLabelStyle}"/>
-                                        <Border Style="{StaticResource InfoIconStyle}" ToolTip="Shortcut to toggle only chat translation on or off without affecting Quick Chat.">
+                                        <TextBlock Text="{DynamicResource Settings_ToggleTranslationShortcut}" Style="{StaticResource SettingLabelStyle}"/>
+                                        <Border Style="{StaticResource InfoIconStyle}" ToolTip="{DynamicResource Settings_ToggleTranslationShortcut_Tooltip}">
                                             <TextBlock Style="{StaticResource InfoGlyphStyle}"/>
                                         </Border>
                                     </StackPanel>
                                     <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Horizontal" Margin="0,6">
-                                        <controls:ShortcutRecorder Hotkey="{Binding ToggleTranslationHotkey, Mode=TwoWay}" Width="160"/>
+                                        <controls:ShortcutRecorder Hotkey="{Binding ToggleTranslationHotkey, Mode=TwoWay}" Width="160" FlowDirection="LeftToRight"/>
                                     </StackPanel>
 
                                     <!-- Toggle Quick Chat Shortcut -->
                                     <StackPanel Grid.Row="2" Grid.Column="0" Orientation="Horizontal" VerticalAlignment="Center" Margin="0,6">
-                                        <TextBlock Text="Toggle Quick Chat Shortcut:" Style="{StaticResource SettingLabelStyle}"/>
-                                        <Border Style="{StaticResource InfoIconStyle}" ToolTip="Shortcut to toggle only tactical Quick Chat messages on or off without affecting Translation.">
+                                        <TextBlock Text="{DynamicResource Settings_ToggleQuickChatShortcut}" Style="{StaticResource SettingLabelStyle}"/>
+                                        <Border Style="{StaticResource InfoIconStyle}" ToolTip="{DynamicResource Settings_ToggleQuickChatShortcut_Tooltip}">
                                             <TextBlock Style="{StaticResource InfoGlyphStyle}"/>
                                         </Border>
                                     </StackPanel>
                                     <StackPanel Grid.Row="2" Grid.Column="1" Orientation="Horizontal" Margin="0,6">
-                                        <controls:ShortcutRecorder Hotkey="{Binding ToggleQuickChatHotkey, Mode=TwoWay}" Width="160"/>
+                                        <controls:ShortcutRecorder Hotkey="{Binding ToggleQuickChatHotkey, Mode=TwoWay}" Width="160" FlowDirection="LeftToRight"/>
                                     </StackPanel>
 
                                     <!-- Quick Chat Overlay Shortcut -->
                                     <StackPanel Grid.Row="3" Grid.Column="0" Orientation="Horizontal" VerticalAlignment="Center" Margin="0,6">
-                                        <TextBlock Text="Quick Chat Overlay Shortcut:" Style="{StaticResource SettingLabelStyle}"/>
-                                        <Border Style="{StaticResource InfoIconStyle}" ToolTip="Shortcut to toggle the on-screen tactical callouts overlay. Note: Helldivers must be running in Borderless Fullscreen (or Windowed) mode for the overlay to appear over the game.">
+                                        <TextBlock Text="{DynamicResource Settings_QuickChatOverlayShortcut}" Style="{StaticResource SettingLabelStyle}"/>
+                                        <Border Style="{StaticResource InfoIconStyle}" ToolTip="{DynamicResource Settings_QuickChatOverlayShortcut_Tooltip}">
                                             <TextBlock Style="{StaticResource InfoGlyphStyle}"/>
                                         </Border>
                                     </StackPanel>
                                     <StackPanel Grid.Row="3" Grid.Column="1" Orientation="Horizontal" Margin="0,6" VerticalAlignment="Center">
-                                        <controls:ShortcutRecorder Hotkey="{Binding QuickChatOverlayHotkey, Mode=TwoWay}" Width="160"/>
-                                        <Button Content="Test Overlay" Click="OnTestQuickChatOverlayClicked" Margin="12,0,0,0" Padding="10,4"/>
+                                        <controls:ShortcutRecorder Hotkey="{Binding QuickChatOverlayHotkey, Mode=TwoWay}" Width="160" FlowDirection="LeftToRight"/>
+                                        <Button Content="{DynamicResource Settings_Btn_TestOverlay}" Click="OnTestQuickChatOverlayClicked" Margin="12,0,0,0" Padding="10,4"/>
                                     </StackPanel>
                                 </Grid>
                             </StackPanel>
@@ -893,7 +893,7 @@
                         <!-- Group 3: Display -->
                         <Border Background="#181B22" BorderBrush="#262B36" BorderThickness="1" CornerRadius="4" Padding="16" Margin="0,0,0,16">
                             <StackPanel>
-                                <TextBlock Text="Display" FontSize="14" FontWeight="Bold" Foreground="#FFE600" Margin="0,0,0,14"/>
+                                <TextBlock Text="{DynamicResource Settings_Display}" FontSize="14" FontWeight="Bold" Foreground="#FFE600" Margin="0,0,0,14"/>
 
                                 <Grid>
                                     <Grid.RowDefinitions>
@@ -910,42 +910,42 @@
 
                                     <!-- On-Screen Toast Notifications -->
                                     <StackPanel Grid.Row="0" Grid.Column="0" Orientation="Horizontal" VerticalAlignment="Center" Margin="0,6">
-                                        <TextBlock Text="Toast Notifications:" Style="{StaticResource SettingLabelStyle}"/>
-                                        <Border Style="{StaticResource InfoIconStyle}" ToolTip="Show on-screen popups for Pause/Resume, errors, and system tray events without losing game focus.">
+                                        <TextBlock Text="{DynamicResource Settings_ToastNotifications}" Style="{StaticResource SettingLabelStyle}"/>
+                                        <Border Style="{StaticResource InfoIconStyle}" ToolTip="{DynamicResource Settings_ToastNotifications_Tooltip}">
                                             <TextBlock Style="{StaticResource InfoGlyphStyle}"/>
                                         </Border>
                                     </StackPanel>
                                     <StackPanel Grid.Row="0" Grid.Column="1" Orientation="Horizontal" Margin="0,6" VerticalAlignment="Center">
-                                        <CheckBox Content="Enable On-Screen Toast Overlay" IsChecked="{Binding ShowToastOverlay, Mode=TwoWay}" VerticalAlignment="Center" Foreground="#E0E0E0" FontWeight="SemiBold"/>
-                                        <Button Content="Test Notification" Click="OnTestToastClicked" Margin="16,0,0,0" Padding="10,4" ToolTip="Preview on-screen toast notification"/>
+                                        <CheckBox Content="{DynamicResource Settings_EnableToastOverlay}" IsChecked="{Binding ShowToastOverlay, Mode=TwoWay}" VerticalAlignment="Center" Foreground="#E0E0E0" FontWeight="SemiBold"/>
+                                        <Button Content="{DynamicResource Settings_Btn_TestNotification}" Click="OnTestToastClicked" Margin="16,0,0,0" Padding="10,4" ToolTip="{DynamicResource Settings_Btn_TestNotification_Tooltip}"/>
                                     </StackPanel>
 
                                     <!-- Toast Position -->
                                     <StackPanel Grid.Row="1" Grid.Column="0" Orientation="Horizontal" VerticalAlignment="Center" Margin="0,6">
-                                        <TextBlock Text="Toast Position:" Style="{StaticResource SettingLabelStyle}"/>
-                                        <Border Style="{StaticResource InfoIconStyle}" ToolTip="Click button to open the 9-point screen anchor modal and choose where toast popups appear.">
+                                        <TextBlock Text="{DynamicResource Settings_ToastPosition}" Style="{StaticResource SettingLabelStyle}"/>
+                                        <Border Style="{StaticResource InfoIconStyle}" ToolTip="{DynamicResource Settings_ToastPosition_Tooltip}">
                                             <TextBlock Style="{StaticResource InfoGlyphStyle}"/>
                                         </Border>
                                     </StackPanel>
                                     <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Horizontal" Margin="0,6" VerticalAlignment="Center">
-                                        <Button Content="{Binding ToastPositionDisplay}" Click="OnSelectToastPositionClicked" Padding="14,4" MinWidth="130" ToolTip="Configure anchor position on screen for toasts"/>
+                                        <Button Content="{Binding ToastPositionDisplay}" Click="OnSelectToastPositionClicked" Padding="14,4" MinWidth="130" ToolTip="{DynamicResource Settings_Btn_ConfigureToastPosition_Tooltip}"/>
                                     </StackPanel>
 
                                     <!-- Quick Chat Overlay Position -->
                                     <StackPanel Grid.Row="2" Grid.Column="0" Orientation="Horizontal" VerticalAlignment="Center" Margin="0,6">
-                                        <TextBlock Text="Quick Chat Position:" Style="{StaticResource SettingLabelStyle}"/>
-                                        <Border Style="{StaticResource InfoIconStyle}" ToolTip="Click button to open the 9-point screen anchor modal and choose where the tactical Quick Chat overlay appears.">
+                                        <TextBlock Text="{DynamicResource Settings_QuickChatPosition}" Style="{StaticResource SettingLabelStyle}"/>
+                                        <Border Style="{StaticResource InfoIconStyle}" ToolTip="{DynamicResource Settings_QuickChatPosition_Tooltip}">
                                             <TextBlock Style="{StaticResource InfoGlyphStyle}"/>
                                         </Border>
                                     </StackPanel>
                                     <StackPanel Grid.Row="2" Grid.Column="1" Orientation="Horizontal" Margin="0,6" VerticalAlignment="Center">
-                                        <Button Content="{Binding QuickChatOverlayPositionDisplay}" Click="OnSelectQuickChatPositionClicked" Padding="14,4" MinWidth="130" ToolTip="Configure anchor position on screen for Quick Chat overlay"/>
+                                        <Button Content="{Binding QuickChatOverlayPositionDisplay}" Click="OnSelectQuickChatPositionClicked" Padding="14,4" MinWidth="130" ToolTip="{DynamicResource Settings_Btn_ConfigureQuickChatPosition_Tooltip}"/>
                                     </StackPanel>
 
                                     <!-- Overlay & Toast Size -->
                                     <StackPanel Grid.Row="3" Grid.Column="0" Orientation="Horizontal" VerticalAlignment="Center" Margin="0,6">
-                                        <TextBlock Text="Overlay &amp; Toast Size:" Style="{StaticResource SettingLabelStyle}"/>
-                                        <Border Style="{StaticResource InfoIconStyle}" ToolTip="Visual scale percentage for on-screen toasts and Quick Chat overlay (50% to 200%). Sliding shows a 2-second idle preview.">
+                                        <TextBlock Text="{DynamicResource Settings_OverlayAndToastSize}" Style="{StaticResource SettingLabelStyle}"/>
+                                        <Border Style="{StaticResource InfoIconStyle}" ToolTip="{DynamicResource Settings_OverlayAndToastSize_Tooltip}">
                                             <TextBlock Style="{StaticResource InfoGlyphStyle}"/>
                                         </Border>
                                     </StackPanel>
@@ -954,13 +954,13 @@
                                                 Value="{Binding OverlayScalePercent, Mode=TwoWay}" 
                                                 PreviewMouseLeftButtonDown="OnOverlaySliderMouseDown"
                                                 VerticalAlignment="Center"/>
-                                        <TextBlock Text="{Binding OverlayScaleDisplay}" Width="120" Margin="12,0,0,0" VerticalAlignment="Center" FontWeight="Bold" Foreground="#FFE600"/>
+                                        <TextBlock Text="{Binding OverlayScaleDisplay}" Width="120" Margin="12,0,0,0" VerticalAlignment="Center" FontWeight="Bold" Foreground="#FFE600" FlowDirection="LeftToRight"/>
                                     </StackPanel>
 
                                     <!-- Target Display -->
                                     <StackPanel Grid.Row="4" Grid.Column="0" Orientation="Horizontal" VerticalAlignment="Center" Margin="0,6">
-                                        <TextBlock Text="Target Display:" Style="{StaticResource SettingLabelStyle}"/>
-                                        <Border Style="{StaticResource InfoIconStyle}" ToolTip="Select which monitor overlays appear on. 'Auto' dynamically follows the Helldivers game window.">
+                                        <TextBlock Text="{DynamicResource Settings_TargetDisplay}" Style="{StaticResource SettingLabelStyle}"/>
+                                        <Border Style="{StaticResource InfoIconStyle}" ToolTip="{DynamicResource Settings_TargetDisplay_Tooltip}">
                                             <TextBlock Style="{StaticResource InfoGlyphStyle}"/>
                                         </Border>
                                     </StackPanel>
@@ -974,7 +974,7 @@
                         <!-- Group 4: AI Translation Provider -->
                         <Border Background="#181B22" BorderBrush="#262B36" BorderThickness="1" CornerRadius="4" Padding="16" Margin="0,0,0,16">
                             <StackPanel>
-                                <TextBlock Text="AI Translation Provider" FontSize="14" FontWeight="Bold" Foreground="#FFE600" Margin="0,0,0,14"/>
+                                <TextBlock Text="{DynamicResource Settings_AiTranslationProvider}" FontSize="14" FontWeight="Bold" Foreground="#FFE600" Margin="0,0,0,14"/>
 
                                 <Grid Margin="0,0,0,0">
                                     <Grid.RowDefinitions>
@@ -989,23 +989,23 @@
 
                                     <!-- Provider Selection Dropdown -->
                                     <StackPanel Grid.Row="0" Grid.Column="0" Orientation="Horizontal" VerticalAlignment="Center" Margin="0,6">
-                                        <TextBlock Text="Translation Provider:" Style="{StaticResource SettingLabelStyle}"/>
-                                        <Border Style="{StaticResource InfoIconStyle}" ToolTip="Select the active AI translation engine. Currently Google Gemini is supported; other providers coming soon.">
+                                        <TextBlock Text="{DynamicResource Settings_TranslationProvider}" Style="{StaticResource SettingLabelStyle}"/>
+                                        <Border Style="{StaticResource InfoIconStyle}" ToolTip="{DynamicResource Settings_TranslationProvider_Tooltip}">
                                             <TextBlock Style="{StaticResource InfoGlyphStyle}"/>
                                         </Border>
                                     </StackPanel>
                                     <ComboBox Grid.Row="0" Grid.Column="1" Width="260" HorizontalAlignment="Left" Margin="0,6" SelectedIndex="0">
-                                        <ComboBoxItem Content="Google Gemini (Active)" IsSelected="True"/>
-                                        <ComboBoxItem Content="OpenAI ChatGPT (Coming Soon)" IsEnabled="False"/>
-                                        <ComboBoxItem Content="Anthropic Claude (Coming Soon)" IsEnabled="False"/>
-                                        <ComboBoxItem Content="DeepSeek (Coming Soon)" IsEnabled="False"/>
-                                        <ComboBoxItem Content="Self-host (Coming Soon)" IsEnabled="False"/>
+                                        <ComboBoxItem Content="{DynamicResource Provider_GeminiActive}" IsSelected="True"/>
+                                        <ComboBoxItem Content="{DynamicResource Provider_OpenAiComingSoon}" IsEnabled="False"/>
+                                        <ComboBoxItem Content="{DynamicResource Provider_ClaudeComingSoon}" IsEnabled="False"/>
+                                        <ComboBoxItem Content="{DynamicResource Provider_DeepSeekComingSoon}" IsEnabled="False"/>
+                                        <ComboBoxItem Content="{DynamicResource Provider_SelfHostComingSoon}" IsEnabled="False"/>
                                     </ComboBox>
 
                                     <!-- Gemini API Key -->
                                     <StackPanel Grid.Row="1" Grid.Column="0" Orientation="Horizontal" VerticalAlignment="Center" Margin="0,6">
-                                        <TextBlock Text="Google Gemini API Key:" Style="{StaticResource SettingLabelStyle}"/>
-                                        <Border Style="{StaticResource InfoIconStyle}" ToolTip="Your Google Gemini API key. Stored encrypted on disk and never logged.">
+                                        <TextBlock Text="{DynamicResource Settings_GeminiApiKey}" Style="{StaticResource SettingLabelStyle}"/>
+                                        <Border Style="{StaticResource InfoIconStyle}" ToolTip="{DynamicResource Settings_GeminiApiKey_Tooltip}">
                                             <TextBlock Style="{StaticResource InfoGlyphStyle}"/>
                                         </Border>
                                     </StackPanel>
@@ -1016,13 +1016,13 @@
                                         </Grid.ColumnDefinitions>
                                         <PasswordBox x:Name="GeminiPasswordBox" PasswordChanged="OnGeminiPasswordChanged" Background="#191B22" Foreground="#FFFFFF" BorderBrush="#2D323F" Padding="6,4"/>
                                         <TextBox x:Name="GeminiPlainTextBox" Visibility="Collapsed" Text="{Binding GeminiApiKey, UpdateSourceTrigger=PropertyChanged}" Background="#191B22" Foreground="#FFFFFF" BorderBrush="#2D323F" Padding="6,4"/>
-                                        <Button Grid.Column="1" x:Name="BtnShowHideKey" Content="Show" Click="OnToggleShowApiKeyClicked" Margin="6,0,0,0" Padding="8,4"/>
+                                        <Button Grid.Column="1" x:Name="BtnShowHideKey" Content="{DynamicResource Settings_Btn_Show}" Click="OnToggleShowApiKeyClicked" Margin="6,0,0,0" Padding="8,4"/>
                                     </Grid>
 
                                     <!-- Gemini Model -->
                                     <StackPanel Grid.Row="2" Grid.Column="0" Orientation="Horizontal" VerticalAlignment="Center" Margin="0,6">
-                                        <TextBlock Text="Gemini Model:" Style="{StaticResource SettingLabelStyle}"/>
-                                        <Border Style="{StaticResource InfoIconStyle}" ToolTip="Gemini model identifier to use for translations (e.g. gemini-flash-lite-latest).">
+                                        <TextBlock Text="{DynamicResource Settings_GeminiModel}" Style="{StaticResource SettingLabelStyle}"/>
+                                        <Border Style="{StaticResource InfoIconStyle}" ToolTip="{DynamicResource Settings_GeminiModel_Tooltip}">
                                             <TextBlock Style="{StaticResource InfoGlyphStyle}"/>
                                         </Border>
                                     </StackPanel>
@@ -1036,7 +1036,7 @@
                                         <ColumnDefinition Width="Auto"/>
                                     </Grid.ColumnDefinitions>
                                     <TextBlock Grid.Column="0" Text="{Binding TestApiStatus}" VerticalAlignment="Center" HorizontalAlignment="Right" Foreground="#FFE600" TextWrapping="Wrap" Margin="0,0,12,0"/>
-                                    <Button Grid.Column="1" Content="Test API Connection" Click="OnTestApiClicked" Padding="14,6"/>
+                                    <Button Grid.Column="1" Content="{DynamicResource Settings_Btn_TestApiConnection}" Click="OnTestApiClicked" Padding="14,6"/>
                                 </Grid>
                             </StackPanel>
                         </Border>
@@ -1049,11 +1049,11 @@
                                 <ColumnDefinition Width="Auto"/>
                             </Grid.ColumnDefinitions>
 
-                            <Button Grid.Column="0" Content="Reset All Settings" Click="OnResetAllSettingsClicked"
+                            <Button Grid.Column="0" Content="{DynamicResource Settings_Btn_ResetAllSettings}" Click="OnResetAllSettingsClicked"
                                     Background="#221C20" BorderBrush="#4A2A2E" Foreground="#FF9999"
-                                    Padding="14,8" ToolTip="Reset all settings across Translation &amp; Logs and Settings tabs back to their default values"/>
+                                    Padding="14,8" ToolTip="{DynamicResource Settings_Btn_ResetAllSettings_Tooltip}"/>
 
-                            <Button Grid.Column="2" Content="Save All Settings" Click="OnSaveSettingsClicked"
+                            <Button Grid.Column="2" Content="{DynamicResource Settings_Btn_SaveAllSettings}" Click="OnSaveSettingsClicked"
                                     Padding="16,8"/>
                         </Grid>
                     </StackPanel>
@@ -1068,7 +1068,7 @@
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
-                <TextBlock Grid.Column="0" Text="Helldivers (2015) | Tactical Translation &amp; Quick Chat Assistant" FontSize="11" Foreground="#555C6D" VerticalAlignment="Center"/>
+                <TextBlock Grid.Column="0" Text="{DynamicResource App_FooterDescription}" FontSize="11" Foreground="#555C6D" VerticalAlignment="Center"/>
                 <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center">
                     <TextBlock FontSize="11" Margin="0,0,16,0" VerticalAlignment="Center">
                         <Hyperlink Click="OnOpenLogsClicked" Foreground="#8B949E" TextDecorations="None" Cursor="Hand">
@@ -1082,7 +1082,7 @@
                                     </Style.Triggers>
                                 </Style>
                             </Hyperlink.Style>
-                            Logs
+                            <Run Text="{DynamicResource App_FooterLogs}"/>
                         </Hyperlink>
                     </TextBlock>
                     <TextBlock FontSize="11" VerticalAlignment="Center">
@@ -1097,7 +1097,7 @@
                                     </Style.Triggers>
                                 </Style>
                             </Hyperlink.Style>
-                            About
+                            <Run Text="{DynamicResource App_FooterAbout}"/>
                         </Hyperlink>
                     </TextBlock>
                 </StackPanel>

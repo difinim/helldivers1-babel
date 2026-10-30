@@ -44,6 +44,14 @@ public partial class MainWindow : Window
         RestoreWindowConfiguration();
         RestoreLogColumnWidths();
 
+        LocalizationService.Instance.LanguageChanged += (_, _) =>
+        {
+            Dispatcher.Invoke(() =>
+            {
+                BtnShowHideKey.Content = LocalizationService.Instance.GetString(_isKeyVisible ? "Settings_Btn_Hide" : "Settings_Btn_Show");
+            });
+        };
+
         Loaded += OnWindowLoaded;
         Closing += OnWindowClosing;
         StateChanged += OnWindowStateChanged;
@@ -277,13 +285,13 @@ public partial class MainWindow : Window
             {
                 string text = _viewModel.GenerateLogsExportText();
                 System.IO.File.WriteAllText(sfd.FileName, text, System.Text.Encoding.UTF8);
-                MessageBox.Show(this, $"Chat logs exported successfully to:\n{sfd.FileName}", "Export Chat Logs", MessageBoxButton.OK, MessageBoxImage.Information);
+                MessageBox.Show(this, LocalizationService.Instance.Format("Msg_LogsExportSuccess", sfd.FileName), LocalizationService.Instance.GetString("Msg_LogsExportTitle"), MessageBoxButton.OK, MessageBoxImage.Information);
             }
         }
         catch (Exception ex)
         {
             BabelLog.Error("MainWindow", "Failed to export chat logs", ex);
-            MessageBox.Show(this, $"Failed to export chat logs:\n{ex.Message}", "Export Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            MessageBox.Show(this, LocalizationService.Instance.Format("Msg_LogsExportError", ex.Message), LocalizationService.Instance.GetString("Msg_LogsExportErrorTitle"), MessageBoxButton.OK, MessageBoxImage.Error);
         }
     }
 
@@ -423,15 +431,15 @@ public partial class MainWindow : Window
     {
         var result = MessageBox.Show(
             this,
-            "Are you sure you want to clear all persistent chat logs from memory and disk?\n\nThis will permanently delete the saved message history.",
-            "Clear Logs Memory",
+            LocalizationService.Instance.GetString("Msg_ClearPersistentConfirm"),
+            LocalizationService.Instance.GetString("Msg_ClearLogsMemoryTitle"),
             MessageBoxButton.YesNo,
             MessageBoxImage.Warning);
 
         if (result == MessageBoxResult.Yes)
         {
             await _viewModel.ClearPersistentLogsAsync();
-            MessageBox.Show(this, "Persistent chat logs have been cleared successfully.", "Clear Logs Memory", MessageBoxButton.OK, MessageBoxImage.Information);
+            MessageBox.Show(this, LocalizationService.Instance.GetString("Msg_ClearPersistentSuccess"), LocalizationService.Instance.GetString("Msg_ClearLogsMemoryTitle"), MessageBoxButton.OK, MessageBoxImage.Information);
         }
     }
 
@@ -478,11 +486,11 @@ public partial class MainWindow : Window
                 int count = _viewModel.ImportQuickChatMessagesJson(json);
                 _hotkeyService?.RegisterMacroHotkeys(_viewModel.Config.QuickChatMacros);
 
-                ToastNotificationService.Show("Quick Chat", $"Imported {count} message(s) successfully", ToastType.Success);
+                ToastNotificationService.Show("Quick Chat", LocalizationService.Instance.Format("Toast_QcImported", count), ToastType.Success);
                 MessageBox.Show(
                     this,
-                    $"Successfully imported {count} Quick Chat message(s)!\n\nNote: Shortcuts and active states were preserved.",
-                    "Import Quick Chat Messages",
+                    LocalizationService.Instance.Format("Msg_QcImportSuccess", count),
+                    LocalizationService.Instance.GetString("Msg_QcImportTitle"),
                     MessageBoxButton.OK,
                     MessageBoxImage.Information);
             }
@@ -492,8 +500,8 @@ public partial class MainWindow : Window
             BabelLog.Error("MainWindow", "Failed to import quick chat messages", ex);
             MessageBox.Show(
                 this,
-                $"Failed to import quick chat messages:\n{ex.Message}",
-                "Import Error",
+                LocalizationService.Instance.Format("Msg_QcImportError", ex.Message),
+                LocalizationService.Instance.GetString("Msg_QcImportTitle"),
                 MessageBoxButton.OK,
                 MessageBoxImage.Error);
         }
@@ -505,7 +513,7 @@ public partial class MainWindow : Window
         {
             var sfd = new Microsoft.Win32.SaveFileDialog
             {
-                Title = "Export Quick Chat Messages",
+                Title = LocalizationService.Instance.GetString("Msg_QcExportTitle"),
                 Filter = "JSON Files (*.json)|*.json|All Files (*.*)|*.*",
                 DefaultExt = ".json",
                 FileName = $"QuickChat_Messages_{DateTime.Now:yyyyMMdd_HHmmss}.json"
@@ -516,11 +524,11 @@ public partial class MainWindow : Window
                 string json = _viewModel.ExportQuickChatMessagesJson();
                 System.IO.File.WriteAllText(sfd.FileName, json, System.Text.Encoding.UTF8);
 
-                ToastNotificationService.Show("Quick Chat", "Messages exported successfully", ToastType.Success);
+                ToastNotificationService.Show("Quick Chat", LocalizationService.Instance.GetString("Toast_QcExported"), ToastType.Success);
                 MessageBox.Show(
                     this,
-                    $"Quick Chat messages exported successfully to:\n{sfd.FileName}",
-                    "Export Quick Chat Messages",
+                    LocalizationService.Instance.Format("Msg_QcExportSuccess", sfd.FileName),
+                    LocalizationService.Instance.GetString("Msg_QcExportTitle"),
                     MessageBoxButton.OK,
                     MessageBoxImage.Information);
             }
@@ -530,8 +538,8 @@ public partial class MainWindow : Window
             BabelLog.Error("MainWindow", "Failed to export quick chat messages", ex);
             MessageBox.Show(
                 this,
-                $"Failed to export quick chat messages:\n{ex.Message}",
-                "Export Error",
+                LocalizationService.Instance.Format("Msg_QcExportError", ex.Message),
+                LocalizationService.Instance.GetString("Msg_QcExportTitle"),
                 MessageBoxButton.OK,
                 MessageBoxImage.Error);
         }
@@ -543,7 +551,7 @@ public partial class MainWindow : Window
         _hotkeyService?.RegisterMacroHotkeys(_viewModel.Config.QuickChatMacros);
         _hotkeyService?.RegisterQuickChatOverlayHotkey(_viewModel.QuickChatOverlayHotkey);
         _hotkeyService?.RegisterToggleQuickChatHotkey(_viewModel.ToggleQuickChatHotkey);
-        MessageBox.Show(this, "Quick Chat settings saved and hotkeys updated!", "Babel", MessageBoxButton.OK, MessageBoxImage.Information);
+        MessageBox.Show(this, LocalizationService.Instance.GetString("Msg_QcSaved"), "Babel", MessageBoxButton.OK, MessageBoxImage.Information);
     }
 
     private void OnTestQuickChatOverlayClicked(object sender, RoutedEventArgs e)
@@ -568,14 +576,14 @@ public partial class MainWindow : Window
             GeminiPlainTextBox.Text = GeminiPasswordBox.Password;
             GeminiPasswordBox.Visibility = Visibility.Collapsed;
             GeminiPlainTextBox.Visibility = Visibility.Visible;
-            BtnShowHideKey.Content = "Hide";
+            BtnShowHideKey.Content = LocalizationService.Instance.GetString("Settings_Btn_Hide");
         }
         else
         {
             GeminiPasswordBox.Password = GeminiPlainTextBox.Text;
             GeminiPlainTextBox.Visibility = Visibility.Collapsed;
             GeminiPasswordBox.Visibility = Visibility.Visible;
-            BtnShowHideKey.Content = "Show";
+            BtnShowHideKey.Content = LocalizationService.Instance.GetString("Settings_Btn_Show");
         }
     }
 
@@ -592,7 +600,7 @@ public partial class MainWindow : Window
     private void OnSelectToastPositionClicked(object sender, RoutedEventArgs e)
     {
         var dialog = new Views.PositionSelectorDialog(
-            "Configure Toast Position",
+            LocalizationService.Instance.GetString("PosSelect_ConfigureToastTitle"),
             _viewModel.ToastPosition)
         {
             Owner = this,
@@ -608,7 +616,7 @@ public partial class MainWindow : Window
     private void OnSelectQuickChatPositionClicked(object sender, RoutedEventArgs e)
     {
         var dialog = new Views.PositionSelectorDialog(
-            "Configure Quick Chat Overlay Position",
+            LocalizationService.Instance.GetString("PosSelect_ConfigureQuickChatTitle"),
             _viewModel.QuickChatOverlayPosition)
         {
             Owner = this,
@@ -630,8 +638,8 @@ public partial class MainWindow : Window
     {
         var result = MessageBox.Show(
             this,
-            "Are you sure you want to reset all settings to their default values?",
-            "Reset All Settings",
+            LocalizationService.Instance.GetString("Msg_ResetSettingsConfirm"),
+            LocalizationService.Instance.GetString("Msg_ResetSettingsTitle"),
             MessageBoxButton.YesNo,
             MessageBoxImage.Warning);
 
@@ -649,7 +657,7 @@ public partial class MainWindow : Window
             GeminiPasswordBox.Password = _viewModel.GeminiApiKey;
             GeminiPlainTextBox.Text = _viewModel.GeminiApiKey;
 
-            ToastNotificationService.Show("Settings Reset", "All settings restored to default values", ToastType.Info);
+            ToastNotificationService.Show(LocalizationService.Instance.GetString("Toast_SettingsResetTitle"), LocalizationService.Instance.GetString("Toast_SettingsResetBody"), ToastType.Info);
         }
     }
 
@@ -665,7 +673,7 @@ public partial class MainWindow : Window
         _hotkeyService?.RegisterQuickChatOverlayHotkey(_viewModel.QuickChatOverlayHotkey);
         _hotkeyService?.RegisterMacroHotkeys(_viewModel.Config.QuickChatMacros);
 
-        MessageBox.Show(this, "Settings saved successfully!", "Babel", MessageBoxButton.OK, MessageBoxImage.Information);
+        MessageBox.Show(this, LocalizationService.Instance.GetString("Msg_SettingsSaved"), "Babel", MessageBoxButton.OK, MessageBoxImage.Information);
     }
 
     private void RestoreWindowConfiguration()

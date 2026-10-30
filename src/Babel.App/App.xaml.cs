@@ -105,6 +105,10 @@ public partial class App : Application
             -1,
             false);
 
+        var configService = new ConfigurationService();
+        var initialConfig = configService.Load();
+        AppLocalizationManager.Initialize(initialConfig.TargetLanguage);
+
         var mainWindow = new MainWindow();
         MainWindow = mainWindow;
         mainWindow.Show();
