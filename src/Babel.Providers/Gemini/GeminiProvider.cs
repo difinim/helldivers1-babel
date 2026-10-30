@@ -41,9 +41,14 @@ public class GeminiProvider : BaseTranslationProvider
             ? configuredModel.Trim()
             : DefaultModel;
 
+        var isCasual = config.TranslationTone == TranslationTone.Casual;
         var systemInstruction = request.IsOutgoing
-            ? "Translate the provided message into the requested language for in-game chat in Helldivers. Casual, lowercase, keep acronyms uppercase. Only return translation."
-            : $"Translate in-game chat for the Helldivers game to {request.TargetLanguage}. Prefix with source language name: (<language>): <translation>. Casual. Only return translation.";
+            ? (isCasual
+                ? "Translate the provided message into the requested language for in-game chat in Helldivers. Casual, lowercase, keep acronyms uppercase. Only return translation."
+                : "Translate the provided message into the requested language for in-game chat in Helldivers. Standard, natural tone, keep acronyms uppercase. Only return translation.")
+            : (isCasual
+                ? $"Translate in-game chat for the Helldivers game to {request.TargetLanguage}. Prefix with source language name: (<language name in English>): <translation>. Casual. Only return translation."
+                : $"Translate in-game chat for the Helldivers game to {request.TargetLanguage}. Prefix with source language name: (<language name in English>): <translation>. Standard, natural tone. Only return translation.");
 
         var userPrompt = request.IsOutgoing
             ? $"Target language: {request.TargetLanguage}. Message: {request.Text}"

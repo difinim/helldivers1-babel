@@ -110,6 +110,10 @@ public class MainViewModel : INotifyPropertyChanged
 
     public ObservableCollection<TranslationLogEntry> History { get; } = new();
     public ObservableCollection<MacroSlotViewModel> Macros { get; } = new();
+    public ObservableCollection<TranslationTone> AvailableTranslationTones { get; } = new([
+        TranslationTone.Casual,
+        TranslationTone.Normal
+    ]);
 
     public string[] AvailableLanguages { get; } = new[]
     {
@@ -294,6 +298,20 @@ public class MainViewModel : INotifyPropertyChanged
     public void UpdateGameStatusText()
     {
         GameStatusText = LocalizationService.Instance.Format(_gameStatusKey, _gameStatusArgs);
+    }
+
+    public TranslationTone TranslationTone
+    {
+        get => _config.TranslationTone;
+        set
+        {
+            if (_config.TranslationTone != value)
+            {
+                _config.TranslationTone = value;
+                OnPropertyChanged();
+                SaveConfig();
+            }
+        }
     }
 
     public bool IncomingEnabled
@@ -1190,6 +1208,7 @@ public class MainViewModel : INotifyPropertyChanged
         // Settings > General
         ChatHistoryLimitMb = defaults.ChatHistoryLimitMb;
         TimeoutSeconds = defaults.TimeoutSeconds;
+        TranslationTone = defaults.TranslationTone;
         DebugLoggingEnabled = defaults.DebugLoggingEnabled;
 
         // Settings > Global Shortcuts
