@@ -45,11 +45,14 @@
 
 ![Quick Chat](docs/quick-chat.png)
 
+- **Auto-Welcome Quick Chat Message:** Automatically broadcasts a customizable welcome message to in-game chat when hosting a lobby and a guest player joins.
 - **On-Screen Quick Chat Reference Overlay:** Toggle a non-activating floating reference overlay on the right side of the screen with `Numpad +` (or your recorded shortcut) to quickly inspect all active tactical callouts and shortcuts in-game. *(Requires Helldivers to run in Borderless Fullscreen or Windowed mode).*
 
 ![Quick Chat overlay](docs/overlay.png)
 
+- **Multi-Language UI Support:** Supports 28 Languages.
 - **Provider Adapter Architecture:** Built with a modular AI provider interface. Comes with an optimized, zero-thinking adapter for **Google Gemini** (`gemini-flash-lite-latest` / `gemini-2.0-flash-lite`), with extensible provider contracts for OpenAI, Claude, and DeepSeek (not implemented yet).
+- **Translation Tone Setting:** Casual: informal gaming slang and tactical gamer lingo / Normal: natural conversational tone without gaming slang.
 - **Global Pause / Resume Hotkey:** Press `Ctrl + F10` (or your configured shortcut) anytime to toggle the assistant between **Active** and **Paused**. Pausing cleanly suspends both in-game chat translation and Quick Chat message broadcasts.
 - **Dedicated Feature Hotkeys:**
   - **Toggle Translation Only:** Press `Ctrl + F11` (or your recorded shortcut) to instantly pause or resume chat translation without affecting Quick Chat (with on-screen toast feedback).
