@@ -181,5 +181,12 @@
   "Tray_TogglePause": "বিরতি টগল করুন ({0})",
   "Tray_Exit": "প্রস্থান",
   "Tray_TipActive": "Helldivers 1 Babel (সক্রিয়)",
-  "Tray_TipPaused": "Helldivers 1 Babel (বিরতিপ্রাপ্ত)"
+  "Tray_TipPaused": "Helldivers 1 Babel (বিরতিপ্রাপ্ত)",
+  "Col_Date": "তারিখ",
+  "Settings_TranslationTone": "অনুবাদ শৈলী:",
+  "Settings_TranslationTone_Tooltip": "অনুবাদ শৈলী নির্বাচন করুন। ক্যাজুয়াল গেমিং অপভাষা ব্যবহার করে, আর সাধারণ স্বাভাবিক বাক্যাংশ ব্যবহার করে।",
+  "Settings_DateFormat": "তারিখ বিন্যাস:",
+  "Settings_DateFormat_Tooltip": "চ্যাট লগ টেবিল এবং এক্সপোর্ট করা লগে তারিখ দেখানোর জন্য ব্যবহৃত বিন্যাস।",
+  "Settings_TimeFormat": "সময় বিন্যাস:",
+  "Settings_TimeFormat_Tooltip": "চ্যাট লগ টেবিল এবং এক্সপোর্ট করা লগে সময় দেখানোর জন্য ব্যবহৃত বিন্যাস।"
 }

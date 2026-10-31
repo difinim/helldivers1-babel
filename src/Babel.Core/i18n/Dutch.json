@@ -181,5 +181,12 @@
   "Tray_TogglePause": "Pauze schakelen ({0})",
   "Tray_Exit": "Afsluiten",
   "Tray_TipActive": "Helldivers 1 Babel (Actief)",
-  "Tray_TipPaused": "Helldivers 1 Babel (Gepauzeerd)"
+  "Tray_TipPaused": "Helldivers 1 Babel (Gepauzeerd)",
+  "Col_Date": "Datum",
+  "Settings_TranslationTone": "Vertaaltoon:",
+  "Settings_TranslationTone_Tooltip": "Selecteer de vertaalstijl. Informeel gebruikt gaming-slang, terwijl Normaal standaard natuurlijke bewoordingen gebruikt.",
+  "Settings_DateFormat": "Datumnotatie:",
+  "Settings_DateFormat_Tooltip": "Notatie die wordt gebruikt om datums weer te geven in de chatlogtabel en geëxporteerde logboeken.",
+  "Settings_TimeFormat": "Tijdnotatie:",
+  "Settings_TimeFormat_Tooltip": "Notatie die wordt gebruikt om tijden weer te geven in de chatlogtabel en geëxporteerde logboeken."
 }

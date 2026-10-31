@@ -181,5 +181,12 @@
   "Tray_TogglePause": "Εναλλαγή Παύσης ({0})",
   "Tray_Exit": "Έξοδος",
   "Tray_TipActive": "Helldivers 1 Babel (Ενεργό)",
-  "Tray_TipPaused": "Helldivers 1 Babel (Σε παύση)"
+  "Tray_TipPaused": "Helldivers 1 Babel (Σε παύση)",
+  "Col_Date": "Ημερομηνία",
+  "Settings_TranslationTone": "Τόνος μετάφρασης:",
+  "Settings_TranslationTone_Tooltip": "Επιλέξτε το στυλ μετάφρασης. Το χαλαρό χρησιμοποιεί αργκό παιχνιδιών, ενώ το κανονικό χρησιμοποιεί τυπική φυσική διατύπωση.",
+  "Settings_DateFormat": "Μορφή ημερομηνίας:",
+  "Settings_DateFormat_Tooltip": "Μορφή που χρησιμοποιείται για την εμφάνιση ημερομηνιών στον πίνακα καταγραφής και στα εξαγόμενα αρχεία καταγραφής.",
+  "Settings_TimeFormat": "Μορφή ώρας:",
+  "Settings_TimeFormat_Tooltip": "Μορφή που χρησιμοποιείται για την εμφάνιση της ώρας στον πίνακα καταγραφής και στα εξαγόμενα αρχεία καταγραφής."
 }

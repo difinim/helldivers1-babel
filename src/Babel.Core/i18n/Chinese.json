@@ -181,5 +181,12 @@
   "Tray_TogglePause": "切换暂停 ({0})",
   "Tray_Exit": "退出",
   "Tray_TipActive": "Helldivers 1 Babel (活动中)",
-  "Tray_TipPaused": "Helldivers 1 Babel (已暂停)"
+  "Tray_TipPaused": "Helldivers 1 Babel (已暂停)",
+  "Col_Date": "日期",
+  "Settings_TranslationTone": "翻译语调:",
+  "Settings_TranslationTone_Tooltip": "选择翻译风格。随意模式使用小写游戏俚语，而普通模式使用标准的自然表述。",
+  "Settings_DateFormat": "日期格式:",
+  "Settings_DateFormat_Tooltip": "在聊天日志数据集表格和导出日志中显示日期所使用的格式。",
+  "Settings_TimeFormat": "时间格式:",
+  "Settings_TimeFormat_Tooltip": "在聊天日志数据集表格和导出日志中显示时间所使用的格式。"
 }

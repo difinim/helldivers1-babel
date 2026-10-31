@@ -181,5 +181,12 @@
   "Tray_TogglePause": "I-toggle ang Pause ({0})",
   "Tray_Exit": "Lumabas",
   "Tray_TipActive": "Helldivers 1 Babel (Aktibo)",
-  "Tray_TipPaused": "Helldivers 1 Babel (Naka-pause)"
+  "Tray_TipPaused": "Helldivers 1 Babel (Naka-pause)",
+  "Col_Date": "Petsa",
+  "Settings_TranslationTone": "Tono ng Pagsasalin:",
+  "Settings_TranslationTone_Tooltip": "Piliin ang estilo ng pagsasalin. Ang kaswal ay gumagamit ng gaming slang, habang ang Normal ay gumagamit ng karaniwang natural na pananalita.",
+  "Settings_DateFormat": "Format ng Petsa:",
+  "Settings_DateFormat_Tooltip": "Format na ginagamit sa pagpapakita ng mga petsa sa talahanayan ng log ng chat at na-export na mga log.",
+  "Settings_TimeFormat": "Format ng Oras:",
+  "Settings_TimeFormat_Tooltip": "Format na ginagamit sa pagpapakita ng mga oras sa talahanayan ng log ng chat at na-export na mga log."
 }

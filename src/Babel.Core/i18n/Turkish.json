@@ -181,5 +181,12 @@
   "Tray_TogglePause": "Duraklat/Sürdür ({0})",
   "Tray_Exit": "Çıkış",
   "Tray_TipActive": "Helldivers 1 Babel (Aktif)",
-  "Tray_TipPaused": "Helldivers 1 Babel (Duraklatıldı)"
+  "Tray_TipPaused": "Helldivers 1 Babel (Duraklatıldı)",
+  "Col_Date": "Tarih",
+  "Settings_TranslationTone": "Çeviri Tonu:",
+  "Settings_TranslationTone_Tooltip": "Çeviri stilini seçin. Günlük oyun argosu kullanırken, Normal standart doğal ifadeler kullanır.",
+  "Settings_DateFormat": "Tarih Formatı:",
+  "Settings_DateFormat_Tooltip": "Sohbet günlükleri tablosunda ve dışa aktarılan günlüklerde tarihleri göstermek için kullanılan format.",
+  "Settings_TimeFormat": "Saat Formatı:",
+  "Settings_TimeFormat_Tooltip": "Sohbet günlükleri tablosunda ve dışa aktarılan günlüklerde saatleri göstermek için kullanılan format."
 }

@@ -12,11 +12,15 @@ public static class LogClipboardFormatter
 {
     /// <summary>
     /// Formats a single translation log entry as tab-separated values matching table columns:
-    /// Time, Player, Detected, Original Message, Translated Message, Latency.
+    /// Date (if present), Time, Player, Detected, Original Message, Translated Message, Latency.
     /// </summary>
     public static string FormatTabSeparatedRow(TranslationLogEntry? entry)
     {
         if (entry == null) return string.Empty;
+        if (!string.IsNullOrEmpty(entry.Date))
+        {
+            return $"{entry.Date}\t{entry.Time}\t{entry.Author}\t{entry.SourceLang}\t{entry.OriginalMessage}\t{entry.TranslatedMessage}\t{entry.Latency}";
+        }
         return $"{entry.Time}\t{entry.Author}\t{entry.SourceLang}\t{entry.OriginalMessage}\t{entry.TranslatedMessage}\t{entry.Latency}";
     }
 
@@ -58,9 +62,21 @@ public static class LogClipboardFormatter
             messageText = original;
         }
 
-        return string.IsNullOrEmpty(entry.Time)
-            ? $"{author}: {messageText}"
-            : $"[{entry.Time}] {author}: {messageText}";
+        string timestampPrefix;
+        if (!string.IsNullOrEmpty(entry.Date) && !string.IsNullOrEmpty(entry.Time))
+        {
+            timestampPrefix = $"[{entry.Date} {entry.Time}] ";
+        }
+        else if (!string.IsNullOrEmpty(entry.Time))
+        {
+            timestampPrefix = $"[{entry.Time}] ";
+        }
+        else
+        {
+            timestampPrefix = string.Empty;
+        }
+
+        return $"{timestampPrefix}{author}: {messageText}";
     }
 
     /// <summary>

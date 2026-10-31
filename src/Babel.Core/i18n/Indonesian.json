@@ -181,5 +181,12 @@
   "Tray_TogglePause": "Alihkan Jeda ({0})",
   "Tray_Exit": "Keluar",
   "Tray_TipActive": "Helldivers 1 Babel (Aktif)",
-  "Tray_TipPaused": "Helldivers 1 Babel (Dijeda)"
+  "Tray_TipPaused": "Helldivers 1 Babel (Dijeda)",
+  "Col_Date": "Tanggal",
+  "Settings_TranslationTone": "Nada Terjemahan:",
+  "Settings_TranslationTone_Tooltip": "Pilih gaya terjemahan. Kasual menggunakan bahasa gaul game, sedangkan Normal menggunakan frasa alami standar.",
+  "Settings_DateFormat": "Format Tanggal:",
+  "Settings_DateFormat_Tooltip": "Format yang digunakan untuk menampilkan tanggal di tabel log obrolan dan log yang diekspor.",
+  "Settings_TimeFormat": "Format Waktu:",
+  "Settings_TimeFormat_Tooltip": "Format yang digunakan untuk menampilkan waktu di tabel log obrolan dan log yang diekspor."
 }

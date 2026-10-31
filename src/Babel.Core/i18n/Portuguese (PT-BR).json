@@ -181,5 +181,12 @@
   "Tray_TogglePause": "Alternar Pausa ({0})",
   "Tray_Exit": "Sair",
   "Tray_TipActive": "Helldivers 1 Babel (Ativo)",
-  "Tray_TipPaused": "Helldivers 1 Babel (Pausado)"
+  "Tray_TipPaused": "Helldivers 1 Babel (Pausado)",
+  "Col_Date": "Data",
+  "Settings_TranslationTone": "Tom da Tradução:",
+  "Settings_TranslationTone_Tooltip": "Selecione o estilo da tradução. Casual usa gírias de jogos, enquanto Normal usa frases naturais padrão.",
+  "Settings_DateFormat": "Formato de Data:",
+  "Settings_DateFormat_Tooltip": "Formato usado para exibir datas na tabela de logs de chat e nos logs exportados.",
+  "Settings_TimeFormat": "Formato de Hora:",
+  "Settings_TimeFormat_Tooltip": "Formato usado para exibir horários na tabela de logs de chat e nos logs exportados."
 }

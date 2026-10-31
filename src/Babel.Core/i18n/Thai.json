@@ -181,5 +181,12 @@
   "Tray_TogglePause": "สลับการหยุดชั่วคราว ({0})",
   "Tray_Exit": "ออก",
   "Tray_TipActive": "Helldivers 1 Babel (ทำงานอยู่)",
-  "Tray_TipPaused": "Helldivers 1 Babel (หยุดชั่วคราว)"
+  "Tray_TipPaused": "Helldivers 1 Babel (หยุดชั่วคราว)",
+  "Col_Date": "วันที่",
+  "Settings_TranslationTone": "โทนการแปล:",
+  "Settings_TranslationTone_Tooltip": "เลือกรูปแบบการแปล ไม่เป็นทางการใช้สแลงเกม ในขณะที่ปกติใช้วลีที่เป็นธรรมชาติมาตรฐาน",
+  "Settings_DateFormat": "รูปแบบวันที่:",
+  "Settings_DateFormat_Tooltip": "รูปแบบที่ใช้แสดงวันที่ในตารางบันทึกการแชทและบันทึกที่ส่งออก",
+  "Settings_TimeFormat": "รูปแบบเวลา:",
+  "Settings_TimeFormat_Tooltip": "รูปแบบที่ใช้แสดงเวลาในตารางบันทึกการแชทและบันทึกที่ส่งออก"
 }

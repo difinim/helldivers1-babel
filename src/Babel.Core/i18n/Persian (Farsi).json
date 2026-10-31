@@ -181,5 +181,12 @@
   "Tray_TogglePause": "تغییر وضعیت توقف ({0})",
   "Tray_Exit": "خروج",
   "Tray_TipActive": "Helldivers 1 Babel (فعال)",
-  "Tray_TipPaused": "Helldivers 1 Babel (متوقف)"
+  "Tray_TipPaused": "Helldivers 1 Babel (متوقف)",
+  "Col_Date": "تاریخ",
+  "Settings_TranslationTone": "لحن ترجمه:",
+  "Settings_TranslationTone_Tooltip": "سبک ترجمه را انتخاب کنید. خودمانی از اصطلاحات عامیانه بازی استفاده می‌کند، در حالی که عادی از جمله‌بندی استاندارد استفاده می‌کند.",
+  "Settings_DateFormat": "فرمت تاریخ:",
+  "Settings_DateFormat_Tooltip": "فرمت مورد استفاده برای نمایش تاریخ‌ها در جدول گزارش چت و گزارش‌های صادر شده.",
+  "Settings_TimeFormat": "فرمت زمان:",
+  "Settings_TimeFormat_Tooltip": "فرمت مورد استفاده برای نمایش زمان در جدول گزارش چت و گزارش‌های صادر شده."
 }

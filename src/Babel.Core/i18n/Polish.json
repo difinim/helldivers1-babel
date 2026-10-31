@@ -181,5 +181,12 @@
   "Tray_TogglePause": "Wstrzymaj/Wznów ({0})",
   "Tray_Exit": "Wyjście",
   "Tray_TipActive": "Helldivers 1 Babel (Aktywny)",
-  "Tray_TipPaused": "Helldivers 1 Babel (Wstrzymany)"
+  "Tray_TipPaused": "Helldivers 1 Babel (Wstrzymany)",
+  "Col_Date": "Data",
+  "Settings_TranslationTone": "Styl tłumaczenia:",
+  "Settings_TranslationTone_Tooltip": "Wybierz styl tłumaczenia. Swobodny używa slangu graczy, natomiast Zwykły używa standardowych naturalnych sformułowań.",
+  "Settings_DateFormat": "Format daty:",
+  "Settings_DateFormat_Tooltip": "Format używany do wyświetlania dat w tabeli dzienników czatu oraz eksportowanych dziennikach.",
+  "Settings_TimeFormat": "Format czasu:",
+  "Settings_TimeFormat_Tooltip": "Format używany do wyświetlania czasu w tabeli dzienników czatu oraz eksportowanych dziennikach."
 }

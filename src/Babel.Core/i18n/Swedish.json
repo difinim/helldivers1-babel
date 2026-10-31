@@ -181,5 +181,12 @@
   "Tray_TogglePause": "Växla paus ({0})",
   "Tray_Exit": "Avsluta",
   "Tray_TipActive": "Helldivers 1 Babel (Aktiv)",
-  "Tray_TipPaused": "Helldivers 1 Babel (Pausad)"
+  "Tray_TipPaused": "Helldivers 1 Babel (Pausad)",
+  "Col_Date": "Datum",
+  "Settings_TranslationTone": "Översättningston:",
+  "Settings_TranslationTone_Tooltip": "Välj översättningsstil. Avslappnad använder spelslang, medan Normal använder standardmässiga naturliga formuleringar.",
+  "Settings_DateFormat": "Datumformat:",
+  "Settings_DateFormat_Tooltip": "Format som används för att visa datum i chattloggstabellen och exporterade loggar.",
+  "Settings_TimeFormat": "Tidsformat:",
+  "Settings_TimeFormat_Tooltip": "Format som används för att visa tider i chattloggstabellen och exporterade loggar."
 }

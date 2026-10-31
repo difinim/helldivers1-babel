@@ -44,6 +44,8 @@ public class ConfigTests
         Assert.True(config.WelcomeMessageEnabled);
         Assert.Equal("Welcome to the squad! Glad to have you with us.", config.WelcomeMessage);
         Assert.Equal(TranslationTone.Casual, config.TranslationTone);
+        Assert.Equal("yyyy-MM-dd", config.DateFormat);
+        Assert.Equal("HH:mm:ss", config.TimeFormat);
     }
 
     [Fact]
@@ -80,6 +82,8 @@ public class ConfigTests
             original.QuickChatOverlayPosition = OverlayPosition.TopCenter;
             original.WelcomeMessageEnabled = false;
             original.WelcomeMessage = "Custom Welcome Message!";
+            original.DateFormat = "dd/MM/yyyy";
+            original.TimeFormat = "hh:mm tt";
 
             service.Save(original);
 
@@ -111,6 +115,8 @@ public class ConfigTests
             Assert.False(loaded.DontTranslateIncomingInTargetLanguage);
             Assert.False(loaded.WelcomeMessageEnabled);
             Assert.Equal("Custom Welcome Message!", loaded.WelcomeMessage);
+            Assert.Equal("dd/MM/yyyy", loaded.DateFormat);
+            Assert.Equal("hh:mm tt", loaded.TimeFormat);
         }
         finally
         {
@@ -290,6 +296,8 @@ public class ConfigTests
         Assert.True(config.WelcomeMessageEnabled);
         Assert.Equal("Welcome to the squad! Glad to have you with us.", config.WelcomeMessage);
         Assert.Equal(TranslationTone.Casual, config.TranslationTone);
+        Assert.Equal("yyyy-MM-dd", config.DateFormat);
+        Assert.Equal("HH:mm:ss", config.TimeFormat);
     }
 
     [Fact]
@@ -354,5 +362,20 @@ public class ConfigTests
         var defaults = new BabelConfig();
         config.TranslationTone = defaults.TranslationTone;
         Assert.Equal(TranslationTone.Casual, config.TranslationTone);
+    }
+
+    [Fact]
+    public void ConfigurationService_ValidateAndNormalize_NormalizesDateFormatAndTimeFormat()
+    {
+        var config = new BabelConfig
+        {
+            DateFormat = "   ",
+            TimeFormat = null!
+        };
+
+        ConfigurationService.ValidateAndNormalize(config);
+
+        Assert.Equal("yyyy-MM-dd", config.DateFormat);
+        Assert.Equal("HH:mm:ss", config.TimeFormat);
     }
 }

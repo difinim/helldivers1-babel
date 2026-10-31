@@ -604,9 +604,13 @@
                                 <Setter Property="VerticalAlignment" Value="Center"/>
                                 <Setter Property="TextTrimming" Value="CharacterEllipsis"/>
                             </Style>
+                            <Style x:Key="LogLtrColStyle" TargetType="TextBlock" BasedOn="{StaticResource LogTextColStyle}">
+                                <Setter Property="FlowDirection" Value="LeftToRight"/>
+                            </Style>
                         </DataGrid.Resources>
                         <DataGrid.Columns>
-                            <DataGridTextColumn Header="{DynamicResource Col_Time}" Binding="{Binding Time}" Width="75" ElementStyle="{StaticResource LogTextColStyle}"/>
+                            <DataGridTextColumn Header="{DynamicResource Col_Date}" Binding="{Binding Date}" Width="90" ElementStyle="{StaticResource LogLtrColStyle}"/>
+                            <DataGridTextColumn Header="{DynamicResource Col_Time}" Binding="{Binding Time}" Width="85" ElementStyle="{StaticResource LogLtrColStyle}"/>
                             <DataGridTemplateColumn Header="{DynamicResource Col_Player}" Width="140" ClipboardContentBinding="{Binding Author}">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
@@ -780,6 +784,8 @@
                                         <RowDefinition Height="Auto"/>
                                         <RowDefinition Height="Auto"/>
                                         <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
                                     </Grid.RowDefinitions>
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="230"/>
@@ -813,8 +819,8 @@
 
                                     <!-- Translation Tone -->
                                     <StackPanel Grid.Row="2" Grid.Column="0" Orientation="Horizontal" VerticalAlignment="Center" Margin="0,6">
-                                        <TextBlock Text="Translation Tone:" Style="{StaticResource SettingLabelStyle}"/>
-                                        <Border Style="{StaticResource InfoIconStyle}" ToolTip="Select the translation style. Casual uses lowercase gaming slang, while Normal uses standard natural phrasing.">
+                                        <TextBlock Text="{DynamicResource Settings_TranslationTone}" Style="{StaticResource SettingLabelStyle}"/>
+                                        <Border Style="{StaticResource InfoIconStyle}" ToolTip="{DynamicResource Settings_TranslationTone_Tooltip}">
                                             <TextBlock Style="{StaticResource InfoGlyphStyle}"/>
                                         </Border>
                                     </StackPanel>
@@ -822,14 +828,36 @@
                                         <ComboBox Width="180" ItemsSource="{Binding AvailableTranslationTones}" SelectedItem="{Binding TranslationTone, Mode=TwoWay}"/>
                                     </StackPanel>
 
-                                    <!-- Diagnostic Logs -->
+                                    <!-- Date Format -->
                                     <StackPanel Grid.Row="3" Grid.Column="0" Orientation="Horizontal" VerticalAlignment="Center" Margin="0,6">
+                                        <TextBlock Text="{DynamicResource Settings_DateFormat}" Style="{StaticResource SettingLabelStyle}"/>
+                                        <Border Style="{StaticResource InfoIconStyle}" ToolTip="{DynamicResource Settings_DateFormat_Tooltip}">
+                                            <TextBlock Style="{StaticResource InfoGlyphStyle}"/>
+                                        </Border>
+                                    </StackPanel>
+                                    <StackPanel Grid.Row="3" Grid.Column="1" Orientation="Horizontal" Margin="0,6" VerticalAlignment="Center">
+                                        <ComboBox Width="180" ItemsSource="{Binding AvailableDateFormats}" SelectedItem="{Binding DateFormat, Mode=TwoWay}"/>
+                                    </StackPanel>
+
+                                    <!-- Time Format -->
+                                    <StackPanel Grid.Row="4" Grid.Column="0" Orientation="Horizontal" VerticalAlignment="Center" Margin="0,6">
+                                        <TextBlock Text="{DynamicResource Settings_TimeFormat}" Style="{StaticResource SettingLabelStyle}"/>
+                                        <Border Style="{StaticResource InfoIconStyle}" ToolTip="{DynamicResource Settings_TimeFormat_Tooltip}">
+                                            <TextBlock Style="{StaticResource InfoGlyphStyle}"/>
+                                        </Border>
+                                    </StackPanel>
+                                    <StackPanel Grid.Row="4" Grid.Column="1" Orientation="Horizontal" Margin="0,6" VerticalAlignment="Center">
+                                        <ComboBox Width="180" ItemsSource="{Binding AvailableTimeFormats}" SelectedItem="{Binding TimeFormat, Mode=TwoWay}"/>
+                                    </StackPanel>
+
+                                    <!-- Diagnostic Logs -->
+                                    <StackPanel Grid.Row="5" Grid.Column="0" Orientation="Horizontal" VerticalAlignment="Center" Margin="0,6">
                                         <TextBlock Text="{DynamicResource Settings_DiagnosticLogs}" Style="{StaticResource SettingLabelStyle}"/>
                                         <Border Style="{StaticResource InfoIconStyle}" ToolTip="{DynamicResource Settings_DiagnosticLogs_Tooltip}">
                                             <TextBlock Style="{StaticResource InfoGlyphStyle}"/>
                                         </Border>
                                     </StackPanel>
-                                    <StackPanel Grid.Row="3" Grid.Column="1" Orientation="Horizontal" Margin="0,6" VerticalAlignment="Center">
+                                    <StackPanel Grid.Row="5" Grid.Column="1" Orientation="Horizontal" Margin="0,6" VerticalAlignment="Center">
                                         <CheckBox Content="{DynamicResource Settings_EnableFileLogging}" IsChecked="{Binding DebugLoggingEnabled}" VerticalAlignment="Center" Foreground="#E0E0E0"/>
                                         <Button Content="{DynamicResource Settings_Btn_OpenLogsFolder}" Click="OnOpenLogsClicked" Margin="16,0,0,0" Padding="10,4"/>
                                     </StackPanel>

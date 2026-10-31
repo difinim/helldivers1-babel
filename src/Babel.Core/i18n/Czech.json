@@ -181,5 +181,12 @@
   "Tray_TogglePause": "Pozastavit/Pokračovat ({0})",
   "Tray_Exit": "Ukončit",
   "Tray_TipActive": "Helldivers 1 Babel (Aktivní)",
-  "Tray_TipPaused": "Helldivers 1 Babel (Pozastaveno)"
+  "Tray_TipPaused": "Helldivers 1 Babel (Pozastaveno)",
+  "Col_Date": "Datum",
+  "Settings_TranslationTone": "Tón překladu:",
+  "Settings_TranslationTone_Tooltip": "Vyberte styl překladu. Neformální používá herní slang, zatímco Normální používá standardní přirozené formulace.",
+  "Settings_DateFormat": "Formát data:",
+  "Settings_DateFormat_Tooltip": "Formát používaný k zobrazení dat v tabulce protokolů chatu a exportovaných protokolech.",
+  "Settings_TimeFormat": "Formát času:",
+  "Settings_TimeFormat_Tooltip": "Formát používaný k zobrazení časů v tabulce protokolů chatu a exportovaných protokolech."
 }

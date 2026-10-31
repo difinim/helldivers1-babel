@@ -181,5 +181,12 @@
   "Tray_TogglePause": "Пауза/Возобновление ({0})",
   "Tray_Exit": "Выход",
   "Tray_TipActive": "Helldivers 1 Babel (Активен)",
-  "Tray_TipPaused": "Helldivers 1 Babel (На паузе)"
+  "Tray_TipPaused": "Helldivers 1 Babel (На паузе)",
+  "Col_Date": "Дата",
+  "Settings_TranslationTone": "Стиль перевода:",
+  "Settings_TranslationTone_Tooltip": "Выберите стиль перевода. Разговорный использует игровой сленг, а Обычный — естественные стандартные фразы.",
+  "Settings_DateFormat": "Формат даты:",
+  "Settings_DateFormat_Tooltip": "Формат отображения дат в таблице логов чата и экспортированных файлах.",
+  "Settings_TimeFormat": "Формат времени:",
+  "Settings_TimeFormat_Tooltip": "Формат отображения времени в таблице логов чата и экспортированных файлах."
 }

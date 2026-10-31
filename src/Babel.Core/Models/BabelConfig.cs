@@ -28,6 +28,8 @@ public class BabelConfig
     public string ActiveProvider { get; set; } = "Gemini";
     public string TargetLanguage { get; set; } = "English";
     public TranslationTone TranslationTone { get; set; } = TranslationTone.Casual;
+    public string DateFormat { get; set; } = "yyyy-MM-dd";
+    public string TimeFormat { get; set; } = "HH:mm:ss";
     public bool IncomingTranslationEnabled { get; set; } = true;
     public bool OutgoingTranslationEnabled { get; set; } = true;
     public string OutgoingPrefix { get; set; } = ">>";

@@ -181,5 +181,12 @@
   "Tray_TogglePause": "Szünet kapcsolása ({0})",
   "Tray_Exit": "Kilépés",
   "Tray_TipActive": "Helldivers 1 Babel (Aktív)",
-  "Tray_TipPaused": "Helldivers 1 Babel (Szünetel)"
+  "Tray_TipPaused": "Helldivers 1 Babel (Szünetel)",
+  "Col_Date": "Dátum",
+  "Settings_TranslationTone": "Fordítási stílus:",
+  "Settings_TranslationTone_Tooltip": "Válassza ki a fordítás stílusát. A laza játékszleng kifejezéseket használ, míg a normál szabványos természetes megfogalmazást.",
+  "Settings_DateFormat": "Dátumformátum:",
+  "Settings_DateFormat_Tooltip": "A csevegési napló táblázatában és az exportált naplókban a dátumok megjelenítésére használt formátum.",
+  "Settings_TimeFormat": "Időformátum:",
+  "Settings_TimeFormat_Tooltip": "A csevegési napló táblázatában és az exportált naplókban az idők megjelenítésére használt formátum."
 }

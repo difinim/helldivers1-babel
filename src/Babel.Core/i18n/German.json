@@ -181,5 +181,12 @@
   "Tray_TogglePause": "Pause umschalten ({0})",
   "Tray_Exit": "Beenden",
   "Tray_TipActive": "Helldivers 1 Babel (Aktiv)",
-  "Tray_TipPaused": "Helldivers 1 Babel (Pausiert)"
+  "Tray_TipPaused": "Helldivers 1 Babel (Pausiert)",
+  "Col_Date": "Datum",
+  "Settings_TranslationTone": "Übersetzungston:",
+  "Settings_TranslationTone_Tooltip": "Wählen Sie den Übersetzungsstil. Lässig verwendet Gaming-Slang, während Normal standardmäßige Formulierungen nutzt.",
+  "Settings_DateFormat": "Datumsformat:",
+  "Settings_DateFormat_Tooltip": "Format für Datumsangaben in der Chat-Protokolltabelle und in exportierten Protokollen.",
+  "Settings_TimeFormat": "Zeitformat:",
+  "Settings_TimeFormat_Tooltip": "Format für Zeitangaben in der Chat-Protokolltabelle und in exportierten Protokollen."
 }

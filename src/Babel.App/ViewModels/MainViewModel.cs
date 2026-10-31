@@ -1,5 +1,6 @@
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Globalization;
 using System.IO;
 using System.Runtime.CompilerServices;
 using System.Windows;
@@ -113,6 +114,20 @@ public class MainViewModel : INotifyPropertyChanged
     public ObservableCollection<TranslationTone> AvailableTranslationTones { get; } = new([
         TranslationTone.Casual,
         TranslationTone.Normal
+    ]);
+    public ObservableCollection<string> AvailableDateFormats { get; } = new([
+        "yyyy-MM-dd",
+        "dd/MM/yyyy",
+        "MM/dd/yyyy",
+        "dd.MM.yyyy",
+        "yyyy/MM/dd",
+        "dd-MM-yyyy"
+    ]);
+    public ObservableCollection<string> AvailableTimeFormats { get; } = new([
+        "HH:mm:ss",
+        "hh:mm:ss tt",
+        "HH:mm",
+        "hh:mm tt"
     ]);
 
     public string[] AvailableLanguages { get; } = new[]
@@ -311,6 +326,69 @@ public class MainViewModel : INotifyPropertyChanged
                 OnPropertyChanged();
                 SaveConfig();
             }
+        }
+    }
+
+    public string DateFormat
+    {
+        get => _config.DateFormat;
+        set
+        {
+            if (_config.DateFormat != value)
+            {
+                _config.DateFormat = value;
+                OnPropertyChanged();
+                SaveConfig();
+                RefreshLogDatesAndTimes();
+            }
+        }
+    }
+
+    public string TimeFormat
+    {
+        get => _config.TimeFormat;
+        set
+        {
+            if (_config.TimeFormat != value)
+            {
+                _config.TimeFormat = value;
+                OnPropertyChanged();
+                SaveConfig();
+                RefreshLogDatesAndTimes();
+            }
+        }
+    }
+
+    public string FormatDate(DateTime dt)
+    {
+        try
+        {
+            return dt.ToString(string.IsNullOrWhiteSpace(_config.DateFormat) ? "yyyy-MM-dd" : _config.DateFormat, CultureInfo.InvariantCulture);
+        }
+        catch
+        {
+            return dt.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture);
+        }
+    }
+
+    public string FormatTime(DateTime dt)
+    {
+        try
+        {
+            return dt.ToString(string.IsNullOrWhiteSpace(_config.TimeFormat) ? "HH:mm:ss" : _config.TimeFormat, CultureInfo.InvariantCulture);
+        }
+        catch
+        {
+            return dt.ToString("HH:mm:ss", CultureInfo.InvariantCulture);
+        }
+    }
+
+    public void RefreshLogDatesAndTimes()
+    {
+        foreach (var entry in History)
+        {
+            entry.Date = FormatDate(entry.Timestamp);
+            entry.Time = FormatTime(entry.Timestamp);
         }
     }
 
@@ -767,6 +845,12 @@ public class MainViewModel : INotifyPropertyChanged
         var previousLogs = _persistentLogService.LoadRecent(maxEntries: 500);
         foreach (var entry in previousLogs)
         {
+            if (entry.Timestamp == default && DateTime.TryParse(entry.Time, out var parsed))
+            {
+                entry.Timestamp = parsed;
+            }
+            entry.Date = FormatDate(entry.Timestamp);
+            entry.Time = FormatTime(entry.Timestamp);
             History.Add(entry);
         }
 
@@ -983,9 +1067,12 @@ public class MainViewModel : INotifyPropertyChanged
 
     private void OnMessageTranslated(ChatMessage msg, TranslationResult res)
     {
+        var now = DateTime.Now;
         var entry = new TranslationLogEntry
         {
-            Time = DateTime.Now.ToString("HH:mm:ss"),
+            Timestamp = now,
+            Date = FormatDate(now),
+            Time = FormatTime(now),
             Author = ResolveAuthor(msg.PlayerName, msg.PlayerIndex),
             SourceLang = res.DetectedSourceLanguage,
             OriginalMessage = msg.MessageText,
@@ -999,9 +1086,12 @@ public class MainViewModel : INotifyPropertyChanged
 
     private void OnTranslationRequestFailed(TranslationRequest req, string error)
     {
+        var now = DateTime.Now;
         var entry = new TranslationLogEntry
         {
-            Time = DateTime.Now.ToString("HH:mm:ss"),
+            Timestamp = now,
+            Date = FormatDate(now),
+            Time = FormatTime(now),
             Author = ResolveAuthor(req.PlayerName, req.PlayerIndex),
             SourceLang = "-",
             OriginalMessage = req.Text,
@@ -1018,9 +1108,12 @@ public class MainViewModel : INotifyPropertyChanged
         int pIdx = TranslationEngine?.LocalPlayerIndex ?? 1;
         string pName = TranslationEngine?.LocalPlayerName ?? string.Empty;
 
+        var now = DateTime.Now;
         var entry = new TranslationLogEntry
         {
-            Time = DateTime.Now.ToString("HH:mm:ss"),
+            Timestamp = now,
+            Date = FormatDate(now),
+            Time = FormatTime(now),
             Author = ResolveAuthor(pName, pIdx),
             SourceLang = "-",
             OriginalMessage = message,
@@ -1037,9 +1130,12 @@ public class MainViewModel : INotifyPropertyChanged
         int pIdx = TranslationEngine?.LocalPlayerIndex ?? 1;
         string pName = TranslationEngine?.LocalPlayerName ?? string.Empty;
 
+        var now = DateTime.Now;
         var entry = new TranslationLogEntry
         {
-            Time = DateTime.Now.ToString("HH:mm:ss"),
+            Timestamp = now,
+            Date = FormatDate(now),
+            Time = FormatTime(now),
             Author = ResolveAuthor(pName, pIdx),
             SourceLang = "-",
             OriginalMessage = message,
@@ -1120,7 +1216,7 @@ public class MainViewModel : INotifyPropertyChanged
         var sb = new System.Text.StringBuilder();
         sb.AppendLine("================================================================================");
         sb.AppendLine("  HELLDIVERS 1 BABEL - CHAT LOGS EXPORT");
-        sb.AppendLine($"  Exported Date : {DateTime.Now:yyyy-MM-dd HH:mm:ss}");
+        sb.AppendLine($"  Exported Date : {FormatDate(DateTime.Now)} {FormatTime(DateTime.Now)}");
         sb.AppendLine($"  Total Messages: {History.Count}");
         sb.AppendLine("================================================================================");
         sb.AppendLine();
@@ -1134,7 +1230,8 @@ public class MainViewModel : INotifyPropertyChanged
         foreach (var entry in History)
         {
             string langInfo = string.IsNullOrWhiteSpace(entry.SourceLang) ? "" : $" [{entry.SourceLang}]";
-            sb.AppendLine($"[{entry.Time}] {entry.Author}{langInfo} (Latency: {entry.Latency})");
+            string datePrefix = string.IsNullOrWhiteSpace(entry.Date) ? entry.Time : $"{entry.Date} {entry.Time}";
+            sb.AppendLine($"[{datePrefix}] {entry.Author}{langInfo} (Latency: {entry.Latency})");
             sb.AppendLine($"  Original  : {entry.OriginalMessage}");
             sb.AppendLine($"  Translated: {entry.TranslatedMessage}");
             sb.AppendLine();
@@ -1209,6 +1306,8 @@ public class MainViewModel : INotifyPropertyChanged
         ChatHistoryLimitMb = defaults.ChatHistoryLimitMb;
         TimeoutSeconds = defaults.TimeoutSeconds;
         TranslationTone = defaults.TranslationTone;
+        DateFormat = defaults.DateFormat;
+        TimeFormat = defaults.TimeFormat;
         DebugLoggingEnabled = defaults.DebugLoggingEnabled;
 
         // Settings > Global Shortcuts

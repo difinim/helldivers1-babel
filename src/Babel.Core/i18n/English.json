@@ -4,7 +4,6 @@
   "App_FooterDescription": "Helldivers (2015) | Tactical Translation & Quick Chat Assistant",
   "App_FooterLogs": "Logs",
   "App_FooterAbout": "About",
-
   "Status_GameWaiting": "Waiting for Helldivers (2015)...",
   "Status_GameDetectedPreparing": "Helldivers detected (PID: {0}), preparing injection...",
   "Status_GameRunningConnected": "Helldivers running - Connected & Active",
@@ -14,7 +13,6 @@
   "Status_GameRunningError": "Helldivers running (PID: {0}) - Error: {1}",
   "Status_PipeConnected": "Pipe: Connected",
   "Status_PipeDisconnected": "Pipe: Disconnected",
-
   "Badge_Active": "ACTIVE",
   "Badge_Paused": "PAUSED",
   "Badge_AllMuted": "ALL MUTED",
@@ -22,11 +20,9 @@
   "Badge_QcPaused": "QC PAUSED",
   "Btn_Pause": "Pause ({0})",
   "Btn_Resume": "Resume ({0})",
-
   "Tab_TranslationAndLogs": "Translation & Logs",
   "Tab_QuickChat": "Quick Chat",
   "Tab_Settings": "Settings",
-
   "Trans_TargetLanguage": "Target Language:",
   "Trans_IncomingTranslation": "Incoming Translation",
   "Trans_OutgoingTranslation": "Outgoing Translation (>>)",
@@ -36,7 +32,6 @@
   "Trans_DontTranslateIncomingInTargetLanguage_Tooltip": "When checked (default), incoming teammate messages detected to already be in your target language are not injected as translations into in-game chat.",
   "Trans_Btn_ExportLogs": "Export Logs",
   "Trans_Btn_ClearLogs": "Clear Logs",
-
   "Col_Time": "Time",
   "Col_Player": "Player",
   "Col_Detected": "Detected",
@@ -48,7 +43,6 @@
   "Menu_CopyPlayerName": "Copy Player Name",
   "Menu_CopyOriginalMessage": "Copy Original Message",
   "Menu_CopyTranslatedMessage": "Copy Translated Message",
-
   "QC_Description": "Bind pre-defined tactical callouts to hotkeys. These will be immediately broadcast to teammates in in-game chat.",
   "QC_HostWelcomeTitle": "Host Welcome Message",
   "QC_HostWelcome_Tooltip": "Automatically sends this message to in-game chat when you are hosting and a guest player joins. If multiple players join in rapid succession, a 5-second debounce window ensures only one welcome message is sent.",
@@ -62,7 +56,6 @@
   "QC_Btn_ExportMessages": "Export Messages",
   "QC_Btn_ExportMessages_Tooltip": "Export Quick Chat messages to a JSON file",
   "QC_Btn_SaveQuickChat": "Save Quick Chat",
-
   "Settings_General": "General",
   "Settings_SavedMessagesLimit": "Saved Messages Limit:",
   "Settings_SavedMessagesLimit_Tooltip": "Limits persistent table chat logs on disk from 0 to 100 MB. Setting to 0 MB disables persistent chat logging to disk.",
@@ -73,7 +66,6 @@
   "Settings_DiagnosticLogs_Tooltip": "Enable file logging to app.log, hook.log, and injector.log in AppData for troubleshooting.",
   "Settings_EnableFileLogging": "Enable File Logging (app.log, hook.log, injector.log)",
   "Settings_Btn_OpenLogsFolder": "Open Logs Folder",
-
   "Settings_GlobalShortcuts": "Global Shortcuts",
   "Settings_PauseResumeShortcut": "Pause/Resume Shortcut:",
   "Settings_PauseResumeShortcut_Tooltip": "Master shortcut to pause or resume both Translation and Quick Chat simultaneously.",
@@ -84,7 +76,6 @@
   "Settings_QuickChatOverlayShortcut": "Quick Chat Overlay Shortcut:",
   "Settings_QuickChatOverlayShortcut_Tooltip": "Shortcut to toggle the on-screen tactical callouts overlay. Note: Helldivers must be running in Borderless Fullscreen (or Windowed) mode for the overlay to appear over the game.",
   "Settings_Btn_TestOverlay": "Test Overlay",
-
   "Settings_Display": "Display",
   "Settings_ToastNotifications": "Toast Notifications:",
   "Settings_ToastNotifications_Tooltip": "Show on-screen popups for Pause/Resume, errors, and system tray events without losing game focus.",
@@ -101,7 +92,6 @@
   "Settings_OverlayAndToastSize_Tooltip": "Visual scale percentage for on-screen toasts and Quick Chat overlay (50% to 200%). Sliding shows a 2-second idle preview.",
   "Settings_TargetDisplay": "Target Display:",
   "Settings_TargetDisplay_Tooltip": "Select which monitor overlays appear on. 'Auto' dynamically follows the Helldivers game window.",
-
   "Settings_AiTranslationProvider": "AI Translation Provider",
   "Settings_TranslationProvider": "Translation Provider:",
   "Settings_TranslationProvider_Tooltip": "Select the active AI translation engine. Currently Google Gemini is supported; other providers coming soon.",
@@ -115,13 +105,11 @@
   "Settings_Btn_ResetAllSettings": "Reset All Settings",
   "Settings_Btn_ResetAllSettings_Tooltip": "Reset all settings across Translation & Logs and Settings tabs back to their default values",
   "Settings_Btn_SaveAllSettings": "Save All Settings",
-
   "Provider_GeminiActive": "Google Gemini (Active)",
   "Provider_OpenAiSoon": "OpenAI ChatGPT (Coming Soon)",
   "Provider_ClaudeSoon": "Anthropic Claude (Coming Soon)",
   "Provider_DeepSeekSoon": "DeepSeek (Coming Soon)",
   "Provider_SelfHostSoon": "Self-host (Coming Soon)",
-
   "About_Title": "About Helldivers 1 Babel",
   "About_HeaderTitle": "HELLDIVERS 1 BABEL",
   "About_Subtitle": "Tactical In-Game Translation Assistant for Helldivers (2015)",
@@ -130,7 +118,6 @@
   "About_License": "License:",
   "About_LicenseValue": "Open Source (MIT License)",
   "About_Btn_Close": "Close",
-
   "PosSelect_Title": "Overlay Position Selector",
   "PosSelect_HeaderTitle": "Configure Overlay Position",
   "PosSelect_HeaderSubtitle": "Click an arrow or the center circle to choose where the overlay appears.",
@@ -149,7 +136,6 @@
   "Pos_SelectedPrefix": "Selected: {0}",
   "PosSelect_ConfigureToastTitle": "Configure Toast Position",
   "PosSelect_ConfigureQuickChatTitle": "Configure Quick Chat Overlay Position",
-
   "Msg_LogsExportSuccess": "Chat logs exported successfully to:\n{0}",
   "Msg_LogsExportError": "Failed to export chat logs:\n{0}",
   "Msg_LogsExportTitle": "Export Chat Logs",
@@ -167,7 +153,6 @@
   "Msg_ResetSettingsConfirm": "Are you sure you want to reset all settings to their default values?",
   "Msg_ResetSettingsTitle": "Reset All Settings",
   "Msg_SettingsSaved": "Settings saved successfully!",
-
   "Toast_TrayMinimized": "Minimized to System Tray (Active in background)",
   "Toast_SettingsResetTitle": "Settings Reset",
   "Toast_SettingsResetBody": "All settings restored to default values",
@@ -180,7 +165,6 @@
   "Toast_QuickChatActive": "Quick Chat Active",
   "Toast_QcImported": "Imported {0} message(s) successfully",
   "Toast_QcExported": "Messages exported successfully",
-
   "Anchor_TopLeft": "Top Left (NW)",
   "Anchor_TopCenter": "Top Center (N)",
   "Anchor_TopRight": "Top Right (NE)",
@@ -190,14 +174,19 @@
   "Anchor_BottomLeft": "Bottom Left (SW)",
   "Anchor_BottomCenter": "Bottom Center (S)",
   "Anchor_BottomRight": "Bottom Right (SE)",
-
   "Api_TestingConnection": "Testing connection to Gemini...",
   "Api_ConnectedResult": "Connected! Latency: {0}ms - Result: \"{1}\"",
   "Api_ConnectionFailed": "Connection Failed: {0}",
-
   "Tray_Open": "Open Helldivers 1 Babel",
   "Tray_TogglePause": "Toggle Pause ({0})",
   "Tray_Exit": "Exit",
   "Tray_TipActive": "Helldivers 1 Babel (Active)",
-  "Tray_TipPaused": "Helldivers 1 Babel (Paused)"
+  "Tray_TipPaused": "Helldivers 1 Babel (Paused)",
+  "Col_Date": "Date",
+  "Settings_TranslationTone": "Translation Tone:",
+  "Settings_TranslationTone_Tooltip": "Select the translation style. Casual uses lowercase gaming slang, while Normal uses standard natural phrasing.",
+  "Settings_DateFormat": "Date Format:",
+  "Settings_DateFormat_Tooltip": "Format used to display dates in the chat logs dataset table and exported logs.",
+  "Settings_TimeFormat": "Time Format:",
+  "Settings_TimeFormat_Tooltip": "Format used to display times in the chat logs dataset table and exported logs."
 }

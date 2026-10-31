@@ -181,5 +181,12 @@
   "Tray_TogglePause": "Basculer la pause ({0})",
   "Tray_Exit": "Quitter",
   "Tray_TipActive": "Helldivers 1 Babel (Actif)",
-  "Tray_TipPaused": "Helldivers 1 Babel (En pause)"
+  "Tray_TipPaused": "Helldivers 1 Babel (En pause)",
+  "Col_Date": "Date",
+  "Settings_TranslationTone": "Ton de traduction :",
+  "Settings_TranslationTone_Tooltip": "Sélectionnez le style de traduction. Décontracté utilise le jargon des jeux, tandis que Normal utilise des phrases naturelles standard.",
+  "Settings_DateFormat": "Format de date :",
+  "Settings_DateFormat_Tooltip": "Format utilisé pour afficher les dates dans le tableau des journaux de discussion et les journaux exportés.",
+  "Settings_TimeFormat": "Format d'heure :",
+  "Settings_TimeFormat_Tooltip": "Format utilisé pour afficher les heures dans le tableau des journaux de discussion et les journaux exportés."
 }

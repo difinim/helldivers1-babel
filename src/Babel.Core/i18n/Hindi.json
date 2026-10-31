@@ -181,5 +181,12 @@
   "Tray_TogglePause": "रोकें/जारी रखें ({0})",
   "Tray_Exit": "बाहर निकलें",
   "Tray_TipActive": "Helldivers 1 Babel (सक्रिय)",
-  "Tray_TipPaused": "Helldivers 1 Babel (रुका हुआ)"
+  "Tray_TipPaused": "Helldivers 1 Babel (रुका हुआ)",
+  "Col_Date": "दिनांक",
+  "Settings_TranslationTone": "अनुवाद शैली:",
+  "Settings_TranslationTone_Tooltip": "अनुवाद शैली चुनें। अनौपचारिक गेमिंग स्लैंग का उपयोग करता है, जबकि सामान्य मानक प्राकृतिक वाक्यों का उपयोग करता है।",
+  "Settings_DateFormat": "दिनांक प्रारूप:",
+  "Settings_DateFormat_Tooltip": "चैट लॉग तालिका और निर्यातित लॉग में दिनांक प्रदर्शित करने के लिए उपयोग किया जाने वाला प्रारूप।",
+  "Settings_TimeFormat": "समय प्रारूप:",
+  "Settings_TimeFormat_Tooltip": "चैट लॉग तालिका और निर्यातित लॉग में समय प्रदर्शित करने के लिए उपयोग किया जाने वाला प्रारूप।"
 }

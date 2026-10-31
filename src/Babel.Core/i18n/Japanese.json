@@ -181,5 +181,12 @@
   "Tray_TogglePause": "一時停止の切替 ({0})",
   "Tray_Exit": "終了",
   "Tray_TipActive": "Helldivers 1 Babel (稼働中)",
-  "Tray_TipPaused": "Helldivers 1 Babel (一時停止中)"
+  "Tray_TipPaused": "Helldivers 1 Babel (一時停止中)",
+  "Col_Date": "日付",
+  "Settings_TranslationTone": "翻訳のトーン:",
+  "Settings_TranslationTone_Tooltip": "翻訳スタイルを選択します。「カジュアル」はゲームのスラングを使用し、「ノーマル」は標準的な自然な表現を使用します。",
+  "Settings_DateFormat": "日付形式:",
+  "Settings_DateFormat_Tooltip": "チャットログテーブルおよびエクスポートされたログで日付を表示するために使用される形式。",
+  "Settings_TimeFormat": "時刻形式:",
+  "Settings_TimeFormat_Tooltip": "チャットログテーブルおよびエクスポートされたログで時刻を表示するために使用される形式。"
 }

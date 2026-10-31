@@ -181,5 +181,12 @@
   "Tray_TogglePause": "Comută Pauza ({0})",
   "Tray_Exit": "Ieșire",
   "Tray_TipActive": "Helldivers 1 Babel (Activ)",
-  "Tray_TipPaused": "Helldivers 1 Babel (În pauză)"
+  "Tray_TipPaused": "Helldivers 1 Babel (În pauză)",
+  "Col_Date": "Data",
+  "Settings_TranslationTone": "Ton traducere:",
+  "Settings_TranslationTone_Tooltip": "Selectați stilul de traducere. Relaxat folosește jargonul de jocuri, în timp ce Normal folosește formulări naturale standard.",
+  "Settings_DateFormat": "Format dată:",
+  "Settings_DateFormat_Tooltip": "Formatul utilizat pentru afișarea datelor în tabelul de jurnal de chat și jurnalele exportate.",
+  "Settings_TimeFormat": "Format oră:",
+  "Settings_TimeFormat_Tooltip": "Formatul utilizat pentru afișarea orelor în tabelul de jurnal de chat și jurnalele exportate."
 }
