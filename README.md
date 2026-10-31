@@ -1,4 +1,4 @@
-# ![Helldivers 1 Babel](docs/logo.png)
+# ![Helldivers 1 Babel](docs/screenshots/logo.png)
 
 [![Latest Version](https://img.shields.io/github/v/release/difinim/helldivers1-babel?logo=github&label=release)](https://github.com/difinim/helldivers1-babel/releases/latest)
 [![Build Status](https://github.com/difinim/helldivers1-babel/actions/workflows/release.yml/badge.svg)](https://github.com/difinim/helldivers1-babel/actions/workflows/release.yml)
@@ -10,6 +10,11 @@
 *Dive together. Speak as one.*
 
 **Helldivers 1 Babel** is an open-source, non-invasive chat translation and tactical communication assistant for *Helldivers (2015)*, because *sweet liberty sounds better when everyone understands the plan*.
+
+## Translations
+
+[English](README.md) | [العربية](docs/README.ar.md) | [বাংলা](docs/README.bn.md) | [简体中文](docs/README.zh.md) | [Čeština](docs/README.cs.md) | [Nederlands](docs/README.nl.md) | [Français](docs/README.fr.md) | [Deutsch](docs/README.de.md) | [Ελληνικά](docs/README.el.md) | [हिन्दी](docs/README.hi.md) | [Magyar](docs/README.hu.md) | [Bahasa Indonesia](docs/README.id.md) | [Italiano](docs/README.it.md) | [日本語](docs/README.ja.md) | [한국어](docs/README.ko.md) | [Bahasa Melayu](docs/README.ms.md) | [فارسی](docs/README.fa.md) | [Polski](docs/README.pl.md) | [Português (PT-BR)](docs/README.pt-BR.md) | [Română](docs/README.ro.md) | [Русский](docs/README.ru.md) | [Español](docs/README.es.md) | [Svenska](docs/README.sv.md) | [Tagalog (Filipino)](docs/README.tl.md) | [ไทย](docs/README.th.md) | [Türkçe](docs/README.tr.md) | [Українська](docs/README.uk.md) | [Tiếng Việt](docs/README.vi.md)
+
 > [!IMPORTANT]
 > **Compatibility Disclaimer:**
 > **Helldivers 1 Babel is strictly developed for Helldivers (2015) on PC (Steam).**
@@ -41,16 +46,16 @@
 - **Persistent Chat Logs & File Export:** Full session chat history tracking with timestamps, player names, colors, detected source languages, and translation latency. Logs persist in the table across application restarts via lightweight asynchronous batch disk writes (configurable), with one-click export to a `.txt` file.
 - **Searchable Chat Logs:** Fully searchable chat history that filters any columns
 
-![Helldivers 1 Babel in action](docs/screenshot.png)
+![Helldivers 1 Babel in action](docs/screenshots/screenshot.png)
 
 - **Tactical Quick Chat (10 Custom Slots):** 10 customizable pre-defined tactical message slots, each bound to user-configurable hotkeys (e.g. Numpad 0-9 or custom combinations) to instantly transmit tactical callouts into in-game multiplayer chat.
 
-![Quick Chat](docs/quick-chat.png)
+![Quick Chat](docs/screenshots/quick-chat.png)
 
 - **Auto-Welcome Quick Chat Message:** Automatically broadcasts a customizable welcome message to in-game chat when hosting a lobby and a guest player joins.
 - **On-Screen Quick Chat Reference Overlay:** Toggle a non-activating floating reference overlay on the right side of the screen with `Numpad +` (or your recorded shortcut) to quickly inspect all active tactical callouts and shortcuts in-game. *(Requires Helldivers to run in Borderless Fullscreen or Windowed mode).*
 
-![Quick Chat overlay](docs/overlay.png)
+![Quick Chat overlay](docs/screenshots/overlay.png)
 
 - **Multi-Language UI Support:** Supports 28 Languages.
 - **Provider Adapter Architecture:** Built with a modular AI provider interface. Comes with an optimized, zero-thinking adapter for **Google Gemini** (`gemini-flash-lite-latest` / `gemini-2.0-flash-lite`), with extensible provider contracts for OpenAI, Claude, and DeepSeek (not implemented yet).
@@ -60,7 +65,7 @@
   - **Toggle Translation Only:** Press `Ctrl + F11` (or your recorded shortcut) to instantly pause or resume chat translation without affecting Quick Chat (with on-screen toast feedback).
   - **Toggle Quick Chat Only:** Press `Ctrl + F12` (or your recorded shortcut) to instantly pause or resume Quick Chat callouts without affecting translation (with on-screen toast feedback).
 
-![Settings](docs/settings.png)
+![Settings](docs/screenshots/settings.png)
 
 - **Secure Credential Storage (DPAPI):** Sensitive preferences like AI provider API tokens are encrypted at rest using the Windows Data Protection API (DPAPI, `CurrentUser` scope). Credentials are never stored in plaintext in configuration files and can only be decrypted on your local machine by your Windows account.
 - **Zero Telemetry & Complete Privacy:** This tool does not collect, log, or send any user data or telemetry data. All translation requests communicate directly and exclusively with your configured AI provider endpoint using your personal API credentials.
