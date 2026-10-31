@@ -188,5 +188,11 @@
   "Settings_DateFormat": "รูปแบบวันที่:",
   "Settings_DateFormat_Tooltip": "รูปแบบที่ใช้แสดงวันที่ในตารางบันทึกการแชทและบันทึกที่ส่งออก",
   "Settings_TimeFormat": "รูปแบบเวลา:",
-  "Settings_TimeFormat_Tooltip": "รูปแบบที่ใช้แสดงเวลาในตารางบันทึกการแชทและบันทึกที่ส่งออก"
+  "Settings_TimeFormat_Tooltip": "รูปแบบที่ใช้แสดงเวลาในตารางบันทึกการแชทและบันทึกที่ส่งออก",
+  "Trans_SearchLogs": "ค้นหา:",
+  "Trans_SearchLogs_Tooltip": "กรองบันทึกการแชทในทุกคอลัมน์ (วันที่, เวลา, ผู้เล่น, ภาษา, ข้อความ, ความหน่วง)",
+  "Trans_SearchLogs_Placeholder": "ค้นหาบันทึก (ทุกคอลัมน์)...",
+  "Trans_Btn_ClearSearch_Tooltip": "ล้างตัวกรองการค้นหาและแสดงบันทึกทั้งหมด",
+  "Trans_LogSearch_StatusCount": "กำลังแสดง {0} จาก {1} ข้อความ",
+  "Trans_LogSearch_StatusTotal": "{0} ข้อความ"
 }

@@ -188,5 +188,11 @@
   "Settings_DateFormat": "날짜 형식:",
   "Settings_DateFormat_Tooltip": "채팅 로그 데이터 세트 테이블 및 내보낸 로그에 날짜를 표시하는 데 사용되는 형식입니다.",
   "Settings_TimeFormat": "시간 형식:",
-  "Settings_TimeFormat_Tooltip": "채팅 로그 데이터 세트 테이블 및 내보낸 로그에 시간을 표시하는 데 사용되는 형식입니다."
+  "Settings_TimeFormat_Tooltip": "채팅 로그 데이터 세트 테이블 및 내보낸 로그에 시간을 표시하는 데 사용되는 형식입니다.",
+  "Trans_SearchLogs": "검색:",
+  "Trans_SearchLogs_Tooltip": "모든 열에서 채팅 로그 필터링 (날짜, 시간, 플레이어, 언어, 메시지, 지연 시간)",
+  "Trans_SearchLogs_Placeholder": "로그 검색 (모든 열)...",
+  "Trans_Btn_ClearSearch_Tooltip": "검색 필터를 지우고 모든 로그 표시",
+  "Trans_LogSearch_StatusCount": "{1}개 중 {0}개 메시지 표시 중",
+  "Trans_LogSearch_StatusTotal": "{0}개 메시지"
 }

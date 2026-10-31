@@ -18,6 +18,8 @@
         WindowStartupLocation="CenterScreen">
 
     <Window.Resources>
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
+
         <!-- TabItem Style with Medium Gray Selected State -->
         <Style TargetType="TabItem">
             <Setter Property="Foreground" Value="#A0A5B5"/>
@@ -514,6 +516,7 @@
                 <Grid Margin="0,12,0,0">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
 
@@ -544,8 +547,46 @@
                         </Grid>
                     </Border>
 
+                    <!-- Log Search & Filter Bar -->
+                    <Border Grid.Row="1" Background="#181B22" BorderBrush="#262B36" BorderThickness="1" CornerRadius="4" Padding="10,6" Margin="0,0,0,8">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="320"/>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <TextBlock Grid.Column="0" Text="{DynamicResource Trans_SearchLogs}" VerticalAlignment="Center" Margin="0,0,8,0" FontWeight="SemiBold"/>
+                            <Grid Grid.Column="1" VerticalAlignment="Center">
+                                <TextBox x:Name="LogSearchTextBox" Text="{Binding LogSearchQuery, UpdateSourceTrigger=PropertyChanged}"
+                                         Padding="8,4" PreviewKeyDown="LogSearchTextBox_PreviewKeyDown"
+                                         ToolTip="{DynamicResource Trans_SearchLogs_Tooltip}"/>
+                                <TextBlock Text="{DynamicResource Trans_SearchLogs_Placeholder}"
+                                           Foreground="#6B7280" Margin="10,0,0,0" VerticalAlignment="Center" IsHitTestVisible="False">
+                                    <TextBlock.Style>
+                                        <Style TargetType="TextBlock">
+                                            <Setter Property="Visibility" Value="Collapsed"/>
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding HasLogSearchQuery}" Value="False">
+                                                    <Setter Property="Visibility" Value="Visible"/>
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </TextBlock.Style>
+                                </TextBlock>
+                            </Grid>
+                            <Button Grid.Column="2" Content="✕" Click="OnClearSearchClicked"
+                                    Visibility="{Binding HasLogSearchQuery, Converter={StaticResource BooleanToVisibilityConverter}}"
+                                    Margin="6,0,0,0" Padding="8,2" ToolTip="{DynamicResource Trans_Btn_ClearSearch_Tooltip}"/>
+
+                            <TextBlock Grid.Column="3" Text="{Binding LogSearchFilterStatus}"
+                                       Foreground="#8B949E" FontSize="11" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="8,0,4,0"/>
+                        </Grid>
+                    </Border>
+
                     <!-- Translation History Grid -->
-                    <DataGrid x:Name="HistoryDataGrid" Grid.Row="1" ItemsSource="{Binding History}" AutoGenerateColumns="False"
+                    <DataGrid x:Name="HistoryDataGrid" Grid.Row="2" ItemsSource="{Binding HistoryView}" AutoGenerateColumns="False"
                               IsReadOnly="True" CanUserAddRows="False" CanUserResizeColumns="True"
                               ClipboardCopyMode="ExcludeHeader"
                               PreviewMouseRightButtonDown="HistoryDataGrid_PreviewMouseRightButtonDown"

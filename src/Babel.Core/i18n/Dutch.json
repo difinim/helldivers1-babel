@@ -188,5 +188,11 @@
   "Settings_DateFormat": "Datumnotatie:",
   "Settings_DateFormat_Tooltip": "Notatie die wordt gebruikt om datums weer te geven in de chatlogtabel en geëxporteerde logboeken.",
   "Settings_TimeFormat": "Tijdnotatie:",
-  "Settings_TimeFormat_Tooltip": "Notatie die wordt gebruikt om tijden weer te geven in de chatlogtabel en geëxporteerde logboeken."
+  "Settings_TimeFormat_Tooltip": "Notatie die wordt gebruikt om tijden weer te geven in de chatlogtabel en geëxporteerde logboeken.",
+  "Trans_SearchLogs": "Zoeken:",
+  "Trans_SearchLogs_Tooltip": "Filter chatlogboeken over alle kolommen (Datum, Tijd, Speler, Taal, Berichten, Latentie)",
+  "Trans_SearchLogs_Placeholder": "Logboeken doorzoeken (alle kolommen)...",
+  "Trans_Btn_ClearSearch_Tooltip": "Zoekfilter wissen en alle logboeken weergeven",
+  "Trans_LogSearch_StatusCount": "Toont {0} van {1} berichten",
+  "Trans_LogSearch_StatusTotal": "{0} berichten"
 }

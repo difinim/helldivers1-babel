@@ -188,5 +188,11 @@
   "Settings_DateFormat": "Formato de fecha:",
   "Settings_DateFormat_Tooltip": "Formato utilizado para mostrar las fechas en la tabla de registros del chat y registros exportados.",
   "Settings_TimeFormat": "Formato de hora:",
-  "Settings_TimeFormat_Tooltip": "Formato utilizado para mostrar la hora en la tabla de registros del chat y registros exportados."
+  "Settings_TimeFormat_Tooltip": "Formato utilizado para mostrar la hora en la tabla de registros del chat y registros exportados.",
+  "Trans_SearchLogs": "Buscar:",
+  "Trans_SearchLogs_Tooltip": "Filtrar registros del chat en todas las columnas (Fecha, Hora, Jugador, Idioma, Mensajes, Latencia)",
+  "Trans_SearchLogs_Placeholder": "Buscar en registros (todas las columnas)...",
+  "Trans_Btn_ClearSearch_Tooltip": "Borrar filtro de búsqueda y mostrar todos los registros",
+  "Trans_LogSearch_StatusCount": "Mostrando {0} de {1} mensajes",
+  "Trans_LogSearch_StatusTotal": "{0} mensajes"
 }

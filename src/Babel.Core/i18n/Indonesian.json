@@ -188,5 +188,11 @@
   "Settings_DateFormat": "Format Tanggal:",
   "Settings_DateFormat_Tooltip": "Format yang digunakan untuk menampilkan tanggal di tabel log obrolan dan log yang diekspor.",
   "Settings_TimeFormat": "Format Waktu:",
-  "Settings_TimeFormat_Tooltip": "Format yang digunakan untuk menampilkan waktu di tabel log obrolan dan log yang diekspor."
+  "Settings_TimeFormat_Tooltip": "Format yang digunakan untuk menampilkan waktu di tabel log obrolan dan log yang diekspor.",
+  "Trans_SearchLogs": "Cari:",
+  "Trans_SearchLogs_Tooltip": "Filter log obrolan di semua kolom (Tanggal, Waktu, Pemain, Bahasa, Pesan, Latensi)",
+  "Trans_SearchLogs_Placeholder": "Cari log (semua kolom)...",
+  "Trans_Btn_ClearSearch_Tooltip": "Hapus filter pencarian dan tampilkan semua log",
+  "Trans_LogSearch_StatusCount": "Menampilkan {0} dari {1} pesan",
+  "Trans_LogSearch_StatusTotal": "{0} pesan"
 }

@@ -188,5 +188,11 @@
   "Settings_DateFormat": "Formát data:",
   "Settings_DateFormat_Tooltip": "Formát používaný k zobrazení dat v tabulce protokolů chatu a exportovaných protokolech.",
   "Settings_TimeFormat": "Formát času:",
-  "Settings_TimeFormat_Tooltip": "Formát používaný k zobrazení časů v tabulce protokolů chatu a exportovaných protokolech."
+  "Settings_TimeFormat_Tooltip": "Formát používaný k zobrazení časů v tabulce protokolů chatu a exportovaných protokolech.",
+  "Trans_SearchLogs": "Hledat:",
+  "Trans_SearchLogs_Tooltip": "Filtrovat protokoly chatu ve všech sloupcích (Datum, Čas, Hráč, Jazyk, Zprávy, Latence)",
+  "Trans_SearchLogs_Placeholder": "Hledat v protokolech (všechny sloupce)...",
+  "Trans_Btn_ClearSearch_Tooltip": "Vymazat filtr vyhledávání a zobrazit všechny protokoly",
+  "Trans_LogSearch_StatusCount": "Zobrazeno {0} z {1} zpráv",
+  "Trans_LogSearch_StatusTotal": "{0} zpráv"
 }

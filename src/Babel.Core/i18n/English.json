@@ -188,5 +188,11 @@
   "Settings_DateFormat": "Date Format:",
   "Settings_DateFormat_Tooltip": "Format used to display dates in the chat logs dataset table and exported logs.",
   "Settings_TimeFormat": "Time Format:",
-  "Settings_TimeFormat_Tooltip": "Format used to display times in the chat logs dataset table and exported logs."
+  "Settings_TimeFormat_Tooltip": "Format used to display times in the chat logs dataset table and exported logs.",
+  "Trans_SearchLogs": "Search:",
+  "Trans_SearchLogs_Tooltip": "Filter chat logs across all columns (Date, Time, Player, Language, Messages, Latency)",
+  "Trans_SearchLogs_Placeholder": "Search logs (all columns)...",
+  "Trans_Btn_ClearSearch_Tooltip": "Clear search filter and show all logs",
+  "Trans_LogSearch_StatusCount": "Showing {0} of {1} messages",
+  "Trans_LogSearch_StatusTotal": "{0} messages"
 }

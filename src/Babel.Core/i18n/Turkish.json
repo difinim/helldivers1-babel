@@ -188,5 +188,11 @@
   "Settings_DateFormat": "Tarih Formatı:",
   "Settings_DateFormat_Tooltip": "Sohbet günlükleri tablosunda ve dışa aktarılan günlüklerde tarihleri göstermek için kullanılan format.",
   "Settings_TimeFormat": "Saat Formatı:",
-  "Settings_TimeFormat_Tooltip": "Sohbet günlükleri tablosunda ve dışa aktarılan günlüklerde saatleri göstermek için kullanılan format."
+  "Settings_TimeFormat_Tooltip": "Sohbet günlükleri tablosunda ve dışa aktarılan günlüklerde saatleri göstermek için kullanılan format.",
+  "Trans_SearchLogs": "Ara:",
+  "Trans_SearchLogs_Tooltip": "Sohbet günlüklerini tüm sütunlarda filtrele (Tarih, Saat, Oyuncu, Dil, Mesajlar, Gecikme)",
+  "Trans_SearchLogs_Placeholder": "Günlüklerde ara (tüm sütunlar)...",
+  "Trans_Btn_ClearSearch_Tooltip": "Arama filtresini temizle ve tüm günlükleri göster",
+  "Trans_LogSearch_StatusCount": "{1} mesajdan {0} tanesi gösteriliyor",
+  "Trans_LogSearch_StatusTotal": "{0} mesaj"
 }

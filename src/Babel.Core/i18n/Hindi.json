@@ -188,5 +188,11 @@
   "Settings_DateFormat": "दिनांक प्रारूप:",
   "Settings_DateFormat_Tooltip": "चैट लॉग तालिका और निर्यातित लॉग में दिनांक प्रदर्शित करने के लिए उपयोग किया जाने वाला प्रारूप।",
   "Settings_TimeFormat": "समय प्रारूप:",
-  "Settings_TimeFormat_Tooltip": "चैट लॉग तालिका और निर्यातित लॉग में समय प्रदर्शित करने के लिए उपयोग किया जाने वाला प्रारूप।"
+  "Settings_TimeFormat_Tooltip": "चैट लॉग तालिका और निर्यातित लॉग में समय प्रदर्शित करने के लिए उपयोग किया जाने वाला प्रारूप।",
+  "Trans_SearchLogs": "खोजें:",
+  "Trans_SearchLogs_Tooltip": "सभी स्तंभों में चैट लॉग फ़िल्टर करें (दिनांक, समय, खिलाड़ी, भाषा, संदेश, विलंबता)",
+  "Trans_SearchLogs_Placeholder": "लॉग खोजें (सभी स्तंभ)...",
+  "Trans_Btn_ClearSearch_Tooltip": "खोज फ़िल्टर साफ़ करें और सभी लॉग दिखाएं",
+  "Trans_LogSearch_StatusCount": "{1} में से {0} संदेश दिखाए जा रहे हैं",
+  "Trans_LogSearch_StatusTotal": "{0} संदेश"
 }

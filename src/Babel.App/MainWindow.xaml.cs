@@ -300,6 +300,21 @@ public partial class MainWindow : Window
         _viewModel.ClearHistory();
     }
 
+    private void OnClearSearchClicked(object sender, RoutedEventArgs e)
+    {
+        _viewModel.ClearLogSearch();
+        LogSearchTextBox.Focus();
+    }
+
+    private void LogSearchTextBox_PreviewKeyDown(object sender, KeyEventArgs e)
+    {
+        if (e.Key == Key.Escape)
+        {
+            _viewModel.ClearLogSearch();
+            e.Handled = true;
+        }
+    }
+
     private void HistoryDataGrid_PreviewMouseRightButtonDown(object sender, MouseButtonEventArgs e)
     {
         var dep = e.OriginalSource as DependencyObject;

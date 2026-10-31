@@ -188,5 +188,11 @@
   "Settings_DateFormat": "Формат дати:",
   "Settings_DateFormat_Tooltip": "Формат відображення дат у таблиці журналів чату та експортованих журналах.",
   "Settings_TimeFormat": "Формат часу:",
-  "Settings_TimeFormat_Tooltip": "Формат відображення часу в таблиці журналів чату та експортованих журналах."
+  "Settings_TimeFormat_Tooltip": "Формат відображення часу в таблиці журналів чату та експортованих журналах.",
+  "Trans_SearchLogs": "Пошук:",
+  "Trans_SearchLogs_Tooltip": "Фільтрувати журнали чату за всіма стовпцями (Дата, Час, Гравець, Мова, Повідомлення, Затримка)",
+  "Trans_SearchLogs_Placeholder": "Пошук у журналах (всі стовпці)...",
+  "Trans_Btn_ClearSearch_Tooltip": "Очистити фільтр пошуку та показати всі журнали",
+  "Trans_LogSearch_StatusCount": "Відображається {0} з {1} повідомлень",
+  "Trans_LogSearch_StatusTotal": "{0} повідомлень"
 }

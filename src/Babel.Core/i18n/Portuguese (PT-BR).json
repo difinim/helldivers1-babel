@@ -188,5 +188,11 @@
   "Settings_DateFormat": "Formato de Data:",
   "Settings_DateFormat_Tooltip": "Formato usado para exibir datas na tabela de logs de chat e nos logs exportados.",
   "Settings_TimeFormat": "Formato de Hora:",
-  "Settings_TimeFormat_Tooltip": "Formato usado para exibir horários na tabela de logs de chat e nos logs exportados."
+  "Settings_TimeFormat_Tooltip": "Formato usado para exibir horários na tabela de logs de chat e nos logs exportados.",
+  "Trans_SearchLogs": "Pesquisar:",
+  "Trans_SearchLogs_Tooltip": "Filtrar logs de chat em todas as colunas (Data, Hora, Jogador, Idioma, Mensagens, Latência)",
+  "Trans_SearchLogs_Placeholder": "Pesquisar logs (todas as colunas)...",
+  "Trans_Btn_ClearSearch_Tooltip": "Limpar filtro de pesquisa e mostrar todos os logs",
+  "Trans_LogSearch_StatusCount": "Exibindo {0} de {1} mensagens",
+  "Trans_LogSearch_StatusTotal": "{0} mensagens"
 }

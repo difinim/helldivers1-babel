@@ -188,5 +188,11 @@
   "Settings_DateFormat": "তারিখ বিন্যাস:",
   "Settings_DateFormat_Tooltip": "চ্যাট লগ টেবিল এবং এক্সপোর্ট করা লগে তারিখ দেখানোর জন্য ব্যবহৃত বিন্যাস।",
   "Settings_TimeFormat": "সময় বিন্যাস:",
-  "Settings_TimeFormat_Tooltip": "চ্যাট লগ টেবিল এবং এক্সপোর্ট করা লগে সময় দেখানোর জন্য ব্যবহৃত বিন্যাস।"
+  "Settings_TimeFormat_Tooltip": "চ্যাট লগ টেবিল এবং এক্সপোর্ট করা লগে সময় দেখানোর জন্য ব্যবহৃত বিন্যাস।",
+  "Trans_SearchLogs": "অনুসন্ধান:",
+  "Trans_SearchLogs_Tooltip": "সমস্ত কলাম জুড়ে চ্যাট লগ ফিল্টার করুন (তারিখ, সময়, খেলোয়াড়, ভাষা, বার্তা, লেটেন্সি)",
+  "Trans_SearchLogs_Placeholder": "লগ অনুসন্ধান করুন (সমস্ত কলাম)...",
+  "Trans_Btn_ClearSearch_Tooltip": "অনুসন্ধান ফিল্টার সাফ করুন এবং সমস্ত লগ দেখান",
+  "Trans_LogSearch_StatusCount": "{1} টির মধ্যে {0} টি বার্তা দেখানো হচ্ছে",
+  "Trans_LogSearch_StatusTotal": "{0} টি বার্তা"
 }

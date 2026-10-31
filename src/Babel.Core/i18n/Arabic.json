@@ -188,5 +188,11 @@
   "Settings_DateFormat": "تنسيق التاريخ:",
   "Settings_DateFormat_Tooltip": "التنسيق المستخدم لعرض التواريخ في جدول سجلات الدردشة وسجلات التصدير.",
   "Settings_TimeFormat": "تنسيق الوقت:",
-  "Settings_TimeFormat_Tooltip": "التنسيق المستخدم لعرض الأوقات في جدول سجلات الدردشة وسجلات التصدير."
+  "Settings_TimeFormat_Tooltip": "التنسيق المستخدم لعرض الأوقات في جدول سجلات الدردشة وسجلات التصدير.",
+  "Trans_SearchLogs": "بحث:",
+  "Trans_SearchLogs_Tooltip": "تصفية سجلات الدردشة عبر كافة الأعمدة (التاريخ، الوقت، اللاعب، اللغة، الرسائل، زمن الاستجابة)",
+  "Trans_SearchLogs_Placeholder": "البحث في السجلات (كافة الأعمدة)...",
+  "Trans_Btn_ClearSearch_Tooltip": "مسح عامل تصفية البحث وعرض كافة السجلات",
+  "Trans_LogSearch_StatusCount": "عرض {0} من أصل {1} رسائل",
+  "Trans_LogSearch_StatusTotal": "{0} رسائل"
 }

@@ -188,5 +188,11 @@
   "Settings_DateFormat": "Format daty:",
   "Settings_DateFormat_Tooltip": "Format używany do wyświetlania dat w tabeli dzienników czatu oraz eksportowanych dziennikach.",
   "Settings_TimeFormat": "Format czasu:",
-  "Settings_TimeFormat_Tooltip": "Format używany do wyświetlania czasu w tabeli dzienników czatu oraz eksportowanych dziennikach."
+  "Settings_TimeFormat_Tooltip": "Format używany do wyświetlania czasu w tabeli dzienników czatu oraz eksportowanych dziennikach.",
+  "Trans_SearchLogs": "Szukaj:",
+  "Trans_SearchLogs_Tooltip": "Filtruj dzienniki czatu we wszystkich kolumnach (Data, Czas, Gracz, Język, Wiadomości, Opóźnienie)",
+  "Trans_SearchLogs_Placeholder": "Szukaj w dziennikach (wszystkie kolumny)...",
+  "Trans_Btn_ClearSearch_Tooltip": "Wyczyść filtr wyszukiwania i pokaż wszystkie dzienniki",
+  "Trans_LogSearch_StatusCount": "Wyświetlanie {0} z {1} wiadomości",
+  "Trans_LogSearch_StatusTotal": "{0} wiadomości"
 }

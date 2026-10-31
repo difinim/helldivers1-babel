@@ -188,5 +188,11 @@
   "Settings_DateFormat": "日期格式:",
   "Settings_DateFormat_Tooltip": "在聊天日志数据集表格和导出日志中显示日期所使用的格式。",
   "Settings_TimeFormat": "时间格式:",
-  "Settings_TimeFormat_Tooltip": "在聊天日志数据集表格和导出日志中显示时间所使用的格式。"
+  "Settings_TimeFormat_Tooltip": "在聊天日志数据集表格和导出日志中显示时间所使用的格式。",
+  "Trans_SearchLogs": "搜索:",
+  "Trans_SearchLogs_Tooltip": "跨所有列筛选聊天日志 (日期、时间、玩家、语言、消息、延迟)",
+  "Trans_SearchLogs_Placeholder": "搜索日志 (所有列)...",
+  "Trans_Btn_ClearSearch_Tooltip": "清除搜索筛选并显示所有日志",
+  "Trans_LogSearch_StatusCount": "显示 {0} / {1} 条消息",
+  "Trans_LogSearch_StatusTotal": "{0} 条消息"
 }

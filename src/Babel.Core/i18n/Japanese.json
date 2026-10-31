@@ -188,5 +188,11 @@
   "Settings_DateFormat": "日付形式:",
   "Settings_DateFormat_Tooltip": "チャットログテーブルおよびエクスポートされたログで日付を表示するために使用される形式。",
   "Settings_TimeFormat": "時刻形式:",
-  "Settings_TimeFormat_Tooltip": "チャットログテーブルおよびエクスポートされたログで時刻を表示するために使用される形式。"
+  "Settings_TimeFormat_Tooltip": "チャットログテーブルおよびエクスポートされたログで時刻を表示するために使用される形式。",
+  "Trans_SearchLogs": "検索:",
+  "Trans_SearchLogs_Tooltip": "すべての列でチャットログをフィルター (日付、時刻、プレイヤー、言語、メッセージ、レイテンシ)",
+  "Trans_SearchLogs_Placeholder": "ログを検索 (すべての列)...",
+  "Trans_Btn_ClearSearch_Tooltip": "検索フィルターをクリアしてすべてのログを表示",
+  "Trans_LogSearch_StatusCount": "{1} 件中 {0} 件のメッセージを表示",
+  "Trans_LogSearch_StatusTotal": "{0} 件のメッセージ"
 }

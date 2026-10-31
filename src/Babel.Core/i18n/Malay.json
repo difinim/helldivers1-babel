@@ -188,5 +188,11 @@
   "Settings_DateFormat": "Format Tarikh:",
   "Settings_DateFormat_Tooltip": "Format yang digunakan untuk memaparkan tarikh dalam jadual log sembang dan log yang dieksport.",
   "Settings_TimeFormat": "Format Masa:",
-  "Settings_TimeFormat_Tooltip": "Format yang digunakan untuk memaparkan masa dalam jadual log sembang dan log yang dieksport."
+  "Settings_TimeFormat_Tooltip": "Format yang digunakan untuk memaparkan masa dalam jadual log sembang dan log yang dieksport.",
+  "Trans_SearchLogs": "Cari:",
+  "Trans_SearchLogs_Tooltip": "Tapis log sembang merentasi semua lajur (Tarikh, Masa, Pemain, Bahasa, Mesej, Kependaman)",
+  "Trans_SearchLogs_Placeholder": "Cari log (semua lajur)...",
+  "Trans_Btn_ClearSearch_Tooltip": "Kosongkan penapis carian dan tunjukkan semua log",
+  "Trans_LogSearch_StatusCount": "Menunjukkan {0} daripada {1} mesej",
+  "Trans_LogSearch_StatusTotal": "{0} mesej"
 }

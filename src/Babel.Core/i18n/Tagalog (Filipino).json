@@ -188,5 +188,11 @@
   "Settings_DateFormat": "Format ng Petsa:",
   "Settings_DateFormat_Tooltip": "Format na ginagamit sa pagpapakita ng mga petsa sa talahanayan ng log ng chat at na-export na mga log.",
   "Settings_TimeFormat": "Format ng Oras:",
-  "Settings_TimeFormat_Tooltip": "Format na ginagamit sa pagpapakita ng mga oras sa talahanayan ng log ng chat at na-export na mga log."
+  "Settings_TimeFormat_Tooltip": "Format na ginagamit sa pagpapakita ng mga oras sa talahanayan ng log ng chat at na-export na mga log.",
+  "Trans_SearchLogs": "Maghanap:",
+  "Trans_SearchLogs_Tooltip": "I-filter ang mga log ng chat sa lahat ng column (Petsa, Oras, Manlalaro, Wika, Mga Mensahe, Latency)",
+  "Trans_SearchLogs_Placeholder": "Maghanap sa mga log (lahat ng column)...",
+  "Trans_Btn_ClearSearch_Tooltip": "I-clear ang filter sa paghahanap at ipakita ang lahat ng log",
+  "Trans_LogSearch_StatusCount": "Ipinapakita ang {0} sa {1} mga mensahe",
+  "Trans_LogSearch_StatusTotal": "{0} mga mensahe"
 }

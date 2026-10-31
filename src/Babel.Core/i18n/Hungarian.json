@@ -188,5 +188,11 @@
   "Settings_DateFormat": "Dátumformátum:",
   "Settings_DateFormat_Tooltip": "A csevegési napló táblázatában és az exportált naplókban a dátumok megjelenítésére használt formátum.",
   "Settings_TimeFormat": "Időformátum:",
-  "Settings_TimeFormat_Tooltip": "A csevegési napló táblázatában és az exportált naplókban az idők megjelenítésére használt formátum."
+  "Settings_TimeFormat_Tooltip": "A csevegési napló táblázatában és az exportált naplókban az idők megjelenítésére használt formátum.",
+  "Trans_SearchLogs": "Keresés:",
+  "Trans_SearchLogs_Tooltip": "Csevegési naplók szűrése az összes oszlopban (Dátum, Idő, Játékos, Nyelv, Üzenetek, Késleltetés)",
+  "Trans_SearchLogs_Placeholder": "Keresés a naplókban (minden oszlop)...",
+  "Trans_Btn_ClearSearch_Tooltip": "Keresési szűrő törlése és az összes napló megjelenítése",
+  "Trans_LogSearch_StatusCount": "{0} / {1} üzenet megjelenítése",
+  "Trans_LogSearch_StatusTotal": "{0} üzenet"
 }

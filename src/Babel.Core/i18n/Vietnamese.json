@@ -188,5 +188,11 @@
   "Settings_DateFormat": "Định dạng ngày:",
   "Settings_DateFormat_Tooltip": "Định dạng dùng để hiển thị ngày tháng trong bảng nhật ký trò chuyện và nhật ký đã xuất.",
   "Settings_TimeFormat": "Định dạng giờ:",
-  "Settings_TimeFormat_Tooltip": "Định dạng dùng để hiển thị thời gian trong bảng nhật ký trò chuyện và nhật ký đã xuất."
+  "Settings_TimeFormat_Tooltip": "Định dạng dùng để hiển thị thời gian trong bảng nhật ký trò chuyện và nhật ký đã xuất.",
+  "Trans_SearchLogs": "Tìm kiếm:",
+  "Trans_SearchLogs_Tooltip": "Lọc nhật ký trò chuyện trên tất cả các cột (Ngày, Giờ, Người chơi, Ngôn ngữ, Tin nhắn, Độ trễ)",
+  "Trans_SearchLogs_Placeholder": "Tìm kiếm nhật ký (tất cả các cột)...",
+  "Trans_Btn_ClearSearch_Tooltip": "Xóa bộ lọc tìm kiếm và hiển thị tất cả nhật ký",
+  "Trans_LogSearch_StatusCount": "Đang hiển thị {0} trên {1} tin nhắn",
+  "Trans_LogSearch_StatusTotal": "{0} tin nhắn"
 }

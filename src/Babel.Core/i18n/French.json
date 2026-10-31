@@ -188,5 +188,11 @@
   "Settings_DateFormat": "Format de date :",
   "Settings_DateFormat_Tooltip": "Format utilisé pour afficher les dates dans le tableau des journaux de discussion et les journaux exportés.",
   "Settings_TimeFormat": "Format d'heure :",
-  "Settings_TimeFormat_Tooltip": "Format utilisé pour afficher les heures dans le tableau des journaux de discussion et les journaux exportés."
+  "Settings_TimeFormat_Tooltip": "Format utilisé pour afficher les heures dans le tableau des journaux de discussion et les journaux exportés.",
+  "Trans_SearchLogs": "Recherche :",
+  "Trans_SearchLogs_Tooltip": "Filtrer les journaux de discussion sur toutes les colonnes (Date, Heure, Joueur, Langue, Messages, Latence)",
+  "Trans_SearchLogs_Placeholder": "Rechercher dans les journaux (toutes les colonnes)...",
+  "Trans_Btn_ClearSearch_Tooltip": "Effacer le filtre de recherche et afficher tous les journaux",
+  "Trans_LogSearch_StatusCount": "Affichage de {0} sur {1} messages",
+  "Trans_LogSearch_StatusTotal": "{0} messages"
 }

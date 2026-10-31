@@ -188,5 +188,11 @@
   "Settings_DateFormat": "فرمت تاریخ:",
   "Settings_DateFormat_Tooltip": "فرمت مورد استفاده برای نمایش تاریخ‌ها در جدول گزارش چت و گزارش‌های صادر شده.",
   "Settings_TimeFormat": "فرمت زمان:",
-  "Settings_TimeFormat_Tooltip": "فرمت مورد استفاده برای نمایش زمان در جدول گزارش چت و گزارش‌های صادر شده."
+  "Settings_TimeFormat_Tooltip": "فرمت مورد استفاده برای نمایش زمان در جدول گزارش چت و گزارش‌های صادر شده.",
+  "Trans_SearchLogs": "جستجو:",
+  "Trans_SearchLogs_Tooltip": "فیلتر گزارش‌های چت در تمام ستون‌ها (تاریخ، زمان، بازیکن، زبان، پیام‌ها، تاخیر)",
+  "Trans_SearchLogs_Placeholder": "جستجوی گزارش‌ها (تمام ستون‌ها)...",
+  "Trans_Btn_ClearSearch_Tooltip": "پاک کردن فیلتر جستجو و نمایش همه گزارش‌ها",
+  "Trans_LogSearch_StatusCount": "نمایش {0} از {1} پیام",
+  "Trans_LogSearch_StatusTotal": "{0} پیام"
 }

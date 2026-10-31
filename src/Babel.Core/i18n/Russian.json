@@ -188,5 +188,11 @@
   "Settings_DateFormat": "Формат даты:",
   "Settings_DateFormat_Tooltip": "Формат отображения дат в таблице логов чата и экспортированных файлах.",
   "Settings_TimeFormat": "Формат времени:",
-  "Settings_TimeFormat_Tooltip": "Формат отображения времени в таблице логов чата и экспортированных файлах."
+  "Settings_TimeFormat_Tooltip": "Формат отображения времени в таблице логов чата и экспортированных файлах.",
+  "Trans_SearchLogs": "Поиск:",
+  "Trans_SearchLogs_Tooltip": "Фильтровать логи чата по всем столбцам (Дата, Время, Игрок, Язык, Сообщения, Задержка)",
+  "Trans_SearchLogs_Placeholder": "Поиск в логах (все столбцы)...",
+  "Trans_Btn_ClearSearch_Tooltip": "Очистить фильтр поиска и показать все логи",
+  "Trans_LogSearch_StatusCount": "Отображается {0} из {1} сообщений",
+  "Trans_LogSearch_StatusTotal": "{0} сообщений"
 }

@@ -188,5 +188,11 @@
   "Settings_DateFormat": "Format dată:",
   "Settings_DateFormat_Tooltip": "Formatul utilizat pentru afișarea datelor în tabelul de jurnal de chat și jurnalele exportate.",
   "Settings_TimeFormat": "Format oră:",
-  "Settings_TimeFormat_Tooltip": "Formatul utilizat pentru afișarea orelor în tabelul de jurnal de chat și jurnalele exportate."
+  "Settings_TimeFormat_Tooltip": "Formatul utilizat pentru afișarea orelor în tabelul de jurnal de chat și jurnalele exportate.",
+  "Trans_SearchLogs": "Căutare:",
+  "Trans_SearchLogs_Tooltip": "Filtrați jurnalele de chat în toate coloanele (Data, Ora, Jucător, Limbă, Mesaje, Latență)",
+  "Trans_SearchLogs_Placeholder": "Căutare în jurnale (toate coloanele)...",
+  "Trans_Btn_ClearSearch_Tooltip": "Ștergeți filtrul de căutare și afișați toate jurnalele",
+  "Trans_LogSearch_StatusCount": "Se afișează {0} din {1} mesaje",
+  "Trans_LogSearch_StatusTotal": "{0} mesaje"
 }

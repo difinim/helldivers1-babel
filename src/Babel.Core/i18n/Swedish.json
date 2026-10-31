@@ -188,5 +188,11 @@
   "Settings_DateFormat": "Datumformat:",
   "Settings_DateFormat_Tooltip": "Format som används för att visa datum i chattloggstabellen och exporterade loggar.",
   "Settings_TimeFormat": "Tidsformat:",
-  "Settings_TimeFormat_Tooltip": "Format som används för att visa tider i chattloggstabellen och exporterade loggar."
+  "Settings_TimeFormat_Tooltip": "Format som används för att visa tider i chattloggstabellen och exporterade loggar.",
+  "Trans_SearchLogs": "Sök:",
+  "Trans_SearchLogs_Tooltip": "Filtrera chattloggar över alla kolumner (Datum, Tid, Spelare, Språk, Meddelanden, Latens)",
+  "Trans_SearchLogs_Placeholder": "Sök i loggar (alla kolumner)...",
+  "Trans_Btn_ClearSearch_Tooltip": "Rensa sökfilter och visa alla loggar",
+  "Trans_LogSearch_StatusCount": "Visar {0} av {1} meddelanden",
+  "Trans_LogSearch_StatusTotal": "{0} meddelanden"
 }

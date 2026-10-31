@@ -188,5 +188,11 @@
   "Settings_DateFormat": "Datumsformat:",
   "Settings_DateFormat_Tooltip": "Format für Datumsangaben in der Chat-Protokolltabelle und in exportierten Protokollen.",
   "Settings_TimeFormat": "Zeitformat:",
-  "Settings_TimeFormat_Tooltip": "Format für Zeitangaben in der Chat-Protokolltabelle und in exportierten Protokollen."
+  "Settings_TimeFormat_Tooltip": "Format für Zeitangaben in der Chat-Protokolltabelle und in exportierten Protokollen.",
+  "Trans_SearchLogs": "Suchen:",
+  "Trans_SearchLogs_Tooltip": "Chat-Protokolle über alle Spalten filtern (Datum, Zeit, Spieler, Sprache, Nachrichten, Latenz)",
+  "Trans_SearchLogs_Placeholder": "Protokolle durchsuchen (alle Spalten)...",
+  "Trans_Btn_ClearSearch_Tooltip": "Suchfilter löschen und alle Protokolle anzeigen",
+  "Trans_LogSearch_StatusCount": "Zeige {0} von {1} Nachrichten",
+  "Trans_LogSearch_StatusTotal": "{0} Nachrichten"
 }
