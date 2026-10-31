@@ -49,10 +49,10 @@
 ![Helldivers 1 Babel i aktion](screenshots/screenshot.png)
 
 - **Taktisk Snabbchatt (10 anpassade platser):** 10 anpassningsbara fördefinierade taktiska anrop, var och en kopplad till användarkonfigurerbara snabbtangenter (t.ex. Numpad 0-9 eller egna kombinationer) för att omedelbart sända taktiska anrop i flerspelarchatten i spelet.
+- **Automatiskt välkomstmeddelande:** Skickar automatiskt ett anpassningsbart välkomstmeddelande i spelchatten när du är värd för en lobby och en gästspelare ansluter.
 
 ![Snabbchatt](screenshots/quick-chat.png)
 
-- **Automatiskt välkomstmeddelande:** Skickar automatiskt ett anpassningsbart välkomstmeddelande i spelchatten när du är värd för en lobby och en gästspelare ansluter.
 - **Taktiskt Snabbchatt-overlay på skärmen:** Slå på/av ett flytande referensoverlay till höger på skärmen med `Numpad +` (eller ditt inspelade snabbkommando) för att snabbt se alla aktiva anrop och snabbtangenter i spelet utan att störa spelfokus. *(Kräver att Helldivers körs i ramlöst fönsterläge eller fönsterläge).*
 
 ![Snabbchatt-overlay](screenshots/overlay.png)

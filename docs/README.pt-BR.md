@@ -49,10 +49,10 @@
 ![Helldivers 1 Babel em ação](screenshots/screenshot.png)
 
 - **Chat Rápido Tático (10 Slots Personalizáveis):** 10 atalhos predefinidos e configuráveis para mensagens táticas, vinculados a teclas de atalho (ex.: Teclado Numérico 0-9 ou combinações personalizadas) para transmitir avisos táticos instantaneamente no chat multijogador do jogo.
+- **Mensagem de Boas-Vindas Automática do Chat Rápido:** Transmite automaticamente uma mensagem de boas-vindas personalizável no chat do jogo quando você hospeda uma partida e um jogador convidado entra.
 
 ![Chat Rápido](screenshots/quick-chat.png)
 
-- **Mensagem de Boas-Vindas Automática do Chat Rápido:** Transmite automaticamente uma mensagem de boas-vindas personalizável no chat do jogo quando você hospeda uma partida e um jogador convidado entra.
 - **Overlay de Referência do Chat Rápido na Tela:** Ative ou desative uma sobreposição flutuante de referência que não rouba o foco no lado direito da tela pressionando `Numpad +` (ou seu atalho configurado) para conferir rapidamente todos os atalhos e avisos táticos ativos dentro do jogo. *(Requer que o Helldivers seja executado em modo Janela Sem Bordas ou Modo Janela).*
 
 ![Overlay de Chat Rápido](screenshots/overlay.png)

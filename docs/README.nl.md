@@ -49,10 +49,10 @@
 ![Helldivers 1 Babel in actie](screenshots/screenshot.png)
 
 - **Tactische Snelle Chat (10 aangepaste slots):** 10 aanpasbare, vooraf gedefinieerde tactische berichtenslots, elk gekoppeld aan configureerbare sneltoetsen (bijv. Numpad 0-9 of aangepaste combinaties) om direct tactische berichten naar de in-game multiplayer-chat te verzenden.
+- **Automatisch host-welkomstbericht:** Verzendt automatisch een aanpasbaar welkomstbericht in de in-game chat wanneer u een lobby host en een gastspeler meedoet.
 
 ![Snelle Chat](screenshots/quick-chat.png)
 
-- **Automatisch host-welkomstbericht:** Verzendt automatisch een aanpasbaar welkomstbericht in de in-game chat wanneer u een lobby host en een gastspeler meedoet.
 - **Tactische Snelle Chat-overlay op het scherm:** Schakel een niet-focusserende zwevende referentie-overlay aan de rechterkant van het scherm in/uit met `Numpad +` (of uw opgenomen sneltoets) om snel alle actieve tactische berichten en sneltoetsen in de game te bekijken. *(Vereist dat Helldivers draait in randloos venster of venstermodus).*
 
 ![Snelle Chat-overlay](screenshots/overlay.png)

@@ -49,10 +49,10 @@ A **Helldivers 1 Babel** egy nyílt forráskódú, a játékfájlokat nem módos
 ![A Helldivers 1 Babel működés közben](screenshots/screenshot.png)
 
 - **Taktikai gyorscsevegés (10 egyéni hely):** 10 testreszabható, előre definiált taktikai üzenethely, amelyek mindegyike felhasználó által beállítható gyorsbillentyűkhöz van rendelve (pl. Numpad 0-9 vagy egyéni kombinációk), hogy azonnal taktikai parancsokat közvetíthessen a többjátékos csevegésbe.
+- **Automatikus üdvözlő üzenet:** Automatikusan kiküld egy testreszabható üdvözlő üzenetet a játékbeli csevegésbe, amikor szobát hosztol, és egy vendégjátékos csatlakozik.
 
 ![Gyorscsevegés](screenshots/quick-chat.png)
 
-- **Automatikus üdvözlő üzenet:** Automatikusan kiküld egy testreszabható üdvözlő üzenetet a játékbeli csevegésbe, amikor szobát hosztol, és egy vendégjátékos csatlakozik.
 - **Képernyőn megjelenő taktikai gyorscsevegési fedvény:** Kapcsolja be vagy ki az ablakfókuszt el nem vevő lebegő fedvényt a képernyő jobb oldalán a `Numpad +` billentyűvel (vagy az Ön által rögzített billentyűkombinációval), hogy játék közben gyorsan áttekinthesse az összes aktív taktikai hívást és billentyűparancsot. *(Ehhez a Helldiversnek keret nélküli teljes képernyős vagy ablakos módban kell futnia).*
 
 ![Gyorscsevegés fedvény](screenshots/overlay.png)

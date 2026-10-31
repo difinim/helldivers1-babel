@@ -49,10 +49,10 @@
 ![Helldivers 1 Babel in action](screenshots/screenshot.png)
 
 - **Tactical Quick Chat (10 Custom Slots):** 10 customizable pre-defined tactical message slots, each bound to user-configurable hotkeys (e.g. Numpad 0-9 or custom combinations) to instantly transmit tactical callouts into in-game multiplayer chat.
+- **Auto-Welcome Quick Chat Message:** Automatically broadcasts a customizable welcome message to in-game chat when hosting a lobby and a guest player joins.
 
 ![Quick Chat](screenshots/quick-chat.png)
 
-- **Auto-Welcome Quick Chat Message:** Automatically broadcasts a customizable welcome message to in-game chat when hosting a lobby and a guest player joins.
 - **On-Screen Quick Chat Reference Overlay:** Toggle a non-activating floating reference overlay on the right side of the screen with `Numpad +` (or your recorded shortcut) to quickly inspect all active tactical callouts and shortcuts in-game. *(Requires Helldivers to run in Borderless Fullscreen or Windowed mode).*
 
 ![Quick Chat overlay](screenshots/overlay.png)

@@ -49,10 +49,10 @@
 ![Helldivers 1 Babel beraksi](screenshots/screenshot.png)
 
 - **Obrolan Cepat Taktis (10 Slot Kustom):** 10 slot pesan taktis pratetap yang dapat disesuaikan, masing-masing terikat ke tombol pintas yang dapat dikonfigurasi pengguna (misalnya Numpad 0-9 atau kombinasi kustom) untuk mengirimkan pesan taktis secara instan ke obrolan multipemain dalam game.
+- **Pesan Obrolan Cepat Sambutan Otomatis:** Secara otomatis menyiarkan pesan sambutan yang dapat disesuaikan ke obrolan dalam game saat Anda menjadi host lobi dan ada pemain tamu yang bergabung.
 
 ![Obrolan Cepat](screenshots/quick-chat.png)
 
-- **Pesan Obrolan Cepat Sambutan Otomatis:** Secara otomatis menyiarkan pesan sambutan yang dapat disesuaikan ke obrolan dalam game saat Anda menjadi host lobi dan ada pemain tamu yang bergabung.
 - **Hamparan Referensi Obrolan Cepat di Layar:** Alihkan hamparan referensi mengambang non-intrusif di sisi kanan layar dengan `Numpad +` (atau pintasan yang Anda rekam) untuk memeriksa dengan cepat semua perintah taktis dan pintasan aktif saat bermain game. *(Memerlukan Helldivers berjalan dalam mode Borderless Fullscreen atau Windowed).*
 
 ![Hamparan Obrolan Cepat](screenshots/overlay.png)

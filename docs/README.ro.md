@@ -49,10 +49,10 @@
 ![Helldivers 1 Babel în acțiune](screenshots/screenshot.png)
 
 - **Chat Rapid tactic (10 sloturi personalizabile):** 10 sloturi pentru mesaje tactice predefinite, asociate cu taste rapide configurabile de utilizator (de ex. Numpad 0–9 sau combinații personalizate) pentru a transmite instant comenzi tactice în chat-ul multiplayer din joc.
+- **Mesaj de bun venit automat în Chat Rapid:** Transmite automat un mesaj de întâmpinare personalizat în chat-ul din joc atunci când găzduiești un lobby și un jucător oaspete se alătură echipei.
 
 ![Chat Rapid](screenshots/quick-chat.png)
 
-- **Mesaj de bun venit automat în Chat Rapid:** Transmite automat un mesaj de întâmpinare personalizat în chat-ul din joc atunci când găzduiești un lobby și un jucător oaspete se alătură echipei.
 - **Overlay de referință pentru Chat Rapid pe ecran:** Comută un overlay plutitor neobstructiv în partea dreaptă a ecranului apăsând `Numpad +` (sau scurtătura configurată) pentru a consulta rapid toate comenzile tactice active și tastele rapide în timpul jocului. *(Necesită ca Helldivers să ruleze în mod Fereastră fără margini sau Fereastră).*
 
 ![Overlay Chat Rapid](screenshots/overlay.png)

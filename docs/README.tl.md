@@ -49,10 +49,10 @@ Ang **Helldivers 1 Babel** ay isang open-source, non-invasive na katulong sa pag
 ![Helldivers 1 Babel habang ginagamit](screenshots/screenshot.png)
 
 - **Taktikal na Mabilisang Chat (10 Custom Slots):** 10 napapasadyang mga paunang tinukoy na slot ng mensaheng taktikal, bawat isa ay nakatali sa mga hotkey na maaaring i-configure ng user (hal. Numpad 0-9 o mga pasadyang kumbinasyon) upang agad na magpadala ng mga taktikal na callout sa chat ng multiplayer sa laro.
+- **Awtomatikong Pagbati na Mensahe sa Mabilisang Chat:** Awtomatikong nagbobrodkast ng napapasadyang mensahe ng pagbati sa chat ng laro kapag ikaw ang host ng lobby at may sumaling bisitang manlalaro.
 
 ![Mabilisang Chat](screenshots/quick-chat.png)
 
-- **Awtomatikong Pagbati na Mensahe sa Mabilisang Chat:** Awtomatikong nagbobrodkast ng napapasadyang mensahe ng pagbati sa chat ng laro kapag ikaw ang host ng lobby at may sumaling bisitang manlalaro.
 - **On-Screen na Overlay ng Sanggunian ng Mabilisang Chat:** I-toggle ang isang lumulutang na overlay ng sanggunian sa kanang bahagi ng screen gamit ang `Numpad +` (o ang iyong naitalang shortcut) upang mabilis na masuri ang lahat ng aktibong tawag taktikal at shortcut sa laro. *(Kailangan tumakbo ang Helldivers sa Borderless Fullscreen o Windowed mode).*
 
 ![Overlay ng Mabilisang Chat](screenshots/overlay.png)

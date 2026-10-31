@@ -49,10 +49,10 @@
 ![Helldivers 1 Babel w akcji](screenshots/screenshot.png)
 
 - **Taktyczny Szybki Czat (10 własnych slotów):** 10 konfigurowalnych, predefiniowanych slotów komunikatów taktycznych, przypisanych do skrótów klawiszowych (np. Numpad 0-9 lub własne kombinacje), pozwalających na natychmiastowe nadawanie meldunków taktycznych na czacie wieloosobowym w grze.
+- **Automatyczne powitanie gospodarza:** Automatycznie wysyła konfigurowalną wiadomość powitalną na czacie gry, gdy prowadzisz poczekalnię (jesteś hostem) i dołącza do niej nowy gracz.
 
 ![Szybki czat](screenshots/quick-chat.png)
 
-- **Automatyczne powitanie gospodarza:** Automatycznie wysyła konfigurowalną wiadomość powitalną na czacie gry, gdy prowadzisz poczekalnię (jesteś hostem) i dołącza do niej nowy gracz.
 - **Ekranowa nakładka referencyjna Szybkiego Czatu:** Włącz/wyłącz niefokusującą, pływającą nakładkę referencyjną po prawej stronie ekranu za pomocą `Numpad +` (lub przypisanego skrótu), aby szybko podejrzeć w grze wszystkie aktywne meldunki taktyczne i skróty. *(Wymaga uruchomienia Helldivers w trybie okna bez ramek lub w oknie).*
 
 ![Nakładka Szybkiego Czatu](screenshots/overlay.png)

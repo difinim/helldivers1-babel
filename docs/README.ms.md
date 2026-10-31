@@ -49,10 +49,10 @@
 ![Helldivers 1 Babel beraksi](screenshots/screenshot.png)
 
 - **Sembang Pantas Taktikal (10 Slot Tersuai):** 10 slot mesej taktikal pratakrif yang boleh disesuaikan, setiap satunya diikat pada kekunci pintas boleh dikonfigurasikan pengguna (cth. Numpad 0-9 atau kombinasi tersuai) untuk menghantar panggilan taktikal serta-merta ke dalam sembang berbilang pemain dalam permainan.
+- **Mesej Sembang Pantas Aluan Automatik:** Menyiarkan mesej aluan yang boleh disesuaikan secara automatik ke dalam sembang permainan apabila menghoskan lobi dan pemain tetamu menyertai.
 
 ![Sembang Pantas](screenshots/quick-chat.png)
 
-- **Mesej Sembang Pantas Aluan Automatik:** Menyiarkan mesej aluan yang boleh disesuaikan secara automatik ke dalam sembang permainan apabila menghoskan lobi dan pemain tetamu menyertai.
 - **Tindanan Rujukan Sembang Pantas Atas Skrin:** Togol tindanan rujukan terapung yang tidak mengganggu di sebelah kanan skrin dengan `Numpad +` (atau pintasan yang anda rakam) untuk menyemak semua panggilan taktikal dan pintasan aktif dalam permainan dengan pantas. *(Memerlukan Helldivers dijalankan dalam mod Borderless Fullscreen atau Windowed).*
 
 ![Tindanan Sembang Pantas](screenshots/overlay.png)

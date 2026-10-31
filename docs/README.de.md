@@ -49,10 +49,10 @@
 ![Helldivers 1 Babel in Aktion](screenshots/screenshot.png)
 
 - **Taktischer Schnell-Chat (10 benutzerdefinierte Slots):** 10 anpassbare, vordefinierte taktische Nachrichten-Slots, die jeweils an benutzerdefinierbare Hotkeys gebunden sind (z. B. Nummernblock 0–9 oder eigene Kombinationen), um taktische Funksprüche sofort im Multiplayer-Spielchat zu senden.
+- **Automatische Host-Begrüßung:** Sendet automatisch eine anpassbare Willkommensnachricht im Spielchat, wenn Sie eine Lobby hosten und ein Gastspieler beitritt.
 
 ![Schnell-Chat](screenshots/quick-chat.png)
 
-- **Automatische Host-Begrüßung:** Sendet automatisch eine anpassbare Willkommensnachricht im Spielchat, wenn Sie eine Lobby hosten und ein Gastspieler beitritt.
 - **Taktisches Schnell-Chat-Overlay auf dem Bildschirm:** Schalten Sie mit `Nummernblock +` (oder Ihrem aufgenommenen Tastenkürzel) ein schwebendes, nicht-fokussierendes Referenz-Overlay am rechten Bildschirmrand ein/aus, um alle aktiven taktischen Funksprüche und Tastenkombinationen im Spiel schnell einzusehen. *(Erfordert, dass Helldivers im randlosen Fenstermodus oder Fenstermodus läuft).*
 
 ![Schnell-Chat-Overlay](screenshots/overlay.png)

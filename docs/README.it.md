@@ -49,10 +49,10 @@
 ![Helldivers 1 Babel in azione](screenshots/screenshot.png)
 
 - **Chat Rapida Tattica (10 Slot Personalizzabili):** 10 slot di messaggi tattici predefiniti e configurabili, ciascuno associato a tasti di scelta rapida (es. tastierino numerico 0-9 o combinazioni personalizzate) per trasmettere istantaneamente avvisi tattici nella chat multiplayer di gioco.
+- **Messaggio di Benvenuto Automatico di Chat Rapida:** Trasmette automaticamente un messaggio di benvenuto personalizzabile nella chat di gioco quando ospiti una partita e si unisce un giocatore invitato.
 
 ![Chat Rapida](screenshots/quick-chat.png)
 
-- **Messaggio di Benvenuto Automatico di Chat Rapida:** Trasmette automaticamente un messaggio di benvenuto personalizzabile nella chat di gioco quando ospiti una partita e si unisce un giocatore invitato.
 - **Overlay di Riferimento di Chat Rapida su Schermo:** Mostra o nascondi un overlay mobile di riferimento che non sottrae il focus sul lato destro dello schermo con `Numpad +` (o la scorciatoia registrata) per consultare rapidamente tutti i comandi rapidi e gli avvisi tattici attivi in partita. *(Richiede che Helldivers sia impostato su Finestra senza bordi o Finestra).*
 
 ![Overlay di Chat Rapida](screenshots/overlay.png)

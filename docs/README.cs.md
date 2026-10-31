@@ -49,10 +49,10 @@
 ![Helldivers 1 Babel v akci](screenshots/screenshot.png)
 
 - **Taktický Rychlý chat (10 vlastních slotů):** 10 přizpůsobitelných slotů pro předem definované taktické zprávy, přiřazených k uživatelsky konfigurovatelným klávesovým zkratkám (např. Numpad 0–9 nebo vlastní kombinace) pro okamžité vysílání taktických hlášek do multiplayerového herního chatu.
+- **Automatické uvítání v Rychlém chatu:** Automaticky vysílá přizpůsobitelnou uvítací zprávu do herního chatu, když hostujete lobby a připojí se k vám cizí hráč.
 
 ![Rychlý chat](screenshots/quick-chat.png)
 
-- **Automatické uvítání v Rychlém chatu:** Automaticky vysílá přizpůsobitelnou uvítací zprávu do herního chatu, když hostujete lobby a připojí se k vám cizí hráč.
 - **Informační překrytí Rychlého chatu na obrazovce:** Zobrazení neaktivujícího plovoucího překrytí na pravé straně obrazovky stisknutím klávesy `Numpad +` (nebo vaší zaznamenané zkratky) pro rychlou kontrolu všech aktivních taktických hlášek a zkratek přímo během hraní. *(Vyžaduje běh hry Helldivers v režimu bezokrajového okna nebo v okně).*
 
 ![Překrytí Rychlého chatu](screenshots/overlay.png)

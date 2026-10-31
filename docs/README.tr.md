@@ -49,10 +49,10 @@
 ![Helldivers 1 Babel çalışırken](screenshots/screenshot.png)
 
 - **Taktiksel Hızlı Sohbet (10 Özel Yuva):** Taktiksel çağrıları oyun içi çok oyunculu sohbete anında iletmek için her biri kullanıcı tarafından yapılandırılabilen kısayol tuşlarına (ör. Numpad 0-9 veya özel kombinasyonlar) atanmış 10 özelleştirilebilir önceden tanımlanmış taktiksel mesaj yuvası.
+- **Otomatik Karşılama Hızlı Sohbet Mesajı:** Bir lobiye ev sahipliği yaptığınızda ve konuk bir oyuncu katıldığında oyun içi sohbete otomatik olarak özelleştirilebilir bir karşılama mesajı yayınlar.
 
 ![Hızlı Sohbet](screenshots/quick-chat.png)
 
-- **Otomatik Karşılama Hızlı Sohbet Mesajı:** Bir lobiye ev sahipliği yaptığınızda ve konuk bir oyuncu katıldığında oyun içi sohbete otomatik olarak özelleştirilebilir bir karşılama mesajı yayınlar.
 - **Ekran Üzerinde Hızlı Sohbet Referans Arayüzü:** Oyun içindeki tüm aktif taktiksel çağrıları ve kısayolları hızlıca incelemek için `Numpad +` (veya kaydettiğiniz kısayol) ile ekranın sağ tarafında odak almayan kayan bir referans arayüzünü açıp kapatın. *(Helldivers'ın Çerçevesiz Pencereli veya Pencereli modda çalışmasını gerektirir).*
 
 ![Hızlı Sohbet arayüzü](screenshots/overlay.png)

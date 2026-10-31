@@ -49,10 +49,10 @@
 ![Helldivers 1 Babel en action](screenshots/screenshot.png)
 
 - **Chat Rapide tactique (10 emplacements personnalisables) :** 10 emplacements de messages tactiques prédéfinis et configurables, chacun lié à un raccourci clavier (ex. pavé numérique 0-9 ou combinaisons personnalisées) pour transmettre instantanément des signaux tactiques dans le chat multijoueur en jeu.
+- **Message de bienvenue automatique du Chat Rapide :** Diffuse automatiquement un message de bienvenue personnalisable dans le chat du jeu lorsque vous hébergez une partie et qu'un joueur invité la rejoint.
 
 ![Chat Rapide](screenshots/quick-chat.png)
 
-- **Message de bienvenue automatique du Chat Rapide :** Diffuse automatiquement un message de bienvenue personnalisable dans le chat du jeu lorsque vous hébergez une partie et qu'un joueur invité la rejoint.
 - **Overlay de référence du Chat Rapide à l'écran :** Affichez ou masquez un overlay flottant de référence qui ne vole pas le focus sur le côté droit de l'écran avec `Numpad +` (ou votre raccourci enregistré) pour consulter rapidement tous vos raccourcis et signaux tactiques actifs en cours de partie. *(Nécessite que Helldivers soit exécuté en mode Plein écran fenêtré sans bordure ou en mode Fenêtré).*
 
 ![Overlay de Chat Rapide](screenshots/overlay.png)

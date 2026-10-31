@@ -49,10 +49,10 @@
 ![Helldivers 1 Babel đang hoạt động](screenshots/screenshot.png)
 
 - **Chat nhanh chiến thuật (10 ô tùy chỉnh):** 10 ô tin nhắn chiến thuật được định sẵn và có thể tùy chỉnh, mỗi ô được gắn với một phím tắt do người dùng cấu hình (ví dụ: Numpad 0-9 hoặc các tổ hợp phím tùy ý) để truyền ngay các khẩu lệnh chiến thuật vào chat nhiều người chơi.
+- **Tin nhắn Chat nhanh chào mừng tự động:** Tự động gửi một tin nhắn chào mừng tùy chỉnh vào chat trong game khi bạn làm chủ phòng và có người chơi mới tham gia.
 
 ![Chat nhanh](screenshots/quick-chat.png)
 
-- **Tin nhắn Chat nhanh chào mừng tự động:** Tự động gửi một tin nhắn chào mừng tùy chỉnh vào chat trong game khi bạn làm chủ phòng và có người chơi mới tham gia.
 - **Lớp phủ tham chiếu Chat nhanh trên màn hình:** Bật/tắt lớp phủ nổi không chiếm tiêu điểm ở bên phải màn hình bằng phím `Numpad +` (hoặc phím tắt đã lưu của bạn) để nhanh chóng xem lại tất cả các khẩu lệnh chiến thuật và phím tắt đang hoạt động khi đang chơi. *(Yêu cầu Helldivers chạy ở chế độ Không viền - Borderless Fullscreen hoặc Cửa sổ - Windowed)*.
 
 ![Lớp phủ Chat nhanh](screenshots/overlay.png)
