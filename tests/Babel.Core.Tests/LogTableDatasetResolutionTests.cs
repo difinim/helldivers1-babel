@@ -152,4 +152,34 @@ public class LogTableDatasetResolutionTests
         Assert.Equal("-", entry.Latency);
         Assert.Equal("#50FFDC", entry.ColorHex);
     }
+
+    [Fact]
+    public void TranslationLogEntry_FormattedDateAndTime_FollowsConfiguredFormats()
+    {
+        var timestamp = new System.DateTime(2026, 10, 30, 14, 45, 10);
+        string dateFormat = "dd/MM/yyyy";
+        string timeFormat = "hh:mm:ss tt";
+
+        var entry = new TranslationLogEntry
+        {
+            Timestamp = timestamp,
+            Date = timestamp.ToString(dateFormat, System.Globalization.CultureInfo.InvariantCulture),
+            Time = timestamp.ToString(timeFormat, System.Globalization.CultureInfo.InvariantCulture),
+            Author = "Helldiver_1",
+            OriginalMessage = "Affirmative",
+            TranslatedMessage = "Affirmative"
+        };
+
+        Assert.Equal("30/10/2026", entry.Date);
+        Assert.Equal("02:45:10 PM", entry.Time);
+
+        // Verify reformatted on format change
+        string newDateFormat = "yyyy.MM.dd";
+        string newTimeFormat = "HH:mm";
+        entry.Date = timestamp.ToString(newDateFormat, System.Globalization.CultureInfo.InvariantCulture);
+        entry.Time = timestamp.ToString(newTimeFormat, System.Globalization.CultureInfo.InvariantCulture);
+
+        Assert.Equal("2026.10.30", entry.Date);
+        Assert.Equal("14:45", entry.Time);
+    }
 }

@@ -181,6 +181,8 @@ public class ConfigurationService
         if (config.ChatHistoryLimitMb > 100) config.ChatHistoryLimitMb = 100;
         if (string.IsNullOrWhiteSpace(config.ActiveProvider)) config.ActiveProvider = "Gemini";
         if (string.IsNullOrWhiteSpace(config.TargetLanguage)) config.TargetLanguage = "English";
+        if (string.IsNullOrWhiteSpace(config.DateFormat)) config.DateFormat = "yyyy-MM-dd";
+        if (string.IsNullOrWhiteSpace(config.TimeFormat)) config.TimeFormat = "HH:mm:ss";
         if (string.IsNullOrWhiteSpace(config.OutgoingPrefix)) config.OutgoingPrefix = ">>";
         if (string.IsNullOrWhiteSpace(config.GlobalPauseHotkey)) config.GlobalPauseHotkey = "Ctrl+F10";
         if (string.IsNullOrWhiteSpace(config.ToggleTranslationHotkey)) config.ToggleTranslationHotkey = "Ctrl+F11";

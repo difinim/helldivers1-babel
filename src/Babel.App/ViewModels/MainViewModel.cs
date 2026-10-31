@@ -1,8 +1,10 @@
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Globalization;
 using System.IO;
 using System.Runtime.CompilerServices;
 using System.Windows;
+using System.Windows.Data;
 using Babel.Core.Ipc;
 using Babel.Core.Models;
 using Babel.Core.Services;
@@ -109,10 +111,25 @@ public class MainViewModel : INotifyPropertyChanged
     private readonly PersistentChatLogService _persistentLogService;
 
     public ObservableCollection<TranslationLogEntry> History { get; } = new();
+    public ICollectionView HistoryView { get; }
     public ObservableCollection<MacroSlotViewModel> Macros { get; } = new();
     public ObservableCollection<TranslationTone> AvailableTranslationTones { get; } = new([
         TranslationTone.Casual,
         TranslationTone.Normal
+    ]);
+    public ObservableCollection<string> AvailableDateFormats { get; } = new([
+        "yyyy-MM-dd",
+        "dd/MM/yyyy",
+        "MM/dd/yyyy",
+        "dd.MM.yyyy",
+        "yyyy/MM/dd",
+        "dd-MM-yyyy"
+    ]);
+    public ObservableCollection<string> AvailableTimeFormats { get; } = new([
+        "HH:mm:ss",
+        "hh:mm:ss tt",
+        "HH:mm",
+        "hh:mm tt"
     ]);
 
     public string[] AvailableLanguages { get; } = new[]
@@ -285,6 +302,7 @@ public class MainViewModel : INotifyPropertyChanged
         OnPropertyChanged(nameof(PauseResumeButtonText));
         OnPropertyChanged(nameof(ToastPositionDisplay));
         OnPropertyChanged(nameof(QuickChatOverlayPositionDisplay));
+        OnPropertyChanged(nameof(LogSearchFilterStatus));
         UpdateGameStatusText();
     }
 
@@ -312,6 +330,199 @@ public class MainViewModel : INotifyPropertyChanged
                 SaveConfig();
             }
         }
+    }
+
+    public string DateFormat
+    {
+        get => _config.DateFormat;
+        set
+        {
+            if (_config.DateFormat != value)
+            {
+                _config.DateFormat = value;
+                OnPropertyChanged();
+                SaveConfig();
+                RefreshLogDatesAndTimes();
+            }
+        }
+    }
+
+    public string TimeFormat
+    {
+        get => _config.TimeFormat;
+        set
+        {
+            if (_config.TimeFormat != value)
+            {
+                _config.TimeFormat = value;
+                OnPropertyChanged();
+                SaveConfig();
+                RefreshLogDatesAndTimes();
+            }
+        }
+    }
+
+    public string FormatDate(DateTime dt)
+    {
+        try
+        {
+            return dt.ToString(string.IsNullOrWhiteSpace(_config.DateFormat) ? "yyyy-MM-dd" : _config.DateFormat, CultureInfo.InvariantCulture);
+        }
+        catch
+        {
+            return dt.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture);
+        }
+    }
+
+    public string FormatTime(DateTime dt)
+    {
+        try
+        {
+            return dt.ToString(string.IsNullOrWhiteSpace(_config.TimeFormat) ? "HH:mm:ss" : _config.TimeFormat, CultureInfo.InvariantCulture);
+        }
+        catch
+        {
+            return dt.ToString("HH:mm:ss", CultureInfo.InvariantCulture);
+        }
+    }
+
+    public void RefreshLogDatesAndTimes()
+    {
+        foreach (var entry in History)
+        {
+            entry.Date = FormatDate(entry.Timestamp);
+            entry.Time = FormatTime(entry.Timestamp);
+        }
+        if (HasLogSearchQuery)
+        {
+            ApplyLogSearchAsync(_logSearchQuery);
+        }
+        else
+        {
+            HistoryView?.Refresh();
+            OnPropertyChanged(nameof(LogSearchFilterStatus));
+        }
+    }
+
+    private string _logSearchQuery = string.Empty;
+    private HashSet<TranslationLogEntry>? _matchedEntries;
+    private int _filteredLogCount;
+    private CancellationTokenSource? _searchCts;
+    private string[]? _activeSearchTokens;
+
+    public string LogSearchQuery
+    {
+        get => _logSearchQuery;
+        set
+        {
+            var clamped = value ?? string.Empty;
+            if (_logSearchQuery != clamped)
+            {
+                _logSearchQuery = clamped;
+                OnPropertyChanged();
+                OnPropertyChanged(nameof(HasLogSearchQuery));
+                ApplyLogSearchAsync(clamped);
+            }
+        }
+    }
+
+    public bool HasLogSearchQuery => !string.IsNullOrWhiteSpace(_logSearchQuery);
+
+    public string LogSearchFilterStatus
+    {
+        get
+        {
+            if (HistoryView == null) return string.Empty;
+            if (HasLogSearchQuery)
+            {
+                return LocalizationService.Instance.Format("Trans_LogSearch_StatusCount", _filteredLogCount, History.Count);
+            }
+            return LocalizationService.Instance.Format("Trans_LogSearch_StatusTotal", History.Count);
+        }
+    }
+
+    public void ClearLogSearch()
+    {
+        LogSearchQuery = string.Empty;
+    }
+
+    private void ApplyLogSearchAsync(string query)
+    {
+        _searchCts?.Cancel();
+        _searchCts?.Dispose();
+        _searchCts = null;
+
+        if (string.IsNullOrWhiteSpace(query))
+        {
+            _matchedEntries = null;
+            _activeSearchTokens = null;
+            _filteredLogCount = History.Count;
+            HistoryView?.Refresh();
+            OnPropertyChanged(nameof(LogSearchFilterStatus));
+            return;
+        }
+
+        var tokens = LogSearchFilter.Tokenize(query);
+        _activeSearchTokens = tokens;
+        var snapshot = History.ToList();
+        var cts = new CancellationTokenSource();
+        _searchCts = cts;
+        var token = cts.Token;
+
+        Task.Run(() =>
+        {
+            var matches = new HashSet<TranslationLogEntry>(ReferenceEqualityComparer.Instance);
+            for (int i = 0; i < snapshot.Count; i++)
+            {
+                if (token.IsCancellationRequested) return;
+                var entry = snapshot[i];
+                if (LogSearchFilter.Matches(entry, tokens))
+                {
+                    matches.Add(entry);
+                }
+            }
+
+            if (token.IsCancellationRequested) return;
+
+            void ApplyResults()
+            {
+                if (token.IsCancellationRequested) return;
+
+                // Include any items added to History that arrived while searching
+                if (_activeSearchTokens != null)
+                {
+                    for (int i = 0; i < History.Count; i++)
+                    {
+                        var entry = History[i];
+                        if (snapshot.Contains(entry)) break;
+                        if (LogSearchFilter.Matches(entry, _activeSearchTokens))
+                        {
+                            matches.Add(entry);
+                        }
+                    }
+                }
+
+                _matchedEntries = matches;
+                _filteredLogCount = matches.Count;
+                HistoryView?.Refresh();
+                OnPropertyChanged(nameof(LogSearchFilterStatus));
+            }
+
+            if (Application.Current?.Dispatcher != null && !Application.Current.Dispatcher.CheckAccess())
+            {
+                Application.Current.Dispatcher.BeginInvoke(ApplyResults);
+            }
+            else
+            {
+                ApplyResults();
+            }
+        }, token);
+    }
+
+    private bool FilterLogEntry(object obj)
+    {
+        if (_matchedEntries == null) return true;
+        return obj is TranslationLogEntry entry && _matchedEntries.Contains(entry);
     }
 
     public bool IncomingEnabled
@@ -763,10 +974,19 @@ public class MainViewModel : INotifyPropertyChanged
         PipeServer = new NamedPipeServer();
         _persistentLogService = new PersistentChatLogService(limitMb: _config.ChatHistoryLimitMb);
 
+        HistoryView = CollectionViewSource.GetDefaultView(History);
+        HistoryView.Filter = FilterLogEntry;
+
         // Load persisted chat history
         var previousLogs = _persistentLogService.LoadRecent(maxEntries: 500);
         foreach (var entry in previousLogs)
         {
+            if (entry.Timestamp == default && DateTime.TryParse(entry.Time, out var parsed))
+            {
+                entry.Timestamp = parsed;
+            }
+            entry.Date = FormatDate(entry.Timestamp);
+            entry.Time = FormatTime(entry.Timestamp);
             History.Add(entry);
         }
 
@@ -967,8 +1187,28 @@ public class MainViewModel : INotifyPropertyChanged
             // Limit in-memory history to 500 entries
             while (History.Count > 500)
             {
+                var removed = History[History.Count - 1];
                 History.RemoveAt(History.Count - 1);
+                if (_matchedEntries != null && _matchedEntries.Remove(removed))
+                {
+                    _filteredLogCount--;
+                }
             }
+
+            if (_activeSearchTokens != null && _matchedEntries != null)
+            {
+                if (LogSearchFilter.Matches(entry, _activeSearchTokens))
+                {
+                    _matchedEntries.Add(entry);
+                    _filteredLogCount++;
+                }
+            }
+            else if (!HasLogSearchQuery)
+            {
+                _filteredLogCount = History.Count;
+            }
+
+            OnPropertyChanged(nameof(LogSearchFilterStatus));
         }
 
         if (Application.Current?.Dispatcher != null && !Application.Current.Dispatcher.CheckAccess())
@@ -983,9 +1223,12 @@ public class MainViewModel : INotifyPropertyChanged
 
     private void OnMessageTranslated(ChatMessage msg, TranslationResult res)
     {
+        var now = DateTime.Now;
         var entry = new TranslationLogEntry
         {
-            Time = DateTime.Now.ToString("HH:mm:ss"),
+            Timestamp = now,
+            Date = FormatDate(now),
+            Time = FormatTime(now),
             Author = ResolveAuthor(msg.PlayerName, msg.PlayerIndex),
             SourceLang = res.DetectedSourceLanguage,
             OriginalMessage = msg.MessageText,
@@ -999,9 +1242,12 @@ public class MainViewModel : INotifyPropertyChanged
 
     private void OnTranslationRequestFailed(TranslationRequest req, string error)
     {
+        var now = DateTime.Now;
         var entry = new TranslationLogEntry
         {
-            Time = DateTime.Now.ToString("HH:mm:ss"),
+            Timestamp = now,
+            Date = FormatDate(now),
+            Time = FormatTime(now),
             Author = ResolveAuthor(req.PlayerName, req.PlayerIndex),
             SourceLang = "-",
             OriginalMessage = req.Text,
@@ -1018,9 +1264,12 @@ public class MainViewModel : INotifyPropertyChanged
         int pIdx = TranslationEngine?.LocalPlayerIndex ?? 1;
         string pName = TranslationEngine?.LocalPlayerName ?? string.Empty;
 
+        var now = DateTime.Now;
         var entry = new TranslationLogEntry
         {
-            Time = DateTime.Now.ToString("HH:mm:ss"),
+            Timestamp = now,
+            Date = FormatDate(now),
+            Time = FormatTime(now),
             Author = ResolveAuthor(pName, pIdx),
             SourceLang = "-",
             OriginalMessage = message,
@@ -1037,9 +1286,12 @@ public class MainViewModel : INotifyPropertyChanged
         int pIdx = TranslationEngine?.LocalPlayerIndex ?? 1;
         string pName = TranslationEngine?.LocalPlayerName ?? string.Empty;
 
+        var now = DateTime.Now;
         var entry = new TranslationLogEntry
         {
-            Time = DateTime.Now.ToString("HH:mm:ss"),
+            Timestamp = now,
+            Date = FormatDate(now),
+            Time = FormatTime(now),
             Author = ResolveAuthor(pName, pIdx),
             SourceLang = "-",
             OriginalMessage = message,
@@ -1101,12 +1353,18 @@ public class MainViewModel : INotifyPropertyChanged
 
     public void ClearHistory()
     {
+        _matchedEntries?.Clear();
+        _filteredLogCount = 0;
         History.Clear();
+        OnPropertyChanged(nameof(LogSearchFilterStatus));
     }
 
     public async Task ClearPersistentLogsAsync()
     {
+        _matchedEntries?.Clear();
+        _filteredLogCount = 0;
         History.Clear();
+        OnPropertyChanged(nameof(LogSearchFilterStatus));
         await _persistentLogService.ClearAsync();
     }
 
@@ -1120,27 +1378,59 @@ public class MainViewModel : INotifyPropertyChanged
         var sb = new System.Text.StringBuilder();
         sb.AppendLine("================================================================================");
         sb.AppendLine("  HELLDIVERS 1 BABEL - CHAT LOGS EXPORT");
-        sb.AppendLine($"  Exported Date : {DateTime.Now:yyyy-MM-dd HH:mm:ss}");
-        sb.AppendLine($"  Total Messages: {History.Count}");
-        sb.AppendLine("================================================================================");
-        sb.AppendLine();
+        sb.AppendLine($"  Exported Date : {FormatDate(DateTime.Now)} {FormatTime(DateTime.Now)}");
 
-        if (History.Count == 0)
+        if (HasLogSearchQuery)
         {
-            sb.AppendLine("No chat messages recorded in this session.");
+            var tokens = LogSearchFilter.Tokenize(_logSearchQuery);
+            var filteredList = History.Where(e => LogSearchFilter.Matches(e, tokens)).ToList();
+            sb.AppendLine($"  Search Filter : \"{_logSearchQuery.Trim()}\"");
+            sb.AppendLine($"  Total Messages: {filteredList.Count} (Filtered from {History.Count})");
+            sb.AppendLine("================================================================================");
+            sb.AppendLine();
+
+            if (filteredList.Count == 0)
+            {
+                sb.AppendLine("No chat messages matched the active search filter.");
+                return sb.ToString();
+            }
+
+            foreach (var entry in filteredList)
+            {
+                string langInfo = string.IsNullOrWhiteSpace(entry.SourceLang) ? "" : $" [{entry.SourceLang}]";
+                string datePrefix = string.IsNullOrWhiteSpace(entry.Date) ? entry.Time : $"{entry.Date} {entry.Time}";
+                sb.AppendLine($"[{datePrefix}] {entry.Author}{langInfo} (Latency: {entry.Latency})");
+                sb.AppendLine($"  Original  : {entry.OriginalMessage}");
+                sb.AppendLine($"  Translated: {entry.TranslatedMessage}");
+                sb.AppendLine();
+            }
+
             return sb.ToString();
         }
-
-        foreach (var entry in History)
+        else
         {
-            string langInfo = string.IsNullOrWhiteSpace(entry.SourceLang) ? "" : $" [{entry.SourceLang}]";
-            sb.AppendLine($"[{entry.Time}] {entry.Author}{langInfo} (Latency: {entry.Latency})");
-            sb.AppendLine($"  Original  : {entry.OriginalMessage}");
-            sb.AppendLine($"  Translated: {entry.TranslatedMessage}");
+            sb.AppendLine($"  Total Messages: {History.Count}");
+            sb.AppendLine("================================================================================");
             sb.AppendLine();
-        }
 
-        return sb.ToString();
+            if (History.Count == 0)
+            {
+                sb.AppendLine("No chat messages recorded in this session.");
+                return sb.ToString();
+            }
+
+            foreach (var entry in History)
+            {
+                string langInfo = string.IsNullOrWhiteSpace(entry.SourceLang) ? "" : $" [{entry.SourceLang}]";
+                string datePrefix = string.IsNullOrWhiteSpace(entry.Date) ? entry.Time : $"{entry.Date} {entry.Time}";
+                sb.AppendLine($"[{datePrefix}] {entry.Author}{langInfo} (Latency: {entry.Latency})");
+                sb.AppendLine($"  Original  : {entry.OriginalMessage}");
+                sb.AppendLine($"  Translated: {entry.TranslatedMessage}");
+                sb.AppendLine();
+            }
+
+            return sb.ToString();
+        }
     }
 
     public void UpdateMacroSeparators()
@@ -1209,6 +1499,8 @@ public class MainViewModel : INotifyPropertyChanged
         ChatHistoryLimitMb = defaults.ChatHistoryLimitMb;
         TimeoutSeconds = defaults.TimeoutSeconds;
         TranslationTone = defaults.TranslationTone;
+        DateFormat = defaults.DateFormat;
+        TimeFormat = defaults.TimeFormat;
         DebugLoggingEnabled = defaults.DebugLoggingEnabled;
 
         // Settings > Global Shortcuts

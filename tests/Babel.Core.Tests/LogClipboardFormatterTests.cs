@@ -243,4 +243,63 @@ public class LogClipboardFormatterTests
         Assert.Equal("[14:15:16] P2: Affirmative!", result);
         Assert.DoesNotContain("You", result);
     }
+
+    [Fact]
+    public void FormatTabSeparatedRow_WithDate_IncludesDateAsFirstColumn()
+    {
+        var entry = new TranslationLogEntry
+        {
+            Date = "2026-10-30",
+            Time = "14:20:00",
+            Author = "Helldiver_1",
+            SourceLang = "Russian",
+            OriginalMessage = "Привет",
+            TranslatedMessage = "Hello",
+            Latency = "120ms"
+        };
+
+        var result = LogClipboardFormatter.FormatTabSeparatedRow(entry);
+
+        Assert.Equal("2026-10-30\t14:20:00\tHelldiver_1\tRussian\tПривет\tHello\t120ms", result);
+    }
+
+    [Fact]
+    public void FormatSingleLine_WithDate_IncludesDateInBrackets()
+    {
+        var entry = new TranslationLogEntry
+        {
+            Date = "30/10/2026",
+            Time = "12:00:00",
+            Author = "Vanguard",
+            OriginalMessage = "Привет",
+            TranslatedMessage = "For democracy!"
+        };
+
+        var result = LogClipboardFormatter.FormatSingleLine(entry);
+
+        Assert.Equal("[30/10/2026 12:00:00] Vanguard: For democracy! (Original: Привет)", result);
+    }
+
+    [Fact]
+    public void TranslationLogEntry_PropertyChanged_FiresForDateAndTime()
+    {
+        var entry = new TranslationLogEntry();
+        var changedProps = new System.Collections.Generic.List<string>();
+        entry.PropertyChanged += (s, e) =>
+        {
+            if (e.PropertyName != null) changedProps.Add(e.PropertyName);
+        };
+
+        entry.Date = "2026-12-31";
+        entry.Time = "23:59:59";
+        var newTime = DateTime.UtcNow;
+        entry.Timestamp = newTime;
+
+        Assert.Contains("Date", changedProps);
+        Assert.Contains("Time", changedProps);
+        Assert.Contains("Timestamp", changedProps);
+        Assert.Equal("2026-12-31", entry.Date);
+        Assert.Equal("23:59:59", entry.Time);
+        Assert.Equal(newTime, entry.Timestamp);
+    }
 }

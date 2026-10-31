@@ -2,6 +2,7 @@ using System.Collections.Concurrent;
 using Babel.Core.Interfaces;
 using Babel.Core.Ipc;
 using Babel.Core.Models;
+using Babel.Core.Utilities;
 
 namespace Babel.Core.Services;
 
@@ -192,11 +193,25 @@ public class TranslationEngine : ITranslationEngine, IDisposable
 
         try
         {
-            using var timeoutCts = new CancellationTokenSource(TimeSpan.FromSeconds(_config.TimeoutSeconds > 0 ? _config.TimeoutSeconds : 5.0));
-            using var linkedCts = CancellationTokenSource.CreateLinkedTokenSource(ct, timeoutCts.Token);
+            TranslationResult result;
+            if (IncomingTranslationHeuristics.TryFastPath(payload.Message, _config.TargetLanguage, out var fastResult) && fastResult != null)
+            {
+                BabelLog.Info("TranslationEngine", $"Incoming message fast-path matched: \"{payload.Message}\" (0ms, detected: '{fastResult.DetectedSourceLanguage}')");
+                result = fastResult;
+            }
+            else
+            {
+                using var timeoutCts = new CancellationTokenSource(TimeSpan.FromSeconds(_config.TimeoutSeconds > 0 ? _config.TimeoutSeconds : 5.0));
+                using var linkedCts = CancellationTokenSource.CreateLinkedTokenSource(ct, timeoutCts.Token);
 
-            var provider = GetCurrentProvider();
-            var result = await provider.TranslateAsync(request, _config, linkedCts.Token).ConfigureAwait(false);
+                var provider = GetCurrentProvider();
+                result = await provider.TranslateAsync(request, _config, linkedCts.Token).ConfigureAwait(false);
+
+                if (result.Success)
+                {
+                    result = IncomingTranslationHeuristics.NormalizeIdenticalTranslation(result, payload.Message, _config.TargetLanguage);
+                }
+            }
 
             if (result.Success && !string.IsNullOrWhiteSpace(result.TranslatedText))
             {

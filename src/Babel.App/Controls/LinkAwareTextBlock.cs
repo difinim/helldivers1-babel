@@ -28,11 +28,25 @@ public static class LinkAwareTextBlock
         if (d is not TextBlock textBlock)
             return;
 
-        textBlock.Inlines.Clear();
         string text = e.NewValue as string ?? string.Empty;
 
         if (string.IsNullOrEmpty(text))
+        {
+            textBlock.Inlines.Clear();
+            textBlock.Text = string.Empty;
             return;
+        }
+
+        // Fast path: if there is no URL scheme (http:// or https://), avoid parsing runs and hyperlinks completely
+        if (!text.Contains("http://", StringComparison.OrdinalIgnoreCase) &&
+            !text.Contains("https://", StringComparison.OrdinalIgnoreCase))
+        {
+            textBlock.Inlines.Clear();
+            textBlock.Text = MessageLinkParser.SanitizeText(text);
+            return;
+        }
+
+        textBlock.Inlines.Clear();
 
         try
         {

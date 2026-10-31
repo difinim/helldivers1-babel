@@ -18,6 +18,8 @@
         WindowStartupLocation="CenterScreen">
 
     <Window.Resources>
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
+
         <!-- TabItem Style with Medium Gray Selected State -->
         <Style TargetType="TabItem">
             <Setter Property="Foreground" Value="#A0A5B5"/>
@@ -514,6 +516,7 @@
                 <Grid Margin="0,12,0,0">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
 
@@ -544,12 +547,59 @@
                         </Grid>
                     </Border>
 
+                    <!-- Log Search & Filter Bar -->
+                    <Border Grid.Row="1" Background="#181B22" BorderBrush="#262B36" BorderThickness="1" CornerRadius="4" Padding="10,6" Margin="0,0,0,8">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="320"/>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <TextBlock Grid.Column="0" Text="{DynamicResource Trans_SearchLogs}" VerticalAlignment="Center" Margin="0,0,8,0" FontWeight="SemiBold"/>
+                            <Grid Grid.Column="1" VerticalAlignment="Center">
+                                <TextBox x:Name="LogSearchTextBox" Text="{Binding LogSearchQuery, UpdateSourceTrigger=PropertyChanged, Delay=150}"
+                                         Padding="8,4" PreviewKeyDown="LogSearchTextBox_PreviewKeyDown"
+                                         ToolTip="{DynamicResource Trans_SearchLogs_Tooltip}"/>
+                                <TextBlock Text="{DynamicResource Trans_SearchLogs_Placeholder}"
+                                           Foreground="#6B7280" Margin="10,0,0,0" VerticalAlignment="Center" IsHitTestVisible="False">
+                                    <TextBlock.Style>
+                                        <Style TargetType="TextBlock">
+                                            <Setter Property="Visibility" Value="Collapsed"/>
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding HasLogSearchQuery}" Value="False">
+                                                    <Setter Property="Visibility" Value="Visible"/>
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </TextBlock.Style>
+                                </TextBlock>
+                            </Grid>
+                            <Button Grid.Column="2" Content="✕" Click="OnClearSearchClicked"
+                                    Visibility="{Binding HasLogSearchQuery, Converter={StaticResource BooleanToVisibilityConverter}}"
+                                    Margin="6,0,0,0" Padding="8,2" ToolTip="{DynamicResource Trans_Btn_ClearSearch_Tooltip}"/>
+
+                            <TextBlock Grid.Column="3" Text="{Binding LogSearchFilterStatus}"
+                                       Foreground="#8B949E" FontSize="11" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="8,0,4,0"/>
+                        </Grid>
+                    </Border>
+
                     <!-- Translation History Grid -->
-                    <DataGrid x:Name="HistoryDataGrid" Grid.Row="1" ItemsSource="{Binding History}" AutoGenerateColumns="False"
+                    <DataGrid x:Name="HistoryDataGrid" Grid.Row="2" ItemsSource="{Binding HistoryView}" AutoGenerateColumns="False"
                               IsReadOnly="True" CanUserAddRows="False" CanUserResizeColumns="True"
                               ClipboardCopyMode="ExcludeHeader"
                               PreviewMouseRightButtonDown="HistoryDataGrid_PreviewMouseRightButtonDown"
+                              PreviewKeyDown="HistoryDataGrid_PreviewKeyDown"
                               ContextMenuOpening="HistoryDataGrid_ContextMenuOpening"
+                              VirtualizingPanel.IsVirtualizing="True"
+                              VirtualizingPanel.VirtualizationMode="Recycling"
+                              VirtualizingPanel.IsContainerVirtualizable="True"
+                              VirtualizingPanel.ScrollUnit="Pixel"
+                              ScrollViewer.CanContentScroll="True"
+                              ScrollViewer.IsDeferredScrollingEnabled="False"
+                              EnableRowVirtualization="True"
+                              EnableColumnVirtualization="False"
                               Background="#15171D" BorderBrush="#262B36" BorderThickness="1"
                               RowBackground="#181B22" AlternatingRowBackground="#1D2028"
                               HeadersVisibility="Column" GridLinesVisibility="Horizontal"
@@ -557,6 +607,8 @@
                               Foreground="#ECEFF4">
                         <DataGrid.ContextMenu>
                             <ContextMenu Style="{StaticResource LogsContextMenuStyle}">
+                                <MenuItem Header="{DynamicResource Menu_ViewDetails}" InputGestureText="Enter" Style="{StaticResource LogsMenuItemStyle}" Click="OnViewDetailsClicked"/>
+                                <Separator Style="{StaticResource LogsMenuSeparatorStyle}"/>
                                 <MenuItem Header="{DynamicResource Menu_Copy}" InputGestureText="Ctrl+C" Style="{StaticResource LogsMenuItemStyle}" Click="OnCopyRowClicked"/>
                                 <MenuItem Header="{DynamicResource Menu_CopyFormattedLine}" Style="{StaticResource LogsMenuItemStyle}" Click="OnCopyFormattedLineClicked"/>
                                 <Separator Style="{StaticResource LogsMenuSeparatorStyle}"/>
@@ -569,6 +621,7 @@
                             <Style TargetType="DataGridRow">
                                 <Setter Property="Foreground" Value="#ECEFF4"/>
                                 <Setter Property="FontSize" Value="12"/>
+                                <EventSetter Event="MouseDoubleClick" Handler="HistoryDataGridRow_MouseDoubleClick"/>
                             </Style>
                             <Style TargetType="DataGridCell">
                                 <Setter Property="Foreground" Value="#ECEFF4"/>
@@ -604,9 +657,13 @@
                                 <Setter Property="VerticalAlignment" Value="Center"/>
                                 <Setter Property="TextTrimming" Value="CharacterEllipsis"/>
                             </Style>
+                            <Style x:Key="LogLtrColStyle" TargetType="TextBlock" BasedOn="{StaticResource LogTextColStyle}">
+                                <Setter Property="FlowDirection" Value="LeftToRight"/>
+                            </Style>
                         </DataGrid.Resources>
                         <DataGrid.Columns>
-                            <DataGridTextColumn Header="{DynamicResource Col_Time}" Binding="{Binding Time}" Width="75" ElementStyle="{StaticResource LogTextColStyle}"/>
+                            <DataGridTextColumn Header="{DynamicResource Col_Date}" Binding="{Binding Date}" Width="90" ElementStyle="{StaticResource LogLtrColStyle}"/>
+                            <DataGridTextColumn Header="{DynamicResource Col_Time}" Binding="{Binding Time}" Width="85" ElementStyle="{StaticResource LogLtrColStyle}"/>
                             <DataGridTemplateColumn Header="{DynamicResource Col_Player}" Width="140" ClipboardContentBinding="{Binding Author}">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
@@ -780,6 +837,8 @@
                                         <RowDefinition Height="Auto"/>
                                         <RowDefinition Height="Auto"/>
                                         <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
                                     </Grid.RowDefinitions>
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="230"/>
@@ -813,8 +872,8 @@
 
                                     <!-- Translation Tone -->
                                     <StackPanel Grid.Row="2" Grid.Column="0" Orientation="Horizontal" VerticalAlignment="Center" Margin="0,6">
-                                        <TextBlock Text="Translation Tone:" Style="{StaticResource SettingLabelStyle}"/>
-                                        <Border Style="{StaticResource InfoIconStyle}" ToolTip="Select the translation style. Casual uses lowercase gaming slang, while Normal uses standard natural phrasing.">
+                                        <TextBlock Text="{DynamicResource Settings_TranslationTone}" Style="{StaticResource SettingLabelStyle}"/>
+                                        <Border Style="{StaticResource InfoIconStyle}" ToolTip="{DynamicResource Settings_TranslationTone_Tooltip}">
                                             <TextBlock Style="{StaticResource InfoGlyphStyle}"/>
                                         </Border>
                                     </StackPanel>
@@ -822,14 +881,36 @@
                                         <ComboBox Width="180" ItemsSource="{Binding AvailableTranslationTones}" SelectedItem="{Binding TranslationTone, Mode=TwoWay}"/>
                                     </StackPanel>
 
-                                    <!-- Diagnostic Logs -->
+                                    <!-- Date Format -->
                                     <StackPanel Grid.Row="3" Grid.Column="0" Orientation="Horizontal" VerticalAlignment="Center" Margin="0,6">
+                                        <TextBlock Text="{DynamicResource Settings_DateFormat}" Style="{StaticResource SettingLabelStyle}"/>
+                                        <Border Style="{StaticResource InfoIconStyle}" ToolTip="{DynamicResource Settings_DateFormat_Tooltip}">
+                                            <TextBlock Style="{StaticResource InfoGlyphStyle}"/>
+                                        </Border>
+                                    </StackPanel>
+                                    <StackPanel Grid.Row="3" Grid.Column="1" Orientation="Horizontal" Margin="0,6" VerticalAlignment="Center">
+                                        <ComboBox Width="180" ItemsSource="{Binding AvailableDateFormats}" SelectedItem="{Binding DateFormat, Mode=TwoWay}"/>
+                                    </StackPanel>
+
+                                    <!-- Time Format -->
+                                    <StackPanel Grid.Row="4" Grid.Column="0" Orientation="Horizontal" VerticalAlignment="Center" Margin="0,6">
+                                        <TextBlock Text="{DynamicResource Settings_TimeFormat}" Style="{StaticResource SettingLabelStyle}"/>
+                                        <Border Style="{StaticResource InfoIconStyle}" ToolTip="{DynamicResource Settings_TimeFormat_Tooltip}">
+                                            <TextBlock Style="{StaticResource InfoGlyphStyle}"/>
+                                        </Border>
+                                    </StackPanel>
+                                    <StackPanel Grid.Row="4" Grid.Column="1" Orientation="Horizontal" Margin="0,6" VerticalAlignment="Center">
+                                        <ComboBox Width="180" ItemsSource="{Binding AvailableTimeFormats}" SelectedItem="{Binding TimeFormat, Mode=TwoWay}"/>
+                                    </StackPanel>
+
+                                    <!-- Diagnostic Logs -->
+                                    <StackPanel Grid.Row="5" Grid.Column="0" Orientation="Horizontal" VerticalAlignment="Center" Margin="0,6">
                                         <TextBlock Text="{DynamicResource Settings_DiagnosticLogs}" Style="{StaticResource SettingLabelStyle}"/>
                                         <Border Style="{StaticResource InfoIconStyle}" ToolTip="{DynamicResource Settings_DiagnosticLogs_Tooltip}">
                                             <TextBlock Style="{StaticResource InfoGlyphStyle}"/>
                                         </Border>
                                     </StackPanel>
-                                    <StackPanel Grid.Row="3" Grid.Column="1" Orientation="Horizontal" Margin="0,6" VerticalAlignment="Center">
+                                    <StackPanel Grid.Row="5" Grid.Column="1" Orientation="Horizontal" Margin="0,6" VerticalAlignment="Center">
                                         <CheckBox Content="{DynamicResource Settings_EnableFileLogging}" IsChecked="{Binding DebugLoggingEnabled}" VerticalAlignment="Center" Foreground="#E0E0E0"/>
                                         <Button Content="{DynamicResource Settings_Btn_OpenLogsFolder}" Click="OnOpenLogsClicked" Margin="16,0,0,0" Padding="10,4"/>
                                     </StackPanel>

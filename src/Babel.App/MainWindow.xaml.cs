@@ -300,6 +300,56 @@ public partial class MainWindow : Window
         _viewModel.ClearHistory();
     }
 
+    private void OnClearSearchClicked(object sender, RoutedEventArgs e)
+    {
+        _viewModel.ClearLogSearch();
+        LogSearchTextBox.Focus();
+    }
+
+    private void LogSearchTextBox_PreviewKeyDown(object sender, KeyEventArgs e)
+    {
+        if (e.Key == Key.Escape)
+        {
+            _viewModel.ClearLogSearch();
+            e.Handled = true;
+        }
+    }
+
+    private void HistoryDataGridRow_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+    {
+        if (sender is DataGridRow { Item: TranslationLogEntry entry })
+        {
+            OpenMessageDetails(entry);
+        }
+    }
+
+    private void HistoryDataGrid_PreviewKeyDown(object sender, KeyEventArgs e)
+    {
+        if (e.Key == Key.Enter && HistoryDataGrid.SelectedItem is TranslationLogEntry entry)
+        {
+            OpenMessageDetails(entry);
+            e.Handled = true;
+        }
+    }
+
+    private void OnViewDetailsClicked(object sender, RoutedEventArgs e)
+    {
+        var selected = GetSelectedOrCurrentLogEntries();
+        if (selected.Count > 0)
+        {
+            OpenMessageDetails(selected[0]);
+        }
+    }
+
+    private void OpenMessageDetails(TranslationLogEntry entry)
+    {
+        var dialog = new Views.LogEntryDetailsDialog(entry)
+        {
+            Owner = this
+        };
+        dialog.ShowDialog();
+    }
+
     private void HistoryDataGrid_PreviewMouseRightButtonDown(object sender, MouseButtonEventArgs e)
     {
         var dep = e.OriginalSource as DependencyObject;
@@ -404,7 +454,7 @@ public partial class MainWindow : Window
         }
     }
 
-    private static void SafeSetClipboardText(string text)
+    internal static void SafeSetClipboardText(string text)
     {
         if (string.IsNullOrEmpty(text)) return;
 
