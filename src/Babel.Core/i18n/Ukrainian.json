@@ -1,5 +1,5 @@
 {
-  "App_Title": "Helldivers 1 Babel — Тактичний помічник із перекладу",
+  "App_Title": "Helldivers 1 Babel — Тактичний помічник із зв'язку",
   "App_HeaderTitle": "HELLDIVERS 1 BABEL",
   "App_FooterDescription": "Helldivers (2015) | Тактичний перекладач та помічник швидкого чату",
   "App_FooterLogs": "Журнал",
@@ -112,7 +112,7 @@
   "Provider_SelfHostSoon": "Self-host (Скоро)",
   "About_Title": "Про програму Helldivers 1 Babel",
   "About_HeaderTitle": "HELLDIVERS 1 BABEL",
-  "About_Subtitle": "Тактичний помічник із перекладу для Helldivers (2015)",
+  "About_Subtitle": "Тактичний помічник із зв'язку для Helldivers (2015)",
   "About_Author": "Автор:",
   "About_Repository": "Репозиторій:",
   "About_License": "Ліцензія:",

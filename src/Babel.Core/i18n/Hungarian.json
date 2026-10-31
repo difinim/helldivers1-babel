@@ -1,5 +1,5 @@
 {
-  "App_Title": "Helldivers 1 Babel — Taktikai Fordítóasszisztens",
+  "App_Title": "Helldivers 1 Babel — Taktikai Kommunikációs Asszisztens",
   "App_HeaderTitle": "HELLDIVERS 1 BABEL",
   "App_FooterDescription": "Helldivers (2015) | Taktikai Fordító- és Gyorscsevegő Asszisztens",
   "App_FooterLogs": "Naplók",
@@ -112,7 +112,7 @@
   "Provider_SelfHostSoon": "Saját szerver (Hamarosan)",
   "About_Title": "A Helldivers 1 Babel névjegye",
   "About_HeaderTitle": "HELLDIVERS 1 BABEL",
-  "About_Subtitle": "Taktikai játékbeli fordítóasszisztens a Helldivershez (2015)",
+  "About_Subtitle": "Taktikai játékbeli kommunikációs asszisztens a Helldivershez (2015)",
   "About_Author": "Szerző:",
   "About_Repository": "Adattár:",
   "About_License": "Licenc:",

@@ -1,5 +1,5 @@
 {
-  "App_Title": "Helldivers 1 Babel — 전술 번역 어시스턴트",
+  "App_Title": "Helldivers 1 Babel — 전술 통신 어시스턴트",
   "App_HeaderTitle": "HELLDIVERS 1 BABEL",
   "App_FooterDescription": "Helldivers (2015) | 전술 번역 및 퀵챗 지원 도구",
   "App_FooterLogs": "로그",
@@ -112,7 +112,7 @@
   "Provider_SelfHostSoon": "Self-host 자체 호스팅 (지원 예정)",
   "About_Title": "Helldivers 1 Babel 정보",
   "About_HeaderTitle": "HELLDIVERS 1 BABEL",
-  "About_Subtitle": "Helldivers (2015) 전술 인게임 번역 어시스턴트",
+  "About_Subtitle": "Helldivers (2015) 전술 인게임 통신 어시스턴트",
   "About_Author": "제작자:",
   "About_Repository": "저장소:",
   "About_License": "라이선스:",

@@ -1,5 +1,5 @@
 {
-  "App_Title": "Helldivers 1 Babel — 戦術翻訳アシスタント",
+  "App_Title": "Helldivers 1 Babel — 戦術通信アシスタント",
   "App_HeaderTitle": "HELLDIVERS 1 BABEL",
   "App_FooterDescription": "Helldivers (2015) | 戦術翻訳＆クイックチャットアシスタント",
   "App_FooterLogs": "ログ",
@@ -112,7 +112,7 @@
   "Provider_SelfHostSoon": "Self-host (近日対応)",
   "About_Title": "Helldivers 1 Babel について",
   "About_HeaderTitle": "HELLDIVERS 1 BABEL",
-  "About_Subtitle": "Helldivers (2015) 専用 戦術インゲーム翻訳アシスタント",
+  "About_Subtitle": "Helldivers (2015) 専用 戦術インゲーム通信アシスタント",
   "About_Author": "作者:",
   "About_Repository": "リポジトリ:",
   "About_License": "ライセンス:",

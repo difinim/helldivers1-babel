@@ -1,5 +1,5 @@
 {
-  "App_Title": "Helldivers 1 Babel — Tactical Translation Assistant",
+  "App_Title": "Helldivers 1 Babel — Tactical Communication Assistant",
   "App_HeaderTitle": "HELLDIVERS 1 BABEL",
   "App_FooterDescription": "Helldivers (2015) | Tactical Translation & Quick Chat Assistant",
   "App_FooterLogs": "Logs",
@@ -112,7 +112,7 @@
   "Provider_SelfHostSoon": "Self-host (Coming Soon)",
   "About_Title": "About Helldivers 1 Babel",
   "About_HeaderTitle": "HELLDIVERS 1 BABEL",
-  "About_Subtitle": "Tactical In-Game Translation Assistant for Helldivers (2015)",
+  "About_Subtitle": "Tactical In-Game Communication Assistant for Helldivers (2015)",
   "About_Author": "Author:",
   "About_Repository": "Repository:",
   "About_License": "License:",

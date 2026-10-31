@@ -1,5 +1,5 @@
 {
-  "App_Title": "Helldivers 1 Babel — Taktický překladatelský asistent",
+  "App_Title": "Helldivers 1 Babel — Taktický komunikační asistent",
   "App_HeaderTitle": "HELLDIVERS 1 BABEL",
   "App_FooterDescription": "Helldivers (2015) | Taktický asistent překladu a rychlého chatu",
   "App_FooterLogs": "Protokoly",
@@ -112,7 +112,7 @@
   "Provider_SelfHostSoon": "Vlastní hostování (Již brzy)",
   "About_Title": "O Helldivers 1 Babel",
   "About_HeaderTitle": "HELLDIVERS 1 BABEL",
-  "About_Subtitle": "Taktický asistent překladu v herním chatu pro Helldivers (2015)",
+  "About_Subtitle": "Taktický asistent komunikace v herním chatu pro Helldivers (2015)",
   "About_Author": "Autor:",
   "About_Repository": "Repozitář:",
   "About_License": "Licence:",

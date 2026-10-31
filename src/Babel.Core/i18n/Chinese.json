@@ -1,5 +1,5 @@
 {
-  "App_Title": "Helldivers 1 Babel — 战术翻译助手",
+  "App_Title": "Helldivers 1 Babel — 战术通信助手",
   "App_HeaderTitle": "HELLDIVERS 1 BABEL",
   "App_FooterDescription": "Helldivers (2015) | 战术翻译与快捷聊天助手",
   "App_FooterLogs": "日志",
@@ -112,7 +112,7 @@
   "Provider_SelfHostSoon": "Self-host 自托管 (即将推出)",
   "About_Title": "关于 Helldivers 1 Babel",
   "About_HeaderTitle": "HELLDIVERS 1 BABEL",
-  "About_Subtitle": "Helldivers (2015) 战术游戏内翻译助手",
+  "About_Subtitle": "Helldivers (2015) 战术游戏内通信助手",
   "About_Author": "作者:",
   "About_Repository": "开源仓库:",
   "About_License": "许可协议:",

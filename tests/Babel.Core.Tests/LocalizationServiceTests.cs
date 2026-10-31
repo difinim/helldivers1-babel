@@ -206,4 +206,17 @@ public class LocalizationServiceTests
             Assert.DoesNotContain($"{lang}.json", jsonFiles);
         }
     }
+
+    [Fact]
+    public void AppTitle_And_AboutSubtitle_ContainTacticalCommunicationAssistant()
+    {
+        var service = new LocalizationService();
+        service.SetLanguage("English");
+
+        var appTitle = service.GetString("App_Title");
+        Assert.Equal("Helldivers 1 Babel — Tactical Communication Assistant", appTitle);
+
+        var aboutSubtitle = service.GetString("About_Subtitle");
+        Assert.Equal("Tactical In-Game Communication Assistant for Helldivers (2015)", aboutSubtitle);
+    }
 }
