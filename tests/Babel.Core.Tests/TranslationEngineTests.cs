@@ -879,4 +879,95 @@ public class TranslationEngineTests
         await engine.HandlePacketAsync(IpcPacket.Create(IpcPacketType.ChatMessageIncoming, incomingFromP1));
         Assert.Single(mockProvider.ReceivedRequests);
     }
+
+    [Fact]
+    public async Task IncomingMessage_FastPathTerm_ResolvesAtZeroMs_AndSuppressesInjection()
+    {
+        var mockIpc = new MockIpcServer();
+        var mockProvider = new MockTranslationProvider();
+        var config = new BabelConfig
+        {
+            TargetLanguage = "English",
+            IncomingTranslationEnabled = true,
+            DontTranslateIncomingInTargetLanguage = true
+        };
+        using var engine = new TranslationEngine(mockIpc, config, mockProvider);
+
+        ChatMessage? receivedChat = null;
+        TranslationResult? receivedResult = null;
+        engine.MessageTranslated += (chat, res) =>
+        {
+            receivedChat = chat;
+            receivedResult = res;
+        };
+
+        var incoming = new IncomingChatMessagePayload
+        {
+            PlayerIndex = 2,
+            PlayerName = "SiX",
+            Message = "GG!"
+        };
+
+        await engine.HandlePacketAsync(IpcPacket.Create(IpcPacketType.ChatMessageIncoming, incoming));
+
+        // Fast-path should resolve without calling the provider!
+        Assert.Empty(mockProvider.ReceivedRequests);
+
+        // Suppressed from in-game chat injection!
+        Assert.DoesNotContain(mockIpc.SentPackets, p => p.Type == IpcPacketType.InjectChatMessage);
+
+        // Event fired with 0ms latency and English detected
+        Assert.NotNull(receivedChat);
+        Assert.NotNull(receivedResult);
+        Assert.Equal("English", receivedResult.DetectedSourceLanguage);
+        Assert.Equal(0, receivedResult.LatencyMs);
+        Assert.Equal("GG!", receivedResult.TranslatedText);
+    }
+
+    [Fact]
+    public async Task IncomingMessage_IdenticalTranslation_NormalizesLanguage_AndSuppressesInjection()
+    {
+        var mockIpc = new MockIpcServer();
+        var mockProvider = new MockTranslationProvider
+        {
+            TranslateFunc = (req, cfg) => TranslationResult.Ok("(Russian): watch top left", "Russian", 850)
+        };
+        var config = new BabelConfig
+        {
+            TargetLanguage = "English",
+            IncomingTranslationEnabled = true,
+            DontTranslateIncomingInTargetLanguage = true
+        };
+        using var engine = new TranslationEngine(mockIpc, config, mockProvider);
+
+        ChatMessage? receivedChat = null;
+        TranslationResult? receivedResult = null;
+        engine.MessageTranslated += (chat, res) =>
+        {
+            receivedChat = chat;
+            receivedResult = res;
+        };
+
+        var incoming = new IncomingChatMessagePayload
+        {
+            PlayerIndex = 2,
+            PlayerName = "SiX",
+            Message = "watch top left"
+        };
+
+        await engine.HandlePacketAsync(IpcPacket.Create(IpcPacketType.ChatMessageIncoming, incoming));
+
+        // Provider was called
+        Assert.Single(mockProvider.ReceivedRequests);
+
+        // Suppressed from in-game chat injection because normalized to English!
+        Assert.DoesNotContain(mockIpc.SentPackets, p => p.Type == IpcPacketType.InjectChatMessage);
+
+        // Result normalized
+        Assert.NotNull(receivedChat);
+        Assert.NotNull(receivedResult);
+        Assert.Equal("English", receivedResult.DetectedSourceLanguage);
+        Assert.Equal("watch top left", receivedResult.TranslatedText);
+        Assert.Equal("English", engine.LastIncomingLanguage);
+    }
 }
