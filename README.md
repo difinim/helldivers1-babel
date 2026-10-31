@@ -13,6 +13,7 @@
 > [!IMPORTANT]
 > **Compatibility Disclaimer:**
 > **Helldivers 1 Babel is strictly developed for Helldivers (2015) on PC (Steam).**
+> **It is compatible with mods.**
 > **It is NOT compatible with Helldivers 2 (2024)**, which is completely different and uses kernel-level anti-cheat.
 
 ## Table of Contents
@@ -38,6 +39,7 @@
   - **Incoming Messages:** Automatically detects teammates' language, translates messages into your chosen target language (supports up to 28 target languages, including Portuguese PT-BR, English, Spanish, Russian, Chinese, Japanese, French, German, and more), and renders them **locally** into the in-game chat while **faithfully preserving the original teammate's player name and color code** (P1 Gold, P2 Blue, P3 Purple, P4 Cyan).
   - **Outgoing Messages:** Type `[target_language]>>message` or simply `>>message` to auto-reply in the language of the last incoming teammate message. Translated text is broadcasted over multiplayer RPC so international teammates read it natively.
 - **Persistent Chat Logs & File Export:** Full session chat history tracking with timestamps, player names, colors, detected source languages, and translation latency. Logs persist in the table across application restarts via lightweight asynchronous batch disk writes (configurable), with one-click export to a `.txt` file.
+- **Searchable Chat Logs:** Fully searchable chat history that filters any columns
 
 ![Helldivers 1 Babel in action](docs/screenshot.png)
 

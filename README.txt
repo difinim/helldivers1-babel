@@ -89,11 +89,12 @@ If not already installed on your PC, download and install it before running:
     as [<shortcut>] <message>.
     Note: Helldivers must run in Borderless Fullscreen (or Windowed) mode.
 
-  * PERSISTENT CHAT LOGS & FILE EXPORT
+  * PERSISTENT AND SEARCHABLE CHAT LOGS & FILE EXPORT
     Session log tracking with timestamps, player names, colors, detected
     languages, and latencies, with one-click export to a .txt file. Logs in the
     table persist across application restarts via lightweight async disk writes
     (configurable from 0 to 100 MB in Settings, with a Clear logs memory button).
+    Every column in table can be filtered by the search input.
 
   * INTERACTIVE MESSAGE LINKS & TRUST CONFIRMATION
     Squad chat messages containing http:// or https:// URLs in the Original
