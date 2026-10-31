@@ -194,5 +194,11 @@
   "Trans_SearchLogs_Placeholder": "Search logs (all columns)...",
   "Trans_Btn_ClearSearch_Tooltip": "Clear search filter and show all logs",
   "Trans_LogSearch_StatusCount": "Showing {0} of {1} messages",
-  "Trans_LogSearch_StatusTotal": "{0} messages"
+  "Trans_LogSearch_StatusTotal": "{0} messages",
+  "Trans_MsgDetails_Title": "Message Details",
+  "Trans_MsgDetails_Header": "Log Message Details",
+  "Trans_MsgDetails_CopyOriginal": "Copy Original",
+  "Trans_MsgDetails_CopyTranslated": "Copy Translated",
+  "Trans_MsgDetails_CopyFormatted": "Copy Formatted",
+  "Menu_ViewDetails": "View Message Details"
 }

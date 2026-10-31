@@ -194,5 +194,11 @@
   "Trans_SearchLogs_Placeholder": "Hledat v protokolech (všechny sloupce)...",
   "Trans_Btn_ClearSearch_Tooltip": "Vymazat filtr vyhledávání a zobrazit všechny protokoly",
   "Trans_LogSearch_StatusCount": "Zobrazeno {0} z {1} zpráv",
-  "Trans_LogSearch_StatusTotal": "{0} zpráv"
+  "Trans_LogSearch_StatusTotal": "{0} zpráv",
+  "Trans_MsgDetails_Title": "Podrobnosti zprávy",
+  "Trans_MsgDetails_Header": "Podrobnosti záznamu zprávy",
+  "Trans_MsgDetails_CopyOriginal": "Kopírovat originál",
+  "Trans_MsgDetails_CopyTranslated": "Kopírovat překlad",
+  "Trans_MsgDetails_CopyFormatted": "Kopírovat formátovaný řádek",
+  "Menu_ViewDetails": "Zobrazit podrobnosti zprávy"
 }

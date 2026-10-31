@@ -194,5 +194,11 @@
   "Trans_SearchLogs_Placeholder": "Cari log (semua lajur)...",
   "Trans_Btn_ClearSearch_Tooltip": "Kosongkan penapis carian dan tunjukkan semua log",
   "Trans_LogSearch_StatusCount": "Menunjukkan {0} daripada {1} mesej",
-  "Trans_LogSearch_StatusTotal": "{0} mesej"
+  "Trans_LogSearch_StatusTotal": "{0} mesej",
+  "Trans_MsgDetails_Title": "Butiran Mesej",
+  "Trans_MsgDetails_Header": "Butiran Mesej Log",
+  "Trans_MsgDetails_CopyOriginal": "Salin Asal",
+  "Trans_MsgDetails_CopyTranslated": "Salin Terjemahan",
+  "Trans_MsgDetails_CopyFormatted": "Salin Baris Berformat",
+  "Menu_ViewDetails": "Lihat Butiran Mesej"
 }

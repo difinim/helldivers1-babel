@@ -194,5 +194,11 @@
   "Trans_SearchLogs_Placeholder": "Поиск в логах (все столбцы)...",
   "Trans_Btn_ClearSearch_Tooltip": "Очистить фильтр поиска и показать все логи",
   "Trans_LogSearch_StatusCount": "Отображается {0} из {1} сообщений",
-  "Trans_LogSearch_StatusTotal": "{0} сообщений"
+  "Trans_LogSearch_StatusTotal": "{0} сообщений",
+  "Trans_MsgDetails_Title": "Детали сообщения",
+  "Trans_MsgDetails_Header": "Детали сообщения из журнала",
+  "Trans_MsgDetails_CopyOriginal": "Копировать оригинал",
+  "Trans_MsgDetails_CopyTranslated": "Копировать перевод",
+  "Trans_MsgDetails_CopyFormatted": "Копировать форматированную строку",
+  "Menu_ViewDetails": "Просмотреть детали сообщения"
 }

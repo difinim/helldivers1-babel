@@ -194,5 +194,11 @@
   "Trans_SearchLogs_Placeholder": "Buscar en registros (todas las columnas)...",
   "Trans_Btn_ClearSearch_Tooltip": "Borrar filtro de búsqueda y mostrar todos los registros",
   "Trans_LogSearch_StatusCount": "Mostrando {0} de {1} mensajes",
-  "Trans_LogSearch_StatusTotal": "{0} mensajes"
+  "Trans_LogSearch_StatusTotal": "{0} mensajes",
+  "Trans_MsgDetails_Title": "Detalles del mensaje",
+  "Trans_MsgDetails_Header": "Detalles del mensaje de registro",
+  "Trans_MsgDetails_CopyOriginal": "Copiar original",
+  "Trans_MsgDetails_CopyTranslated": "Copiar traducción",
+  "Trans_MsgDetails_CopyFormatted": "Copiar línea formateada",
+  "Menu_ViewDetails": "Ver detalles del mensaje"
 }

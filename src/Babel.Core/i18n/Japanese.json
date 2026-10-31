@@ -194,5 +194,11 @@
   "Trans_SearchLogs_Placeholder": "ログを検索 (すべての列)...",
   "Trans_Btn_ClearSearch_Tooltip": "検索フィルターをクリアしてすべてのログを表示",
   "Trans_LogSearch_StatusCount": "{1} 件中 {0} 件のメッセージを表示",
-  "Trans_LogSearch_StatusTotal": "{0} 件のメッセージ"
+  "Trans_LogSearch_StatusTotal": "{0} 件のメッセージ",
+  "Trans_MsgDetails_Title": "メッセージの詳細",
+  "Trans_MsgDetails_Header": "ログメッセージの詳細",
+  "Trans_MsgDetails_CopyOriginal": "原文をコピー",
+  "Trans_MsgDetails_CopyTranslated": "訳文をコピー",
+  "Trans_MsgDetails_CopyFormatted": "書式設定済み行をコピー",
+  "Menu_ViewDetails": "メッセージの詳細を表示"
 }

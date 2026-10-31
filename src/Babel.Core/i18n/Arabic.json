@@ -194,5 +194,11 @@
   "Trans_SearchLogs_Placeholder": "البحث في السجلات (كافة الأعمدة)...",
   "Trans_Btn_ClearSearch_Tooltip": "مسح عامل تصفية البحث وعرض كافة السجلات",
   "Trans_LogSearch_StatusCount": "عرض {0} من أصل {1} رسائل",
-  "Trans_LogSearch_StatusTotal": "{0} رسائل"
+  "Trans_LogSearch_StatusTotal": "{0} رسائل",
+  "Trans_MsgDetails_Title": "تفاصيل الرسالة",
+  "Trans_MsgDetails_Header": "تفاصيل رسالة السجل",
+  "Trans_MsgDetails_CopyOriginal": "نسخ النص الأصلي",
+  "Trans_MsgDetails_CopyTranslated": "نسخ النص المترجم",
+  "Trans_MsgDetails_CopyFormatted": "نسخ سطر منسق",
+  "Menu_ViewDetails": "عرض تفاصيل الرسالة"
 }

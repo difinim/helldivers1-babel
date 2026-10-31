@@ -194,5 +194,11 @@
   "Trans_SearchLogs_Placeholder": "Пошук у журналах (всі стовпці)...",
   "Trans_Btn_ClearSearch_Tooltip": "Очистити фільтр пошуку та показати всі журнали",
   "Trans_LogSearch_StatusCount": "Відображається {0} з {1} повідомлень",
-  "Trans_LogSearch_StatusTotal": "{0} повідомлень"
+  "Trans_LogSearch_StatusTotal": "{0} повідомлень",
+  "Trans_MsgDetails_Title": "Деталі повідомлення",
+  "Trans_MsgDetails_Header": "Деталі повідомлення з журналу",
+  "Trans_MsgDetails_CopyOriginal": "Копіювати оригінал",
+  "Trans_MsgDetails_CopyTranslated": "Копіювати переклад",
+  "Trans_MsgDetails_CopyFormatted": "Копіювати форматований рядок",
+  "Menu_ViewDetails": "Переглянути деталі повідомлення"
 }

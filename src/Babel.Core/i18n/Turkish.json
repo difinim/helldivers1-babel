@@ -194,5 +194,11 @@
   "Trans_SearchLogs_Placeholder": "Günlüklerde ara (tüm sütunlar)...",
   "Trans_Btn_ClearSearch_Tooltip": "Arama filtresini temizle ve tüm günlükleri göster",
   "Trans_LogSearch_StatusCount": "{1} mesajdan {0} tanesi gösteriliyor",
-  "Trans_LogSearch_StatusTotal": "{0} mesaj"
+  "Trans_LogSearch_StatusTotal": "{0} mesaj",
+  "Trans_MsgDetails_Title": "Mesaj Detayları",
+  "Trans_MsgDetails_Header": "Kayıt Mesajı Detayları",
+  "Trans_MsgDetails_CopyOriginal": "Orijinali Kopyala",
+  "Trans_MsgDetails_CopyTranslated": "Çeviriyi Kopyala",
+  "Trans_MsgDetails_CopyFormatted": "Biçimlendirilmiş Satırı Kopyala",
+  "Menu_ViewDetails": "Mesaj Detaylarını Görüntüle"
 }

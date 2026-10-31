@@ -194,5 +194,11 @@
   "Trans_SearchLogs_Placeholder": "ค้นหาบันทึก (ทุกคอลัมน์)...",
   "Trans_Btn_ClearSearch_Tooltip": "ล้างตัวกรองการค้นหาและแสดงบันทึกทั้งหมด",
   "Trans_LogSearch_StatusCount": "กำลังแสดง {0} จาก {1} ข้อความ",
-  "Trans_LogSearch_StatusTotal": "{0} ข้อความ"
+  "Trans_LogSearch_StatusTotal": "{0} ข้อความ",
+  "Trans_MsgDetails_Title": "รายละเอียดข้อความ",
+  "Trans_MsgDetails_Header": "รายละเอียดข้อความบันทึก",
+  "Trans_MsgDetails_CopyOriginal": "คัดลอกต้นฉบับ",
+  "Trans_MsgDetails_CopyTranslated": "คัดลอกคำแปล",
+  "Trans_MsgDetails_CopyFormatted": "คัดลอกบรรทัดที่จัดรูปแบบ",
+  "Menu_ViewDetails": "ดูรายละเอียดข้อความ"
 }

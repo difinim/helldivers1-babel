@@ -194,5 +194,11 @@
   "Trans_SearchLogs_Placeholder": "লগ অনুসন্ধান করুন (সমস্ত কলাম)...",
   "Trans_Btn_ClearSearch_Tooltip": "অনুসন্ধান ফিল্টার সাফ করুন এবং সমস্ত লগ দেখান",
   "Trans_LogSearch_StatusCount": "{1} টির মধ্যে {0} টি বার্তা দেখানো হচ্ছে",
-  "Trans_LogSearch_StatusTotal": "{0} টি বার্তা"
+  "Trans_LogSearch_StatusTotal": "{0} টি বার্তা",
+  "Trans_MsgDetails_Title": "বার্তার বিবরণ",
+  "Trans_MsgDetails_Header": "লগ বার্তার বিবরণ",
+  "Trans_MsgDetails_CopyOriginal": "মূল কপি করুন",
+  "Trans_MsgDetails_CopyTranslated": "অনুবাদ কপি করুন",
+  "Trans_MsgDetails_CopyFormatted": "ফরম্যাট করা লাইন কপি করুন",
+  "Menu_ViewDetails": "বার্তার বিবরণ দেখুন"
 }

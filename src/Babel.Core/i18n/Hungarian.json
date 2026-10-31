@@ -194,5 +194,11 @@
   "Trans_SearchLogs_Placeholder": "Keresés a naplókban (minden oszlop)...",
   "Trans_Btn_ClearSearch_Tooltip": "Keresési szűrő törlése és az összes napló megjelenítése",
   "Trans_LogSearch_StatusCount": "{0} / {1} üzenet megjelenítése",
-  "Trans_LogSearch_StatusTotal": "{0} üzenet"
+  "Trans_LogSearch_StatusTotal": "{0} üzenet",
+  "Trans_MsgDetails_Title": "Üzenet részletei",
+  "Trans_MsgDetails_Header": "Naplóüzenet részletei",
+  "Trans_MsgDetails_CopyOriginal": "Eredeti másolása",
+  "Trans_MsgDetails_CopyTranslated": "Fordítás másolása",
+  "Trans_MsgDetails_CopyFormatted": "Formázott sor másolása",
+  "Menu_ViewDetails": "Üzenet részleteinek megtekintése"
 }

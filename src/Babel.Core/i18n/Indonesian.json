@@ -194,5 +194,11 @@
   "Trans_SearchLogs_Placeholder": "Cari log (semua kolom)...",
   "Trans_Btn_ClearSearch_Tooltip": "Hapus filter pencarian dan tampilkan semua log",
   "Trans_LogSearch_StatusCount": "Menampilkan {0} dari {1} pesan",
-  "Trans_LogSearch_StatusTotal": "{0} pesan"
+  "Trans_LogSearch_StatusTotal": "{0} pesan",
+  "Trans_MsgDetails_Title": "Detail Pesan",
+  "Trans_MsgDetails_Header": "Detail Pesan Log",
+  "Trans_MsgDetails_CopyOriginal": "Salin Asli",
+  "Trans_MsgDetails_CopyTranslated": "Salin Terjemahan",
+  "Trans_MsgDetails_CopyFormatted": "Salin Baris Terformat",
+  "Menu_ViewDetails": "Lihat Detail Pesan"
 }

@@ -590,6 +590,7 @@
                               IsReadOnly="True" CanUserAddRows="False" CanUserResizeColumns="True"
                               ClipboardCopyMode="ExcludeHeader"
                               PreviewMouseRightButtonDown="HistoryDataGrid_PreviewMouseRightButtonDown"
+                              PreviewKeyDown="HistoryDataGrid_PreviewKeyDown"
                               ContextMenuOpening="HistoryDataGrid_ContextMenuOpening"
                               Background="#15171D" BorderBrush="#262B36" BorderThickness="1"
                               RowBackground="#181B22" AlternatingRowBackground="#1D2028"
@@ -598,6 +599,8 @@
                               Foreground="#ECEFF4">
                         <DataGrid.ContextMenu>
                             <ContextMenu Style="{StaticResource LogsContextMenuStyle}">
+                                <MenuItem Header="{DynamicResource Menu_ViewDetails}" InputGestureText="Enter" Style="{StaticResource LogsMenuItemStyle}" Click="OnViewDetailsClicked"/>
+                                <Separator Style="{StaticResource LogsMenuSeparatorStyle}"/>
                                 <MenuItem Header="{DynamicResource Menu_Copy}" InputGestureText="Ctrl+C" Style="{StaticResource LogsMenuItemStyle}" Click="OnCopyRowClicked"/>
                                 <MenuItem Header="{DynamicResource Menu_CopyFormattedLine}" Style="{StaticResource LogsMenuItemStyle}" Click="OnCopyFormattedLineClicked"/>
                                 <Separator Style="{StaticResource LogsMenuSeparatorStyle}"/>
@@ -610,6 +613,7 @@
                             <Style TargetType="DataGridRow">
                                 <Setter Property="Foreground" Value="#ECEFF4"/>
                                 <Setter Property="FontSize" Value="12"/>
+                                <EventSetter Event="MouseDoubleClick" Handler="HistoryDataGridRow_MouseDoubleClick"/>
                             </Style>
                             <Style TargetType="DataGridCell">
                                 <Setter Property="Foreground" Value="#ECEFF4"/>

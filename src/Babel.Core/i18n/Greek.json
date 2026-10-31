@@ -194,5 +194,11 @@
   "Trans_SearchLogs_Placeholder": "Αναζήτηση αρχείων καταγραφής (όλες οι στήλες)...",
   "Trans_Btn_ClearSearch_Tooltip": "Εκκαθάριση φίλτρου αναζήτησης και εμφάνιση όλων των αρχείων καταγραφής",
   "Trans_LogSearch_StatusCount": "Εμφάνιση {0} από {1} μηνύματα",
-  "Trans_LogSearch_StatusTotal": "{0} μηνύματα"
+  "Trans_LogSearch_StatusTotal": "{0} μηνύματα",
+  "Trans_MsgDetails_Title": "Λεπτομέρειες Μηνύματος",
+  "Trans_MsgDetails_Header": "Λεπτομέρειες Μηνύματος Καταγραφής",
+  "Trans_MsgDetails_CopyOriginal": "Αντιγραφή Πρωτοτύπου",
+  "Trans_MsgDetails_CopyTranslated": "Αντιγραφή Μετάφρασης",
+  "Trans_MsgDetails_CopyFormatted": "Αντιγραφή Μορφοποιημένης Γραμμής",
+  "Menu_ViewDetails": "Προβολή Λεπτομερειών Μηνύματος"
 }

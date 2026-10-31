@@ -194,5 +194,11 @@
   "Trans_SearchLogs_Placeholder": "Protokolle durchsuchen (alle Spalten)...",
   "Trans_Btn_ClearSearch_Tooltip": "Suchfilter löschen und alle Protokolle anzeigen",
   "Trans_LogSearch_StatusCount": "Zeige {0} von {1} Nachrichten",
-  "Trans_LogSearch_StatusTotal": "{0} Nachrichten"
+  "Trans_LogSearch_StatusTotal": "{0} Nachrichten",
+  "Trans_MsgDetails_Title": "Nachrichtendetails",
+  "Trans_MsgDetails_Header": "Protokoll-Nachrichtendetails",
+  "Trans_MsgDetails_CopyOriginal": "Original kopieren",
+  "Trans_MsgDetails_CopyTranslated": "Übersetzung kopieren",
+  "Trans_MsgDetails_CopyFormatted": "Formatierte Zeile kopieren",
+  "Menu_ViewDetails": "Nachrichtendetails anzeigen"
 }

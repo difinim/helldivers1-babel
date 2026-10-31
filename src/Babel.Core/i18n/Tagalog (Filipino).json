@@ -194,5 +194,11 @@
   "Trans_SearchLogs_Placeholder": "Maghanap sa mga log (lahat ng column)...",
   "Trans_Btn_ClearSearch_Tooltip": "I-clear ang filter sa paghahanap at ipakita ang lahat ng log",
   "Trans_LogSearch_StatusCount": "Ipinapakita ang {0} sa {1} mga mensahe",
-  "Trans_LogSearch_StatusTotal": "{0} mga mensahe"
+  "Trans_LogSearch_StatusTotal": "{0} mga mensahe",
+  "Trans_MsgDetails_Title": "Mga Detalye ng Mensahe",
+  "Trans_MsgDetails_Header": "Mga Detalye ng Mensahe sa Log",
+  "Trans_MsgDetails_CopyOriginal": "Kopyahin ang Orihinal",
+  "Trans_MsgDetails_CopyTranslated": "Kopyahin ang Pagsasalin",
+  "Trans_MsgDetails_CopyFormatted": "Kopyahin ang Naka-format na Linya",
+  "Menu_ViewDetails": "Tingnan ang mga Detalye ng Mensahe"
 }

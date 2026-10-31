@@ -194,5 +194,11 @@
   "Trans_SearchLogs_Placeholder": "Căutare în jurnale (toate coloanele)...",
   "Trans_Btn_ClearSearch_Tooltip": "Ștergeți filtrul de căutare și afișați toate jurnalele",
   "Trans_LogSearch_StatusCount": "Se afișează {0} din {1} mesaje",
-  "Trans_LogSearch_StatusTotal": "{0} mesaje"
+  "Trans_LogSearch_StatusTotal": "{0} mesaje",
+  "Trans_MsgDetails_Title": "Detalii mesaj",
+  "Trans_MsgDetails_Header": "Detalii mesaj din jurnal",
+  "Trans_MsgDetails_CopyOriginal": "Copiază originalul",
+  "Trans_MsgDetails_CopyTranslated": "Copiază traducerea",
+  "Trans_MsgDetails_CopyFormatted": "Copiază linia formatată",
+  "Menu_ViewDetails": "Vizualizează detaliile mesajului"
 }

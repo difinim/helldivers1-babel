@@ -194,5 +194,11 @@
   "Trans_SearchLogs_Placeholder": "جستجوی گزارش‌ها (تمام ستون‌ها)...",
   "Trans_Btn_ClearSearch_Tooltip": "پاک کردن فیلتر جستجو و نمایش همه گزارش‌ها",
   "Trans_LogSearch_StatusCount": "نمایش {0} از {1} پیام",
-  "Trans_LogSearch_StatusTotal": "{0} پیام"
+  "Trans_LogSearch_StatusTotal": "{0} پیام",
+  "Trans_MsgDetails_Title": "جزئیات پیام",
+  "Trans_MsgDetails_Header": "جزئیات پیام ثبت‌شده",
+  "Trans_MsgDetails_CopyOriginal": "کپی متن اصلی",
+  "Trans_MsgDetails_CopyTranslated": "کپی متن ترجمه‌شده",
+  "Trans_MsgDetails_CopyFormatted": "کپی سطر قالب‌بندی‌شده",
+  "Menu_ViewDetails": "مشاهده جزئیات پیام"
 }

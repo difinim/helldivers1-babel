@@ -194,5 +194,11 @@
   "Trans_SearchLogs_Placeholder": "Rechercher dans les journaux (toutes les colonnes)...",
   "Trans_Btn_ClearSearch_Tooltip": "Effacer le filtre de recherche et afficher tous les journaux",
   "Trans_LogSearch_StatusCount": "Affichage de {0} sur {1} messages",
-  "Trans_LogSearch_StatusTotal": "{0} messages"
+  "Trans_LogSearch_StatusTotal": "{0} messages",
+  "Trans_MsgDetails_Title": "Détails du message",
+  "Trans_MsgDetails_Header": "Détails du message du journal",
+  "Trans_MsgDetails_CopyOriginal": "Copier l'original",
+  "Trans_MsgDetails_CopyTranslated": "Copier la traduction",
+  "Trans_MsgDetails_CopyFormatted": "Copier la ligne formatée",
+  "Menu_ViewDetails": "Afficher les détails du message"
 }

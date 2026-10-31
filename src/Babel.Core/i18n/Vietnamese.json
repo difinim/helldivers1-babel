@@ -194,5 +194,11 @@
   "Trans_SearchLogs_Placeholder": "Tìm kiếm nhật ký (tất cả các cột)...",
   "Trans_Btn_ClearSearch_Tooltip": "Xóa bộ lọc tìm kiếm và hiển thị tất cả nhật ký",
   "Trans_LogSearch_StatusCount": "Đang hiển thị {0} trên {1} tin nhắn",
-  "Trans_LogSearch_StatusTotal": "{0} tin nhắn"
+  "Trans_LogSearch_StatusTotal": "{0} tin nhắn",
+  "Trans_MsgDetails_Title": "Chi tiết tin nhắn",
+  "Trans_MsgDetails_Header": "Chi tiết tin nhắn nhật ký",
+  "Trans_MsgDetails_CopyOriginal": "Sao chép bản gốc",
+  "Trans_MsgDetails_CopyTranslated": "Sao chép bản dịch",
+  "Trans_MsgDetails_CopyFormatted": "Sao chép dòng đã định dạng",
+  "Menu_ViewDetails": "Xem chi tiết tin nhắn"
 }

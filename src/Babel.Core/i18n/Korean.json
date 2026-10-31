@@ -194,5 +194,11 @@
   "Trans_SearchLogs_Placeholder": "로그 검색 (모든 열)...",
   "Trans_Btn_ClearSearch_Tooltip": "검색 필터를 지우고 모든 로그 표시",
   "Trans_LogSearch_StatusCount": "{1}개 중 {0}개 메시지 표시 중",
-  "Trans_LogSearch_StatusTotal": "{0}개 메시지"
+  "Trans_LogSearch_StatusTotal": "{0}개 메시지",
+  "Trans_MsgDetails_Title": "메시지 상세 정보",
+  "Trans_MsgDetails_Header": "로그 메시지 상세 정보",
+  "Trans_MsgDetails_CopyOriginal": "원문 복사",
+  "Trans_MsgDetails_CopyTranslated": "번역 복사",
+  "Trans_MsgDetails_CopyFormatted": "서식 지정된 행 복사",
+  "Menu_ViewDetails": "메시지 상세 정보 보기"
 }

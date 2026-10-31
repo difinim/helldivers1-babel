@@ -194,5 +194,11 @@
   "Trans_SearchLogs_Placeholder": "Sök i loggar (alla kolumner)...",
   "Trans_Btn_ClearSearch_Tooltip": "Rensa sökfilter och visa alla loggar",
   "Trans_LogSearch_StatusCount": "Visar {0} av {1} meddelanden",
-  "Trans_LogSearch_StatusTotal": "{0} meddelanden"
+  "Trans_LogSearch_StatusTotal": "{0} meddelanden",
+  "Trans_MsgDetails_Title": "Meddelandedetaljer",
+  "Trans_MsgDetails_Header": "Loggmeddelandedetaljer",
+  "Trans_MsgDetails_CopyOriginal": "Kopiera original",
+  "Trans_MsgDetails_CopyTranslated": "Kopiera översättning",
+  "Trans_MsgDetails_CopyFormatted": "Kopiera formaterad rad",
+  "Menu_ViewDetails": "Visa meddelandedetaljer"
 }

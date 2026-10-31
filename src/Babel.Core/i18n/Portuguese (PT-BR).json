@@ -194,5 +194,11 @@
   "Trans_SearchLogs_Placeholder": "Pesquisar logs (todas as colunas)...",
   "Trans_Btn_ClearSearch_Tooltip": "Limpar filtro de pesquisa e mostrar todos os logs",
   "Trans_LogSearch_StatusCount": "Exibindo {0} de {1} mensagens",
-  "Trans_LogSearch_StatusTotal": "{0} mensagens"
+  "Trans_LogSearch_StatusTotal": "{0} mensagens",
+  "Trans_MsgDetails_Title": "Detalhes da Mensagem",
+  "Trans_MsgDetails_Header": "Detalhes da Mensagem de Log",
+  "Trans_MsgDetails_CopyOriginal": "Copiar Original",
+  "Trans_MsgDetails_CopyTranslated": "Copiar Tradução",
+  "Trans_MsgDetails_CopyFormatted": "Copiar Linha Formatada",
+  "Menu_ViewDetails": "Ver Detalhes da Mensagem"
 }

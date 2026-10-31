@@ -194,5 +194,11 @@
   "Trans_SearchLogs_Placeholder": "लॉग खोजें (सभी स्तंभ)...",
   "Trans_Btn_ClearSearch_Tooltip": "खोज फ़िल्टर साफ़ करें और सभी लॉग दिखाएं",
   "Trans_LogSearch_StatusCount": "{1} में से {0} संदेश दिखाए जा रहे हैं",
-  "Trans_LogSearch_StatusTotal": "{0} संदेश"
+  "Trans_LogSearch_StatusTotal": "{0} संदेश",
+  "Trans_MsgDetails_Title": "संदेश विवरण",
+  "Trans_MsgDetails_Header": "लॉग संदेश विवरण",
+  "Trans_MsgDetails_CopyOriginal": "मूल कॉपी करें",
+  "Trans_MsgDetails_CopyTranslated": "अनुवाद कॉपी करें",
+  "Trans_MsgDetails_CopyFormatted": "स्वरूपित पंक्ति कॉपी करें",
+  "Menu_ViewDetails": "संदेश विवरण देखें"
 }

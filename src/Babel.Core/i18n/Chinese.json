@@ -194,5 +194,11 @@
   "Trans_SearchLogs_Placeholder": "搜索日志 (所有列)...",
   "Trans_Btn_ClearSearch_Tooltip": "清除搜索筛选并显示所有日志",
   "Trans_LogSearch_StatusCount": "显示 {0} / {1} 条消息",
-  "Trans_LogSearch_StatusTotal": "{0} 条消息"
+  "Trans_LogSearch_StatusTotal": "{0} 条消息",
+  "Trans_MsgDetails_Title": "消息详情",
+  "Trans_MsgDetails_Header": "日志消息详情",
+  "Trans_MsgDetails_CopyOriginal": "复制原文",
+  "Trans_MsgDetails_CopyTranslated": "复制译文",
+  "Trans_MsgDetails_CopyFormatted": "复制格式化内容",
+  "Menu_ViewDetails": "查看消息详情"
 }

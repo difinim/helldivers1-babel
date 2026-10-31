@@ -194,5 +194,11 @@
   "Trans_SearchLogs_Placeholder": "Logboeken doorzoeken (alle kolommen)...",
   "Trans_Btn_ClearSearch_Tooltip": "Zoekfilter wissen en alle logboeken weergeven",
   "Trans_LogSearch_StatusCount": "Toont {0} van {1} berichten",
-  "Trans_LogSearch_StatusTotal": "{0} berichten"
+  "Trans_LogSearch_StatusTotal": "{0} berichten",
+  "Trans_MsgDetails_Title": "Berichtdetails",
+  "Trans_MsgDetails_Header": "Logboek berichtdetails",
+  "Trans_MsgDetails_CopyOriginal": "Origineel kopiëren",
+  "Trans_MsgDetails_CopyTranslated": "Vertaling kopiëren",
+  "Trans_MsgDetails_CopyFormatted": "Geformatteerde regel kopiëren",
+  "Menu_ViewDetails": "Berichtdetails bekijken"
 }

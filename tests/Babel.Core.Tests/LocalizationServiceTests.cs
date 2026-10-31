@@ -219,4 +219,23 @@ public class LocalizationServiceTests
         var aboutSubtitle = service.GetString("About_Subtitle");
         Assert.Equal("Tactical In-Game Communication Assistant for Helldivers (2015)", aboutSubtitle);
     }
+
+    [Fact]
+    public void MessageDetailsModalKeys_ArePresentAndLocalized()
+    {
+        var service = new LocalizationService();
+        service.SetLanguage("English");
+
+        Assert.Equal("Message Details", service.GetString("Trans_MsgDetails_Title"));
+        Assert.Equal("Log Message Details", service.GetString("Trans_MsgDetails_Header"));
+        Assert.Equal("Copy Original", service.GetString("Trans_MsgDetails_CopyOriginal"));
+        Assert.Equal("Copy Translated", service.GetString("Trans_MsgDetails_CopyTranslated"));
+        Assert.Equal("Copy Formatted", service.GetString("Trans_MsgDetails_CopyFormatted"));
+        Assert.Equal("View Message Details", service.GetString("Menu_ViewDetails"));
+
+        service.SetLanguage("Spanish");
+        Assert.Equal("Detalles del mensaje", service.GetString("Trans_MsgDetails_Title"));
+        Assert.Equal("Copiar original", service.GetString("Trans_MsgDetails_CopyOriginal"));
+        Assert.Equal("Copiar traducción", service.GetString("Trans_MsgDetails_CopyTranslated"));
+    }
 }
