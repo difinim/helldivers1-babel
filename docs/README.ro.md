@@ -108,7 +108,7 @@ Dacă rulezi versiunea autonomă precompilată (`HD1-Babel.exe`):
    - Fă clic pe **Test Conexiune API** pentru a verifica funcționarea cheii și latența.
    - Personalizează scurtătura de **Pauză/Reluare** dacă dorești (implicit `Ctrl + F10`).
 3. Configurează mesajele tactice în fila **Chat Rapid** (de ex. asociază Numpad 0–9 cu mesajele preferate).
-4. Lansează **Helldivers** pe Steam. Babel va detecta automat procesul `helldivers.exe`, va injecta biblioteca `BabelHook.dll` și va stabili o conexiune IPC de mare viteză prin canal de tip named pipe.
+4. Lansează **Helldivers** pe Steam. Babel va detecta automat procesul `helldivers.exe`.
 
 ### Comunicare în joc și cazuri de utilizare
 

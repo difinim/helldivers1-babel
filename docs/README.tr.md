@@ -113,7 +113,7 @@ Babel'ı kullanmak için geliştirici araçları yüklemenize veya kaynaktan der
    - Anahtarınızı ve gecikme sürenizi doğrulamak için **API Bağlantısını Test Et** düğmesine tıklayın.
    - İsterseniz **Duraklat / Sürdür** kısayolunu özelleştirin (varsayılan olarak `Ctrl + F10`).
 3. Taktiksel çağrılarınızı **Hızlı Sohbet** sekmesinde yapılandırın (ör. Numpad 0-9 tuşlarını istediğiniz mesajlara atayın).
-4. Steam üzerinden **Helldivers**'ı başlatın. Babel otomatik olarak `helldivers.exe` sürecini tespit eder, `BabelHook.dll` dosyasını enjekte eder ve yüksek hızlı isimli boru (named pipe) IPC bağlantısı kurar.
+4. Steam üzerinden **Helldivers**'ı başlatın. Babel otomatik olarak `helldivers.exe` sürecini tespit eder.
 
 ### Oyun İçi İletişim ve Kullanım Senaryoları
 

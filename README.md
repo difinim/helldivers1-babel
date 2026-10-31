@@ -113,7 +113,7 @@ You do **not** need to install developer tools or compile from source to use Bab
    - Click **Test API Connection** to verify your key and latency.
    - Customize the **Pause / Resume** shortcut if desired (defaults to `Ctrl + F10`).
 3. Configure your tactical callouts in the **Quick Chat** tab (e.g. bind Numpad 0-9 to your preferred messages).
-4. Launch **Helldivers** on Steam. Babel automatically detects `helldivers.exe`, injects `BabelHook.dll`, and establishes high-speed named pipe IPC.
+4. Launch **Helldivers** on Steam. Babel automatically detects `helldivers.exe`.
 
 ### In-Game Communication & Use Cases
 

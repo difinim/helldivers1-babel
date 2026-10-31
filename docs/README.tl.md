@@ -108,7 +108,7 @@ Kung pinapatakbo mo ang pre-compiled standalone release (`HD1-Babel.exe`):
    - I-click ang **Subukan ang Koneksyon ng API** upang i-verify ang iyong key at latency.
    - I-customize ang shortcut sa **Pag-pause / Pagpapatuloy** kung nais (default ay `Ctrl + F10`).
 3. I-configure ang iyong mga taktikal na callout sa tab na **Mabilisang Chat** (hal. i-bind ang Numpad 0-9 sa iyong mga gustong mensahe).
-4. Ilunsad ang **Helldivers** sa Steam. Awtomatikong matutukoy ng Babel ang `helldivers.exe`, ie-inject ang `BabelHook.dll`, at magtatatag ng high-speed named pipe IPC.
+4. Ilunsad ang **Helldivers** sa Steam. Awtomatikong matutukoy ng Babel ang `helldivers.exe`.
 
 ### Komunikasyon sa Laro at Mga Halimbawa ng Paggamit
 

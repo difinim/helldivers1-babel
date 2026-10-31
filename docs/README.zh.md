@@ -108,7 +108,7 @@
    - 点击**测试 API 连接**以验证密钥有效性与网络延迟。
    - 根据喜好自定义**暂停/恢复快捷键**（默认快捷键为 `Ctrl + F10`）。
 3. 在**快捷聊天**选项卡中配置您的战术指令（例如将小键盘 0-9 绑定至常用战术呼叫）。
-4. 从 Steam 启动 **Helldivers**。Babel 会自动捕获 `helldivers.exe`，注入 `BabelHook.dll` 并建立极速命名管道 IPC 通信。
+4. 从 Steam 启动 **Helldivers**。Babel 会自动捕获 `helldivers.exe`。
 
 ### 游戏内通信与使用场景
 

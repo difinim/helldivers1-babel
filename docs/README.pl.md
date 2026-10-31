@@ -113,7 +113,7 @@ Jeśli korzystasz ze skompilowanego, samodzielnego wydania (`HD1-Babel.exe`):
    - Kliknij **Testuj połączenie API**, aby zweryfikować poprawność klucza oraz opóźnienie.
    - W razie potrzeby dostosuj skrót **Wstrzymaj / Wznów** (domyślnie `Ctrl + F10`).
 3. Skonfiguruj swoje meldunki taktyczne w zakładce **Szybki czat** (np. przypisz klawisze Numpad 0-9 do wybranych wiadomości).
-4. Uruchom grę **Helldivers** na platformie Steam. Babel automatycznie wykryje proces `helldivers.exe`, wstrzyknie bibliotekę `BabelHook.dll` i ustanowi szybką komunikację IPC przez nazwane potoki (named pipes).
+4. Uruchom grę **Helldivers** na platformie Steam. Babel automatycznie wykryje proces `helldivers.exe`.
 
 ### Komunikacja w grze i przykłady użycia
 

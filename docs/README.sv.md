@@ -113,7 +113,7 @@ Du behöver **inte** installera utvecklarverktyg eller kompilera från källkod 
    - Klicka på **Testa API-anslutning** för att verifiera din nyckel och latens.
    - Anpassa snabbtangenten för **Pausa / Återuppta** om så önskas (standard är `Ctrl + F10`).
 3. Konfigurera dina taktiska anrop i fliken **Snabbchatt** (t.ex. bind Numpad 0-9 till dina önskade meddelanden).
-4. Starta **Helldivers** på Steam. Babel upptäcker automatiskt `helldivers.exe`, injicerar `BabelHook.dll` och upprättar en snabb named pipe IPC-anslutning.
+4. Starta **Helldivers** på Steam. Babel upptäcker automatiskt `helldivers.exe`.
 
 ### Kommunikation i spelet & Användningsområden
 

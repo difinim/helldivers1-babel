@@ -108,7 +108,7 @@ Anda **tidak** perlu memasang alat pengembang atau mengompilasi dari kode sumber
    - Klik **Uji Koneksi API** untuk memverifikasi kunci dan latensi Anda.
    - Sesuaikan pintasan **Jeda / Lanjutkan** jika diinginkan (default ke `Ctrl + F10`).
 3. Konfigurasikan pesan taktis Anda di tab **Obrolan Cepat** (misalnya tetapkan Numpad 0-9 untuk pesan pilihan Anda).
-4. Luncurkan **Helldivers** di Steam. Babel secara otomatis mendeteksi `helldivers.exe`, menginjeksi `BabelHook.dll`, dan membuat koneksi IPC Named Pipe berkecepatan tinggi.
+4. Luncurkan **Helldivers** di Steam. Babel secara otomatis mendeteksi `helldivers.exe`.
 
 ### Komunikasi Dalam Game & Skenario Penggunaan
 

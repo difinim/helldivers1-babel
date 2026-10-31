@@ -113,7 +113,7 @@ Sie müssen **keine** Entwicklertools installieren oder den Quellcode kompiliere
    - Klicken Sie auf **API-Verbindung testen**, um Ihren Schlüssel und die Latenz zu überprüfen.
    - Passen Sie bei Bedarf die Tastenkombination für **Pause / Fortsetzen** an (Standard ist `Strg + F10`).
 3. Konfigurieren Sie Ihre taktischen Funksprüche im Reiter **Schnell-Chat** (z. B. Nummernblock 0–9 mit Ihren bevorzugten Nachrichten belegen).
-4. Starten Sie **Helldivers** auf Steam. Babel erkennt `helldivers.exe` automatisch, injiziert `BabelHook.dll` und baut eine hochschnelle Named-Pipe-IPC-Verbindung auf.
+4. Starten Sie **Helldivers** auf Steam. Babel erkennt `helldivers.exe` automatisch.
 
 ### Kommunikation im Spiel & Anwendungsfälle
 

@@ -113,7 +113,7 @@ U hoeft **geen** ontwikkelaarstools te installeren of broncode te compileren om 
    - Klik op **API-verbinding testen** om uw sleutel en latentie te controleren.
    - Pas desgewenst de sneltoets voor **Pauzeren / Hervatten** aan (standaard `Ctrl + F10`).
 3. Configureer uw tactische berichten in het tabblad **Snelle Chat** (koppel bijv. Numpad 0-9 aan uw favoriete berichten).
-4. Start **Helldivers** op Steam. Babel detecteert automatisch `helldivers.exe`, injecteert `BabelHook.dll` en brengt een supersnelle named pipe IPC-verbinding tot stand.
+4. Start **Helldivers** op Steam. Babel detecteert automatisch `helldivers.exe`.
 
 ### In-game Communicatie & Toepassingen
 

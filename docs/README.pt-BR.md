@@ -113,7 +113,7 @@ Você **não** precisa instalar ferramentas de desenvolvedor nem compilar a part
    - Clique em **Testar Conexão da API** para verificar sua chave e latência.
    - Personalize o atalho **Pausar / Retomar**, se desejar (o padrão é `Ctrl + F10`).
 3. Configure seus avisos táticos na aba **Chat Rápido** (ex.: vincule Numpad 0-9 às mensagens desejadas).
-4. Inicie o **Helldivers** no Steam. O Babel detectará automaticamente o `helldivers.exe`, injetará a `BabelHook.dll` e estabelecerá a comunicação de alta velocidade via named pipe IPC.
+4. Inicie o **Helldivers** no Steam. O Babel detectará automaticamente o `helldivers.exe`.
 
 ### Comunicação no Jogo e Casos de Uso
 

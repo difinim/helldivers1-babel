@@ -108,7 +108,7 @@ Bạn **không** cần cài đặt công cụ phát triển hay biên dịch t�
    - Nhấn **Kiểm tra kết nối API** để xác minh khóa và độ trễ.
    - Tùy chỉnh phím tắt **Tạm dừng / Tiếp tục** nếu muốn (mặc định là `Ctrl + F10`).
 3. Cấu hình các khẩu lệnh chiến thuật của bạn trong tab **Chat nhanh** (ví dụ: gán Numpad 0-9 cho các tin nhắn bạn muốn).
-4. Khởi chạy **Helldivers** trên Steam. Babel sẽ tự động phát hiện `helldivers.exe`, tiêm `BabelHook.dll` và thiết lập kết nối IPC qua named pipe tốc độ cao.
+4. Khởi chạy **Helldivers** trên Steam. Babel sẽ tự động phát hiện `helldivers.exe`.
 
 ### Giao tiếp trong game & Trường hợp sử dụng
 

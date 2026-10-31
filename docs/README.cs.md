@@ -108,7 +108,7 @@ K používání Babelu **nemusíte** instalovat vývojářské nástroje ani kom
    - Klikněte na **Otestovat připojení API** pro ověření klíče a odezvy.
    - V případě potřeby upravte zkratku **Pozastavit/Pokračovat** (výchozí je `Ctrl + F10`).
 3. Nakonfigurujte své taktické hlášky na záložce **Rychlý chat** (např. přiřaďte Numpad 0–9 k vybraným zprávám).
-4. Spusťte **Helldivers** na Steamu. Babel automaticky detekuje proces `helldivers.exe`, provede injekci `BabelHook.dll` a naváže vysokorychlostní IPC spojení přes pojmenovanou rouru (named pipe).
+4. Spusťte **Helldivers** na Steamu. Babel automaticky detekuje proces `helldivers.exe`.
 
 ### Komunikace ve hře a případy použití
 

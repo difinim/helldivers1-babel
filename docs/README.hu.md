@@ -113,7 +113,7 @@ A Babel használatához **nem** szükséges fejlesztői eszközöket telepíteni
    - Kattintson az **API kapcsolat tesztelése** gombra a kulcs és a késleltetés ellenőrzéséhez.
    - Igény szerint módosítsa a **Szünet / Folytatás** billentyűparancsát (alapértelmezés szerint `Ctrl + F10`).
 3. Konfigurálja a taktikai üzeneteket a **Gyorscsevegés** fülön (pl. rendelje a Numpad 0-9 gombokat a kívánt üzenetekhez).
-4. Indítsa el a **Helldivers**-t a Steamen. A Babel automatikusan észleli a `helldivers.exe` folyamatot, befecskendezi a `BabelHook.dll` fájlt, és létrehozza a nagy sebességű elnevezett csatornás (named pipe) IPC kapcsolatot.
+4. Indítsa el a **Helldivers**-t a Steamen. A Babel automatikusan észleli a `helldivers.exe` folyamatot.
 
 ### Játékbeli kommunikáció és használati esetek
 

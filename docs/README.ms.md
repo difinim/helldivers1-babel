@@ -108,7 +108,7 @@ Anda **tidak** perlu memasang alatan pembangun atau menyusun daripada sumber unt
    - Klik **Uji Sambungan API** untuk mengesahkan kunci dan kependaman anda.
    - Sesuaikan pintasan **Jeda / Sambung** jika mahu (lalai kepada `Ctrl + F10`).
 3. Konfigurasikan panggilan taktikal anda dalam tab **Sembang Pantas** (cth. ikat Numpad 0-9 pada mesej pilihan anda).
-4. Lancarkan **Helldivers** di Steam. Babel mengesan `helldivers.exe` secara automatik, menyuntik `BabelHook.dll`, dan mewujudkan sambungan IPC Named Pipe berkelajuan tinggi.
+4. Lancarkan **Helldivers** di Steam. Babel mengesan `helldivers.exe` secara automatik.
 
 ### Komunikasi Dalam Permainan & Kes Penggunaan
 
