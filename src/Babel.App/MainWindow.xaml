@@ -559,7 +559,7 @@
 
                             <TextBlock Grid.Column="0" Text="{DynamicResource Trans_SearchLogs}" VerticalAlignment="Center" Margin="0,0,8,0" FontWeight="SemiBold"/>
                             <Grid Grid.Column="1" VerticalAlignment="Center">
-                                <TextBox x:Name="LogSearchTextBox" Text="{Binding LogSearchQuery, UpdateSourceTrigger=PropertyChanged}"
+                                <TextBox x:Name="LogSearchTextBox" Text="{Binding LogSearchQuery, UpdateSourceTrigger=PropertyChanged, Delay=150}"
                                          Padding="8,4" PreviewKeyDown="LogSearchTextBox_PreviewKeyDown"
                                          ToolTip="{DynamicResource Trans_SearchLogs_Tooltip}"/>
                                 <TextBlock Text="{DynamicResource Trans_SearchLogs_Placeholder}"
@@ -592,6 +592,14 @@
                               PreviewMouseRightButtonDown="HistoryDataGrid_PreviewMouseRightButtonDown"
                               PreviewKeyDown="HistoryDataGrid_PreviewKeyDown"
                               ContextMenuOpening="HistoryDataGrid_ContextMenuOpening"
+                              VirtualizingPanel.IsVirtualizing="True"
+                              VirtualizingPanel.VirtualizationMode="Recycling"
+                              VirtualizingPanel.IsContainerVirtualizable="True"
+                              VirtualizingPanel.ScrollUnit="Pixel"
+                              ScrollViewer.CanContentScroll="True"
+                              ScrollViewer.IsDeferredScrollingEnabled="False"
+                              EnableRowVirtualization="True"
+                              EnableColumnVirtualization="False"
                               Background="#15171D" BorderBrush="#262B36" BorderThickness="1"
                               RowBackground="#181B22" AlternatingRowBackground="#1D2028"
                               HeadersVisibility="Column" GridLinesVisibility="Horizontal"

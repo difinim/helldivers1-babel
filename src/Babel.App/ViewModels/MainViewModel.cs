@@ -393,11 +393,22 @@ public class MainViewModel : INotifyPropertyChanged
             entry.Date = FormatDate(entry.Timestamp);
             entry.Time = FormatTime(entry.Timestamp);
         }
-        HistoryView?.Refresh();
-        OnPropertyChanged(nameof(LogSearchFilterStatus));
+        if (HasLogSearchQuery)
+        {
+            ApplyLogSearchAsync(_logSearchQuery);
+        }
+        else
+        {
+            HistoryView?.Refresh();
+            OnPropertyChanged(nameof(LogSearchFilterStatus));
+        }
     }
 
     private string _logSearchQuery = string.Empty;
+    private HashSet<TranslationLogEntry>? _matchedEntries;
+    private int _filteredLogCount;
+    private CancellationTokenSource? _searchCts;
+    private string[]? _activeSearchTokens;
 
     public string LogSearchQuery
     {
@@ -410,8 +421,7 @@ public class MainViewModel : INotifyPropertyChanged
                 _logSearchQuery = clamped;
                 OnPropertyChanged();
                 OnPropertyChanged(nameof(HasLogSearchQuery));
-                HistoryView?.Refresh();
-                OnPropertyChanged(nameof(LogSearchFilterStatus));
+                ApplyLogSearchAsync(clamped);
             }
         }
     }
@@ -425,8 +435,7 @@ public class MainViewModel : INotifyPropertyChanged
             if (HistoryView == null) return string.Empty;
             if (HasLogSearchQuery)
             {
-                int filteredCount = HistoryView.Cast<object>().Count();
-                return LocalizationService.Instance.Format("Trans_LogSearch_StatusCount", filteredCount, History.Count);
+                return LocalizationService.Instance.Format("Trans_LogSearch_StatusCount", _filteredLogCount, History.Count);
             }
             return LocalizationService.Instance.Format("Trans_LogSearch_StatusTotal", History.Count);
         }
@@ -437,10 +446,83 @@ public class MainViewModel : INotifyPropertyChanged
         LogSearchQuery = string.Empty;
     }
 
+    private void ApplyLogSearchAsync(string query)
+    {
+        _searchCts?.Cancel();
+        _searchCts?.Dispose();
+        _searchCts = null;
+
+        if (string.IsNullOrWhiteSpace(query))
+        {
+            _matchedEntries = null;
+            _activeSearchTokens = null;
+            _filteredLogCount = History.Count;
+            HistoryView?.Refresh();
+            OnPropertyChanged(nameof(LogSearchFilterStatus));
+            return;
+        }
+
+        var tokens = LogSearchFilter.Tokenize(query);
+        _activeSearchTokens = tokens;
+        var snapshot = History.ToList();
+        var cts = new CancellationTokenSource();
+        _searchCts = cts;
+        var token = cts.Token;
+
+        Task.Run(() =>
+        {
+            var matches = new HashSet<TranslationLogEntry>(ReferenceEqualityComparer.Instance);
+            for (int i = 0; i < snapshot.Count; i++)
+            {
+                if (token.IsCancellationRequested) return;
+                var entry = snapshot[i];
+                if (LogSearchFilter.Matches(entry, tokens))
+                {
+                    matches.Add(entry);
+                }
+            }
+
+            if (token.IsCancellationRequested) return;
+
+            void ApplyResults()
+            {
+                if (token.IsCancellationRequested) return;
+
+                // Include any items added to History that arrived while searching
+                if (_activeSearchTokens != null)
+                {
+                    for (int i = 0; i < History.Count; i++)
+                    {
+                        var entry = History[i];
+                        if (snapshot.Contains(entry)) break;
+                        if (LogSearchFilter.Matches(entry, _activeSearchTokens))
+                        {
+                            matches.Add(entry);
+                        }
+                    }
+                }
+
+                _matchedEntries = matches;
+                _filteredLogCount = matches.Count;
+                HistoryView?.Refresh();
+                OnPropertyChanged(nameof(LogSearchFilterStatus));
+            }
+
+            if (Application.Current?.Dispatcher != null && !Application.Current.Dispatcher.CheckAccess())
+            {
+                Application.Current.Dispatcher.BeginInvoke(ApplyResults);
+            }
+            else
+            {
+                ApplyResults();
+            }
+        }, token);
+    }
+
     private bool FilterLogEntry(object obj)
     {
-        if (obj is not TranslationLogEntry entry) return false;
-        return LogSearchFilter.Matches(entry, _logSearchQuery);
+        if (_matchedEntries == null) return true;
+        return obj is TranslationLogEntry entry && _matchedEntries.Contains(entry);
     }
 
     public bool IncomingEnabled
@@ -1105,8 +1187,27 @@ public class MainViewModel : INotifyPropertyChanged
             // Limit in-memory history to 500 entries
             while (History.Count > 500)
             {
+                var removed = History[History.Count - 1];
                 History.RemoveAt(History.Count - 1);
+                if (_matchedEntries != null && _matchedEntries.Remove(removed))
+                {
+                    _filteredLogCount--;
+                }
             }
+
+            if (_activeSearchTokens != null && _matchedEntries != null)
+            {
+                if (LogSearchFilter.Matches(entry, _activeSearchTokens))
+                {
+                    _matchedEntries.Add(entry);
+                    _filteredLogCount++;
+                }
+            }
+            else if (!HasLogSearchQuery)
+            {
+                _filteredLogCount = History.Count;
+            }
+
             OnPropertyChanged(nameof(LogSearchFilterStatus));
         }
 
@@ -1252,12 +1353,16 @@ public class MainViewModel : INotifyPropertyChanged
 
     public void ClearHistory()
     {
+        _matchedEntries?.Clear();
+        _filteredLogCount = 0;
         History.Clear();
         OnPropertyChanged(nameof(LogSearchFilterStatus));
     }
 
     public async Task ClearPersistentLogsAsync()
     {
+        _matchedEntries?.Clear();
+        _filteredLogCount = 0;
         History.Clear();
         OnPropertyChanged(nameof(LogSearchFilterStatus));
         await _persistentLogService.ClearAsync();
@@ -1277,7 +1382,8 @@ public class MainViewModel : INotifyPropertyChanged
 
         if (HasLogSearchQuery)
         {
-            var filteredList = History.Where(e => LogSearchFilter.Matches(e, _logSearchQuery)).ToList();
+            var tokens = LogSearchFilter.Tokenize(_logSearchQuery);
+            var filteredList = History.Where(e => LogSearchFilter.Matches(e, tokens)).ToList();
             sb.AppendLine($"  Search Filter : \"{_logSearchQuery.Trim()}\"");
             sb.AppendLine($"  Total Messages: {filteredList.Count} (Filtered from {History.Count})");
             sb.AppendLine("================================================================================");

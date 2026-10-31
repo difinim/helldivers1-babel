@@ -138,4 +138,29 @@ public class LogSearchFilterTests
         Assert.Single(entries, e => LogSearchFilter.Matches(e, "120ms"));
         Assert.Equal(3, entries.Count(e => LogSearchFilter.Matches(e, "ms")));
     }
+
+    [Fact]
+    public void Tokenize_SplitsOnWhitespace_AndHandlesNull()
+    {
+        Assert.Empty(LogSearchFilter.Tokenize(null));
+        Assert.Empty(LogSearchFilter.Tokenize(""));
+        Assert.Empty(LogSearchFilter.Tokenize("   "));
+
+        var tokens = LogSearchFilter.Tokenize("  hello   world  123 ");
+        Assert.Equal(new[] { "hello", "world", "123" }, tokens);
+    }
+
+    [Fact]
+    public void Matches_WithPreTokenizedArray_MatchesCorrectly()
+    {
+        var entry = CreateSampleEntry();
+        var tokens = new[] { "Brasch", "120ms", "Earth" };
+        Assert.True(LogSearchFilter.Matches(entry, tokens));
+
+        var failingTokens = new[] { "Brasch", "Cyborg" };
+        Assert.False(LogSearchFilter.Matches(entry, failingTokens));
+
+        Assert.True(LogSearchFilter.Matches(entry, Array.Empty<string>()));
+        Assert.False(LogSearchFilter.Matches(null, tokens));
+    }
 }
