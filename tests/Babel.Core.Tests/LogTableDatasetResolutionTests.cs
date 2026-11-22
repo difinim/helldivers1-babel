@@ -154,6 +154,31 @@ public class LogTableDatasetResolutionTests
     }
 
     [Fact]
+    public void StandardOutgoing_EntryMapping_CreatesCorrectSchemaWithDynamicPlayer()
+    {
+        int playerIndex = 2;
+        string playerName = "SoloDiver";
+        string standardMsg = "Taking out the bug nest!";
+
+        var entry = new TranslationLogEntry
+        {
+            Author = ResolveAuthor(playerName, playerIndex),
+            SourceLang = "-",
+            OriginalMessage = standardMsg,
+            TranslatedMessage = "-",
+            Latency = "-",
+            ColorHex = ResolveColorHex(playerIndex)
+        };
+
+        Assert.Equal("SoloDiver", entry.Author);
+        Assert.Equal("-", entry.SourceLang);
+        Assert.Equal("Taking out the bug nest!", entry.OriginalMessage);
+        Assert.Equal("-", entry.TranslatedMessage);
+        Assert.Equal("-", entry.Latency);
+        Assert.Equal("#50A0FF", entry.ColorHex);
+    }
+
+    [Fact]
     public void TranslationLogEntry_FormattedDateAndTime_FollowsConfiguredFormats()
     {
         var timestamp = new System.DateTime(2026, 10, 30, 14, 45, 10);

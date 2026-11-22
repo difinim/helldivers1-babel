@@ -637,6 +637,14 @@ public class TranslationEngineTests
         };
         using var engine = new TranslationEngine(mockIpc, config, mockProvider);
 
+        ChatMessage? recordedMsg = null;
+        TranslationResult? recordedResult = null;
+        engine.MessageTranslated += (msg, res) =>
+        {
+            recordedMsg = msg;
+            recordedResult = res;
+        };
+
         // 1. Send standard outgoing message (no >>)
         var outgoingPayload = new OutgoingChatMessagePayload
         {
@@ -645,6 +653,18 @@ public class TranslationEngineTests
             Message = "Bora extrair pessoal"
         };
         await engine.HandlePacketAsync(IpcPacket.Create(IpcPacketType.ChatMessageOutgoing, outgoingPayload));
+
+        // MessageTranslated should record the standard outgoing message
+        Assert.NotNull(recordedMsg);
+        Assert.Equal("LocalPlayer", recordedMsg!.PlayerName);
+        Assert.Equal("Bora extrair pessoal", recordedMsg.MessageText);
+        Assert.Equal("-", recordedMsg.ShortText);
+        Assert.True(recordedMsg.IsOutgoing);
+        Assert.NotNull(recordedResult);
+        Assert.True(recordedResult!.Success);
+        Assert.Equal("-", recordedResult.TranslatedText);
+        Assert.Equal("-", recordedResult.DetectedSourceLanguage);
+        Assert.True(recordedResult.LatencyMs < 0);
 
         // No outgoing broadcast packet created for standard message (vanilla game handled dispatch)
         Assert.DoesNotContain(mockIpc.SentPackets, p => p.Type == IpcPacketType.ExecuteChatBroadcast);
@@ -660,6 +680,64 @@ public class TranslationEngineTests
         await engine.HandlePacketAsync(IpcPacket.Create(IpcPacketType.ChatMessageIncoming, echoPayload));
 
         // Suppressed! No translation request or injection
+        Assert.Empty(mockProvider.ReceivedRequests);
+        Assert.Empty(mockIpc.SentPackets);
+    }
+
+    [Fact]
+    public async Task OutgoingStandardMessage_WhenOutgoingTranslationDisabled_StillRecordsInLog()
+    {
+        var mockIpc = new MockIpcServer();
+        var mockProvider = new MockTranslationProvider();
+        var config = new BabelConfig
+        {
+            OutgoingTranslationEnabled = false,
+            OutgoingPrefix = ">>"
+        };
+        using var engine = new TranslationEngine(mockIpc, config, mockProvider);
+
+        ChatMessage? recordedMsg = null;
+        TranslationResult? recordedRes = null;
+        engine.MessageTranslated += (msg, res) =>
+        {
+            recordedMsg = msg;
+            recordedRes = res;
+        };
+
+        // 1. Standard outgoing message without prefix should still be recorded
+        var standardPayload = new OutgoingChatMessagePayload
+        {
+            PlayerIndex = 2,
+            PlayerName = "Helldiver2",
+            Message = "Defending beacon"
+        };
+        await engine.HandlePacketAsync(IpcPacket.Create(IpcPacketType.ChatMessageOutgoing, standardPayload));
+
+        Assert.NotNull(recordedMsg);
+        Assert.Equal("Helldiver2", recordedMsg!.PlayerName);
+        Assert.Equal("Defending beacon", recordedMsg.MessageText);
+        Assert.True(recordedMsg.IsOutgoing);
+        Assert.NotNull(recordedRes);
+        Assert.Equal("-", recordedRes!.TranslatedText);
+        Assert.Equal("-", recordedRes.DetectedSourceLanguage);
+        Assert.True(recordedRes.LatencyMs < 0);
+        Assert.Empty(mockProvider.ReceivedRequests);
+
+        // Reset recorded
+        recordedMsg = null;
+        recordedRes = null;
+
+        // 2. Prefixed translation request with OutgoingTranslationEnabled = false should be ignored
+        var prefixedPayload = new OutgoingChatMessagePayload
+        {
+            PlayerIndex = 2,
+            PlayerName = "Helldiver2",
+            Message = ">>Defending beacon"
+        };
+        await engine.HandlePacketAsync(IpcPacket.Create(IpcPacketType.ChatMessageOutgoing, prefixedPayload));
+
+        Assert.Null(recordedMsg);
+        Assert.Null(recordedRes);
         Assert.Empty(mockProvider.ReceivedRequests);
         Assert.Empty(mockIpc.SentPackets);
     }

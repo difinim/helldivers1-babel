@@ -1241,10 +1241,10 @@ public class MainViewModel : INotifyPropertyChanged
             Date = FormatDate(now),
             Time = FormatTime(now),
             Author = ResolveAuthor(msg.PlayerName, msg.PlayerIndex),
-            SourceLang = res.DetectedSourceLanguage,
+            SourceLang = string.IsNullOrWhiteSpace(res.DetectedSourceLanguage) ? "-" : res.DetectedSourceLanguage,
             OriginalMessage = msg.MessageText,
-            TranslatedMessage = res.Success ? res.TranslatedText : $"[Error: {res.ErrorMessage}]",
-            Latency = $"{res.LatencyMs}ms",
+            TranslatedMessage = res.Success ? (string.IsNullOrWhiteSpace(res.TranslatedText) ? "-" : res.TranslatedText) : $"[Error: {res.ErrorMessage}]",
+            Latency = res.LatencyMs < 0 ? "-" : $"{res.LatencyMs}ms",
             ColorHex = ResolveColorHex(msg.PlayerIndex, msg.PlayerColor)
         };
 

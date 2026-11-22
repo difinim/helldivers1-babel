@@ -289,7 +289,7 @@ public class TranslationEngine : ITranslationEngine, IDisposable
 
     private async Task HandleOutgoingMessageAsync(IpcPacket packet, CancellationToken ct)
     {
-        if (IsPaused || !_config.OutgoingTranslationEnabled)
+        if (IsPaused)
         {
             return;
         }
@@ -309,7 +309,31 @@ public class TranslationEngine : ITranslationEngine, IDisposable
         string prefix = string.IsNullOrWhiteSpace(_config.OutgoingPrefix) ? ">>" : _config.OutgoingPrefix;
         if (!payload.Message.Contains(prefix, StringComparison.Ordinal))
         {
+            BabelLog.Info("TranslationEngine", $"Outgoing standard message recorded (no prefix): \"{payload.Message}\"");
             RegisterRecentBroadcast(payload.Message);
+
+            string senderName = !string.IsNullOrWhiteSpace(payload.PlayerName)
+                ? payload.PlayerName.Trim()
+                : (!string.IsNullOrWhiteSpace(LocalPlayerName) ? LocalPlayerName : string.Empty);
+
+            var chatMessage = new ChatMessage
+            {
+                PlayerIndex = payload.PlayerIndex,
+                PlayerName = senderName,
+                PlayerColor = ColorDto.FromPlayerIndex(payload.PlayerIndex),
+                MessageText = payload.Message,
+                ShortText = "-",
+                Timestamp = DateTime.UtcNow,
+                IsOutgoing = true
+            };
+
+            var nonTranslatedResult = TranslationResult.Ok("-", "-", -1);
+            MessageTranslated?.Invoke(chatMessage, nonTranslatedResult);
+            return;
+        }
+
+        if (!_config.OutgoingTranslationEnabled)
+        {
             return;
         }
 
