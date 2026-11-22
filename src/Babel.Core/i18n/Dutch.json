@@ -202,5 +202,6 @@
   "Trans_MsgDetails_CopyOriginal": "Origineel kopiëren",
   "Trans_MsgDetails_CopyTranslated": "Vertaling kopiëren",
   "Trans_MsgDetails_CopyFormatted": "Geformatteerde regel kopiëren",
-  "Menu_ViewDetails": "Berichtdetails bekijken"
+  "Menu_ViewDetails": "Berichtdetails bekijken",
+  "Menu_ExportSelectedLogs": "Geselecteerde logboeken exporteren"
 }

@@ -202,5 +202,6 @@
   "Trans_MsgDetails_CopyOriginal": "Orijinali Kopyala",
   "Trans_MsgDetails_CopyTranslated": "Çeviriyi Kopyala",
   "Trans_MsgDetails_CopyFormatted": "Biçimlendirilmiş Satırı Kopyala",
-  "Menu_ViewDetails": "Mesaj Detaylarını Görüntüle"
+  "Menu_ViewDetails": "Mesaj Detaylarını Görüntüle",
+  "Menu_ExportSelectedLogs": "Seçilen Kayıtları Dışa Aktar"
 }

@@ -616,6 +616,8 @@
                                 <MenuItem Header="{DynamicResource Menu_CopyPlayerName}" Style="{StaticResource LogsMenuItemStyle}" Click="OnCopyPlayerNameClicked"/>
                                 <MenuItem Header="{DynamicResource Menu_CopyOriginalMessage}" Style="{StaticResource LogsMenuItemStyle}" Click="OnCopyOriginalMessageClicked"/>
                                 <MenuItem Header="{DynamicResource Menu_CopyTranslatedMessage}" Style="{StaticResource LogsMenuItemStyle}" Click="OnCopyTranslatedMessageClicked"/>
+                                <Separator Style="{StaticResource LogsMenuSeparatorStyle}"/>
+                                <MenuItem Header="{DynamicResource Menu_ExportSelectedLogs}" Style="{StaticResource LogsMenuItemStyle}" Click="OnExportSelectedLogsClicked"/>
                             </ContextMenu>
                         </DataGrid.ContextMenu>
                         <DataGrid.Resources>

@@ -1384,63 +1384,33 @@ public class MainViewModel : INotifyPropertyChanged
         await _persistentLogService.FlushAndCompleteAsync().ConfigureAwait(false);
     }
 
-    public string GenerateLogsExportText()
+    public string GenerateLogsExportText(IEnumerable<TranslationLogEntry>? entries = null)
     {
-        var sb = new System.Text.StringBuilder();
-        sb.AppendLine("================================================================================");
-        sb.AppendLine("  HELLDIVERS 1 BABEL - CHAT LOGS EXPORT");
-        sb.AppendLine($"  Exported Date : {FormatDate(DateTime.Now)} {FormatTime(DateTime.Now)}");
+        string exportedDateTime = $"{FormatDate(DateTime.Now)} {FormatTime(DateTime.Now)}";
+
+        if (entries != null)
+        {
+            var list = entries.ToList();
+            return LogExportHelper.GenerateExportText(list, exportedDateTime, emptyMessage: "No chat messages selected.");
+        }
 
         if (HasLogSearchQuery)
         {
             var tokens = LogSearchFilter.Tokenize(_logSearchQuery);
             var filteredList = History.Where(e => LogSearchFilter.Matches(e, tokens)).ToList();
-            sb.AppendLine($"  Search Filter : \"{_logSearchQuery.Trim()}\"");
-            sb.AppendLine($"  Total Messages: {filteredList.Count} (Filtered from {History.Count})");
-            sb.AppendLine("================================================================================");
-            sb.AppendLine();
-
-            if (filteredList.Count == 0)
-            {
-                sb.AppendLine("No chat messages matched the active search filter.");
-                return sb.ToString();
-            }
-
-            foreach (var entry in filteredList)
-            {
-                string langInfo = string.IsNullOrWhiteSpace(entry.SourceLang) ? "" : $" [{entry.SourceLang}]";
-                string datePrefix = string.IsNullOrWhiteSpace(entry.Date) ? entry.Time : $"{entry.Date} {entry.Time}";
-                sb.AppendLine($"[{datePrefix}] {entry.Author}{langInfo} (Latency: {entry.Latency})");
-                sb.AppendLine($"  Original  : {entry.OriginalMessage}");
-                sb.AppendLine($"  Translated: {entry.TranslatedMessage}");
-                sb.AppendLine();
-            }
-
-            return sb.ToString();
+            return LogExportHelper.GenerateExportText(
+                filteredList,
+                exportedDateTime,
+                searchQuery: _logSearchQuery,
+                totalUnfilteredCount: History.Count,
+                emptyMessage: "No chat messages matched the active search filter.");
         }
         else
         {
-            sb.AppendLine($"  Total Messages: {History.Count}");
-            sb.AppendLine("================================================================================");
-            sb.AppendLine();
-
-            if (History.Count == 0)
-            {
-                sb.AppendLine("No chat messages recorded in this session.");
-                return sb.ToString();
-            }
-
-            foreach (var entry in History)
-            {
-                string langInfo = string.IsNullOrWhiteSpace(entry.SourceLang) ? "" : $" [{entry.SourceLang}]";
-                string datePrefix = string.IsNullOrWhiteSpace(entry.Date) ? entry.Time : $"{entry.Date} {entry.Time}";
-                sb.AppendLine($"[{datePrefix}] {entry.Author}{langInfo} (Latency: {entry.Latency})");
-                sb.AppendLine($"  Original  : {entry.OriginalMessage}");
-                sb.AppendLine($"  Translated: {entry.TranslatedMessage}");
-                sb.AppendLine();
-            }
-
-            return sb.ToString();
+            return LogExportHelper.GenerateExportText(
+                History,
+                exportedDateTime,
+                emptyMessage: "No chat messages recorded in this session.");
         }
     }
 

@@ -202,5 +202,6 @@
   "Trans_MsgDetails_CopyOriginal": "원문 복사",
   "Trans_MsgDetails_CopyTranslated": "번역 복사",
   "Trans_MsgDetails_CopyFormatted": "서식 지정된 행 복사",
-  "Menu_ViewDetails": "메시지 상세 정보 보기"
+  "Menu_ViewDetails": "메시지 상세 정보 보기",
+  "Menu_ExportSelectedLogs": "선택한 로그 내보내기"
 }

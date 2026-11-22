@@ -202,5 +202,6 @@
   "Trans_MsgDetails_CopyOriginal": "Salin Asli",
   "Trans_MsgDetails_CopyTranslated": "Salin Terjemahan",
   "Trans_MsgDetails_CopyFormatted": "Salin Baris Terformat",
-  "Menu_ViewDetails": "Lihat Detail Pesan"
+  "Menu_ViewDetails": "Lihat Detail Pesan",
+  "Menu_ExportSelectedLogs": "Ekspor Log Terpilih"
 }

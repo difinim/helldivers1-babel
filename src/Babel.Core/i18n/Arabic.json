@@ -202,5 +202,6 @@
   "Trans_MsgDetails_CopyOriginal": "نسخ النص الأصلي",
   "Trans_MsgDetails_CopyTranslated": "نسخ النص المترجم",
   "Trans_MsgDetails_CopyFormatted": "نسخ سطر منسق",
-  "Menu_ViewDetails": "عرض تفاصيل الرسالة"
+  "Menu_ViewDetails": "عرض تفاصيل الرسالة",
+  "Menu_ExportSelectedLogs": "تصدير السجلات المحددة"
 }

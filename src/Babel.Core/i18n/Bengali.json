@@ -202,5 +202,6 @@
   "Trans_MsgDetails_CopyOriginal": "মূল কপি করুন",
   "Trans_MsgDetails_CopyTranslated": "অনুবাদ কপি করুন",
   "Trans_MsgDetails_CopyFormatted": "ফরম্যাট করা লাইন কপি করুন",
-  "Menu_ViewDetails": "বার্তার বিবরণ দেখুন"
+  "Menu_ViewDetails": "বার্তার বিবরণ দেখুন",
+  "Menu_ExportSelectedLogs": "নির্বাচিত লগ রপ্তানি করুন"
 }

@@ -202,5 +202,6 @@
   "Trans_MsgDetails_CopyOriginal": "Copiar original",
   "Trans_MsgDetails_CopyTranslated": "Copiar traducción",
   "Trans_MsgDetails_CopyFormatted": "Copiar línea formateada",
-  "Menu_ViewDetails": "Ver detalles del mensaje"
+  "Menu_ViewDetails": "Ver detalles del mensaje",
+  "Menu_ExportSelectedLogs": "Exportar Registros Seleccionados"
 }

@@ -271,6 +271,18 @@ public partial class MainWindow : Window
 
     private void OnExportLogsClicked(object sender, RoutedEventArgs e)
     {
+        ExportLogsToFile(null);
+    }
+
+    private void OnExportSelectedLogsClicked(object sender, RoutedEventArgs e)
+    {
+        var selected = GetSelectedOrCurrentLogEntries();
+        if (selected.Count == 0) return;
+        ExportLogsToFile(selected);
+    }
+
+    private void ExportLogsToFile(IEnumerable<TranslationLogEntry>? entries)
+    {
         try
         {
             var sfd = new Microsoft.Win32.SaveFileDialog
@@ -283,7 +295,7 @@ public partial class MainWindow : Window
 
             if (sfd.ShowDialog(this) == true)
             {
-                string text = _viewModel.GenerateLogsExportText();
+                string text = _viewModel.GenerateLogsExportText(entries);
                 System.IO.File.WriteAllText(sfd.FileName, text, System.Text.Encoding.UTF8);
                 MessageBox.Show(this, LocalizationService.Instance.Format("Msg_LogsExportSuccess", sfd.FileName), LocalizationService.Instance.GetString("Msg_LogsExportTitle"), MessageBoxButton.OK, MessageBoxImage.Information);
             }
@@ -388,12 +400,27 @@ public partial class MainWindow : Window
 
     private List<TranslationLogEntry> GetSelectedOrCurrentLogEntries()
     {
-        var selected = HistoryDataGrid.SelectedItems.OfType<TranslationLogEntry>().ToList();
-        if (selected.Count == 0 && HistoryDataGrid.SelectedItem is TranslationLogEntry current)
+        var selectedSet = HistoryDataGrid.SelectedItems.OfType<TranslationLogEntry>().ToHashSet();
+        if (selectedSet.Count == 0 && HistoryDataGrid.SelectedItem is TranslationLogEntry current)
         {
-            selected.Add(current);
+            selectedSet.Add(current);
         }
-        return selected;
+
+        if (selectedSet.Count == 0)
+        {
+            return new List<TranslationLogEntry>();
+        }
+
+        var ordered = new List<TranslationLogEntry>();
+        foreach (var item in HistoryDataGrid.Items)
+        {
+            if (item is TranslationLogEntry entry && selectedSet.Contains(entry))
+            {
+                ordered.Add(entry);
+            }
+        }
+
+        return ordered.Count > 0 ? ordered : selectedSet.ToList();
     }
 
     private void OnCopyRowClicked(object sender, RoutedEventArgs e)

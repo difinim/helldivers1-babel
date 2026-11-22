@@ -202,5 +202,6 @@
   "Trans_MsgDetails_CopyOriginal": "Eredeti másolása",
   "Trans_MsgDetails_CopyTranslated": "Fordítás másolása",
   "Trans_MsgDetails_CopyFormatted": "Formázott sor másolása",
-  "Menu_ViewDetails": "Üzenet részleteinek megtekintése"
+  "Menu_ViewDetails": "Üzenet részleteinek megtekintése",
+  "Menu_ExportSelectedLogs": "Kijelölt naplók exportálása"
 }

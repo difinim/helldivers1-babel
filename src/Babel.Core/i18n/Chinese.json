@@ -202,5 +202,6 @@
   "Trans_MsgDetails_CopyOriginal": "复制原文",
   "Trans_MsgDetails_CopyTranslated": "复制译文",
   "Trans_MsgDetails_CopyFormatted": "复制格式化内容",
-  "Menu_ViewDetails": "查看消息详情"
+  "Menu_ViewDetails": "查看消息详情",
+  "Menu_ExportSelectedLogs": "导出所选日志"
 }

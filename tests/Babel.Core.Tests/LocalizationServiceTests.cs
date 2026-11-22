@@ -238,4 +238,30 @@ public class LocalizationServiceTests
         Assert.Equal("Copiar original", service.GetString("Trans_MsgDetails_CopyOriginal"));
         Assert.Equal("Copiar traducción", service.GetString("Trans_MsgDetails_CopyTranslated"));
     }
+
+    [Fact]
+    public void ExportSelectedLogsKey_IsPresentAndLocalized()
+    {
+        var service = new LocalizationService();
+        service.SetLanguage("English");
+        Assert.Equal("Export Selected Logs", service.GetString("Menu_ExportSelectedLogs"));
+
+        service.SetLanguage("Spanish");
+        Assert.Equal("Exportar Registros Seleccionados", service.GetString("Menu_ExportSelectedLogs"));
+
+        service.SetLanguage("Portuguese (PT-BR)");
+        Assert.Equal("Exportar Registros Selecionados", service.GetString("Menu_ExportSelectedLogs"));
+
+        service.SetLanguage("German");
+        Assert.Equal("Ausgewählte Protokolle exportieren", service.GetString("Menu_ExportSelectedLogs"));
+
+        service.SetLanguage("French");
+        Assert.Equal("Exporter les journaux sélectionnés", service.GetString("Menu_ExportSelectedLogs"));
+
+        service.SetLanguage("Russian");
+        Assert.Equal("Экспорт выбранных записей", service.GetString("Menu_ExportSelectedLogs"));
+
+        service.SetLanguage("Japanese");
+        Assert.Equal("選択したログを出力", service.GetString("Menu_ExportSelectedLogs"));
+    }
 }

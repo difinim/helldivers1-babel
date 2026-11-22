@@ -202,5 +202,6 @@
   "Trans_MsgDetails_CopyOriginal": "Αντιγραφή Πρωτοτύπου",
   "Trans_MsgDetails_CopyTranslated": "Αντιγραφή Μετάφρασης",
   "Trans_MsgDetails_CopyFormatted": "Αντιγραφή Μορφοποιημένης Γραμμής",
-  "Menu_ViewDetails": "Προβολή Λεπτομερειών Μηνύματος"
+  "Menu_ViewDetails": "Προβολή Λεπτομερειών Μηνύματος",
+  "Menu_ExportSelectedLogs": "Εξαγωγή Επιλεγμένων Καταγραφών"
 }

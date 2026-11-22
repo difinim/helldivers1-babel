@@ -202,5 +202,6 @@
   "Trans_MsgDetails_CopyOriginal": "คัดลอกต้นฉบับ",
   "Trans_MsgDetails_CopyTranslated": "คัดลอกคำแปล",
   "Trans_MsgDetails_CopyFormatted": "คัดลอกบรรทัดที่จัดรูปแบบ",
-  "Menu_ViewDetails": "ดูรายละเอียดข้อความ"
+  "Menu_ViewDetails": "ดูรายละเอียดข้อความ",
+  "Menu_ExportSelectedLogs": "ส่งออกบันทึกที่เลือก"
 }

@@ -202,5 +202,6 @@
   "Trans_MsgDetails_CopyOriginal": "Original kopieren",
   "Trans_MsgDetails_CopyTranslated": "Übersetzung kopieren",
   "Trans_MsgDetails_CopyFormatted": "Formatierte Zeile kopieren",
-  "Menu_ViewDetails": "Nachrichtendetails anzeigen"
+  "Menu_ViewDetails": "Nachrichtendetails anzeigen",
+  "Menu_ExportSelectedLogs": "Ausgewählte Protokolle exportieren"
 }
