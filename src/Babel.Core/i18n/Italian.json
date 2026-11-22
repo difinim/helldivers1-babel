@@ -30,6 +30,8 @@
   "Trans_DontTranslateStandardOutgoing_Tooltip": "Se selezionato (predefinito), i tuoi messaggi senza '>>' non vengono tradotti.",
   "Trans_DontTranslateIncomingInTargetLanguage": "Non tradurre messaggi già nella lingua di destinazione",
   "Trans_DontTranslateIncomingInTargetLanguage_Tooltip": "Se selezionato (predefinito), i messaggi dei compagni già nella lingua di destinazione non vengono tradotti.",
+  "Trans_LeaveOriginalMessageInChat": "Mantieni il messaggio originale nella chat",
+  "Trans_LeaveOriginalMessageInChat_Tooltip": "Se selezionato, lascia una copia locale del messaggio originale nella chat del gioco durante l'invio di messaggi tradotti.",
   "Trans_Btn_ExportLogs": "Esporta Registri",
   "Trans_Btn_ClearLogs": "Cancella Registri",
   "Col_Time": "Ora",

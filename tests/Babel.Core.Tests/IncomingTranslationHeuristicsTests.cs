@@ -23,21 +23,18 @@ public class IncomingTranslationHeuristicsTests
     [InlineData("SORRY")]
     [InlineData("sry")]
     [InlineData("SRY")]
-    [InlineData("fun")]
-    [InlineData("FUN")]
-    [InlineData("Fun")]
     [InlineData("pls")]
     [InlineData("PLS")]
     [InlineData("thx")]
     [InlineData("THX")]
-    public void TryFastPath_UniversalCalloutsAcrossCasings_MatchesLocally(string callout)
+    public void TryFastPath_UniversalAcronymsAcrossCasings_MatchesLocallyAsNeutral(string callout)
     {
         bool matched = IncomingTranslationHeuristics.TryFastPath(callout, "English", out var result);
 
         Assert.True(matched);
         Assert.NotNull(result);
         Assert.True(result.Success);
-        Assert.Equal("English", result.DetectedSourceLanguage);
+        Assert.Equal("-", result.DetectedSourceLanguage);
         Assert.Equal(callout, result.TranslatedText);
         Assert.Equal(0, result.LatencyMs);
     }
@@ -56,14 +53,14 @@ public class IncomingTranslationHeuristicsTests
     [InlineData("^^")]
     [InlineData("o_o")]
     [InlineData("O_O")]
-    public void TryFastPath_EmoticonsAcrossCasings_MatchesLocally(string emoticon)
+    public void TryFastPath_EmoticonsAcrossCasings_MatchesLocallyAsNeutral(string emoticon)
     {
         bool matched = IncomingTranslationHeuristics.TryFastPath(emoticon, "English", out var result);
 
         Assert.True(matched);
         Assert.NotNull(result);
         Assert.True(result.Success);
-        Assert.Equal("English", result.DetectedSourceLanguage);
+        Assert.Equal("-", result.DetectedSourceLanguage);
         Assert.Equal(emoticon, result.TranslatedText);
         Assert.Equal(0, result.LatencyMs);
     }
@@ -76,14 +73,13 @@ public class IncomingTranslationHeuristicsTests
     [InlineData("ok.")]
     [InlineData("XD!")]
     [InlineData(":D!")]
-    [InlineData(" fun ")]
-    public void TryFastPath_SurroundingBoundaryPunctuation_MatchesCleanly(string input)
+    public void TryFastPath_SurroundingBoundaryPunctuation_MatchesCleanlyAsNeutral(string input)
     {
         bool matched = IncomingTranslationHeuristics.TryFastPath(input, "English", out var result);
 
         Assert.True(matched);
         Assert.NotNull(result);
-        Assert.Equal("English", result.DetectedSourceLanguage);
+        Assert.Equal("-", result.DetectedSourceLanguage);
         Assert.Equal(0, result.LatencyMs);
     }
 
@@ -92,14 +88,68 @@ public class IncomingTranslationHeuristicsTests
     [InlineData("yesss")]
     [InlineData("okkk")]
     [InlineData("sooorry")]
-    public void TryFastPath_RepeatedCharacterCallouts_MatchesCleanly(string input)
+    public void TryFastPath_RepeatedCharacterCallouts_MatchesCleanlyAsNeutral(string input)
     {
         bool matched = IncomingTranslationHeuristics.TryFastPath(input, "English", out var result);
 
         Assert.True(matched);
         Assert.NotNull(result);
-        Assert.Equal("English", result.DetectedSourceLanguage);
+        Assert.Equal("-", result.DetectedSourceLanguage);
         Assert.Equal(0, result.LatencyMs);
+    }
+
+    [Theory]
+    [InlineData("xd")]
+    [InlineData("XD")]
+    [InlineData("gg")]
+    [InlineData("ty")]
+    [InlineData("lol")]
+    [InlineData("afk")]
+    [InlineData("brb")]
+    [InlineData(":)")]
+    [InlineData(":D")]
+    [InlineData("👍")]
+    [InlineData("😂😂")]
+    [InlineData("❤️")]
+    [InlineData("???")]
+    public void TryFastPath_NonEnglishTargetLanguage_ResolvesAsNeutralAndNotTargetLanguage(string input)
+    {
+        // When user's target language is Portuguese, acronyms and emojis must NOT be detected as Portuguese
+        bool matched = IncomingTranslationHeuristics.TryFastPath(input, "Portuguese (PT-BR)", out var result);
+
+        Assert.True(matched);
+        Assert.NotNull(result);
+        Assert.Equal("-", result.DetectedSourceLanguage);
+        Assert.NotEqual("Portuguese (PT-BR)", result.DetectedSourceLanguage);
+        Assert.Equal(0, result.LatencyMs);
+    }
+
+    [Theory]
+    [InlineData("run")]
+    [InlineData("help")]
+    [InlineData("ammo")]
+    [InlineData("watch out")]
+    public void TryFastPath_EnglishGameplayCallouts_MatchesWhenTargetIsEnglish(string callout)
+    {
+        bool matched = IncomingTranslationHeuristics.TryFastPath(callout, "English", out var result);
+
+        Assert.True(matched);
+        Assert.NotNull(result);
+        Assert.Equal("English", result.DetectedSourceLanguage);
+    }
+
+    [Theory]
+    [InlineData("run")]
+    [InlineData("help")]
+    [InlineData("ammo")]
+    [InlineData("watch out")]
+    public void TryFastPath_EnglishGameplayCallouts_BypassesFastPathWhenTargetIsNotEnglish(string callout)
+    {
+        // When target is Portuguese, English gameplay callouts like "run" should be translated by AI, not fast-pathed as identical
+        bool matched = IncomingTranslationHeuristics.TryFastPath(callout, "Portuguese (PT-BR)", out var result);
+
+        Assert.False(matched);
+        Assert.Null(result);
     }
 
     [Theory]
@@ -113,6 +163,38 @@ public class IncomingTranslationHeuristicsTests
 
         Assert.False(matched);
         Assert.Null(result);
+    }
+
+    [Theory]
+    [InlineData("xd", true)]
+    [InlineData("XD", true)]
+    [InlineData(":)", true)]
+    [InlineData(":D", true)]
+    [InlineData("👍", true)]
+    [InlineData("😂😂", true)]
+    [InlineData("❤️", true)]
+    [InlineData("???", true)]
+    [InlineData("!", true)]
+    [InlineData("gg", true)]
+    [InlineData("GG!", true)]
+    [InlineData("ty", true)]
+    [InlineData("lol", true)]
+    [InlineData("LOOOL", true)]
+    [InlineData("afk", true)]
+    [InlineData("brb", true)]
+    [InlineData("hahaha", true)]
+    [InlineData("kkkk", true)]
+    [InlineData("jajaja", true)]
+    [InlineData("gg :)", true)]
+    [InlineData("lol ty", true)]
+    [InlineData("watch top left", false)]
+    [InlineData("need ammo", false)]
+    [InlineData("vamos defender aqui", false)]
+    [InlineData("minas ao norte", false)]
+    public void IsAcronymAbbreviationOrEmoji_ClassifiesCorrectly(string input, bool expected)
+    {
+        bool actual = IncomingTranslationHeuristics.IsAcronymAbbreviationOrEmoji(input);
+        Assert.Equal(expected, actual);
     }
 
     [Fact]
@@ -140,16 +222,16 @@ public class IncomingTranslationHeuristicsTests
     }
 
     [Fact]
-    public void NormalizeIdenticalTranslation_NormalizesSpanishHallucinationWithComplexSentence()
+    public void NormalizeIdenticalTranslation_AcronymOrEmojiDoesNotAdoptTargetLanguage()
     {
-        var original = "time to play like an old man dif :)";
-        var aiResult = TranslationResult.Ok("(Spanish): time to play like an old man dif :)", "Spanish", latencyMs: 1772);
+        var aiResult = TranslationResult.Ok("lol", "Portuguese (PT-BR)", latencyMs: 250);
 
-        var normalized = IncomingTranslationHeuristics.NormalizeIdenticalTranslation(aiResult, original, "English");
+        var normalized = IncomingTranslationHeuristics.NormalizeIdenticalTranslation(aiResult, "lol", "Portuguese (PT-BR)");
 
-        Assert.Equal("English", normalized.DetectedSourceLanguage);
-        Assert.Equal(original, normalized.TranslatedText);
-        Assert.Equal(1772, normalized.LatencyMs);
+        // Acronyms and emojis must be marked language-neutral "-"
+        Assert.Equal("-", normalized.DetectedSourceLanguage);
+        Assert.NotEqual("Portuguese (PT-BR)", normalized.DetectedSourceLanguage);
+        Assert.Equal("lol", normalized.TranslatedText);
     }
 
     [Fact]

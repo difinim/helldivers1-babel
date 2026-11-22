@@ -142,6 +142,9 @@ Skieruj swoją wiadomość do określonego języka w dowolnym momencie, poprzedz
 #### 4. Standardowe wiadomości wychodzące i brak samoczynnego tłumaczenia
 Gdy wpisujesz zwykłą wiadomość na czacie w grze bez prefiksu `>>` (np. `need ammo`, `vamos lá`), Twoja wiadomość jest wysyłana bezpośrednio przez standardowy czat wieloosobowy. Przy włączonej opcji **„Nie tłumacz standardowych wychodzących”** (włączona domyślnie zarówno na pasku szybkiej kontroli, jak i w Ustawieniach), Babel zapobiega tłumaczeniu Twojej własnej wiadomości z powrotem do Ciebie. Po wyłączeniu tej opcji Babel przetwarza również standardowe wiadomości lokalne przez kanał tłumaczenia przychodzącego.
 
+Ponadto podczas wysyłania wiadomości z `>>` do przetłumaczenia opcja **"Pozostaw oryginalną wiadomość na czacie"** (domyślnie wyłączona na pasku szybkiej kontroli) pozwala pozostawić lokalną kopię oryginalnej wiadomości w oknie czatu gry, zachowując zapis wpisanego tekstu przed wysłaniem tłumaczenia.
+
+
 #### 5. Skróty klawiszowe taktycznego Szybkiego Czatu
 Naciśnij dowolny skonfigurowany klawisz szybkiego czatu (np. `NumPad 1`–`NumPad 9`) podczas rozgrywki, aby natychmiast nadać zdefiniowany komunikat na czacie drużynowym bez otwierania okna wprowadzania tekstu. Wszystkie naciśnięcia klawiszy są bez zakłóceń przekazywane do gry, zapewniając pełną responsywność sterowania.
 

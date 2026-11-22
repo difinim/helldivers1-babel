@@ -30,6 +30,8 @@
   "Trans_DontTranslateStandardOutgoing_Tooltip": "เมื่อเลือก (ค่าเริ่มต้น) ข้อความของคุณเองที่ไม่มี '>>' จะไม่ถูกแปล",
   "Trans_DontTranslateIncomingInTargetLanguage": "ไม่ต้องแปลข้อความขาเข้าที่เป็นภาษาเป้าหมายอยู่แล้ว",
   "Trans_DontTranslateIncomingInTargetLanguage_Tooltip": "ข้อความของเพื่อนร่วมทีมที่ระบบตรวจพบว่าเป็นภาษาเป้าหมายของคุณอยู่แล้วจะไม่ถูกแปลซ้ำ",
+  "Trans_LeaveOriginalMessageInChat": "คงข้อความต้นฉบับไว้ในการแชท",
+  "Trans_LeaveOriginalMessageInChat_Tooltip": "เมื่อเลือก จะคงสำเนาข้อความต้นฉบับไว้ในการแชทในเกมเมื่อส่งข้อความที่แปลแล้ว",
   "Trans_Btn_ExportLogs": "ส่งออกบันทึก",
   "Trans_Btn_ClearLogs": "ล้างบันทึก",
   "Col_Time": "เวลา",

@@ -137,6 +137,9 @@ Zprávu můžete kdykoli nasměrovat do konkrétního jazyka tak, že před ni n
 #### 4. Standardní odchozí zprávy a potlačení překladu vlastních zpráv
 Při psaní standardní zprávy do chatu bez `>>` (např. `need ammo`, `jdeme na to`) je zpráva odeslána přímo přes běžný multiplayerový chat. Je-li povolena možnost **„Nepřekládat standardní odchozí zprávy“** (ve výchozím stavu ZAPNUTO na liště rychlých voleb i v Nastavení), Babel potlačuje zpětný překlad vaší vlastní zprávy pro vás. Pokud volbu vypnete, Babel zpracuje i lokální odchozí zprávy přes kanál příchozího překladu.
 
+Navíc při odesílání zpráv s `>>` k překladu přepínač **"Ponechat původní zprávu v chatu"** (ve výchozím nastavení na panelu rychlého ovládání vypnutý) umožňuje ponechat místní kopii původní zprávy v herním okně chatu, abyste měli záznam toho, co jste napsali, ještě před odesláním překladu.
+
+
 #### 5. Zkratky taktického Rychlého chatu
 Stiskněte libovolnou nakonfigurovanou zkratku rychlého chatu (např. `NumPad 1`–`NumPad 9`) během hraní pro okamžité odeslání předvolených hlášek do týmového chatu bez otevírání textového pole. Všechna stisknutí kláves hladce procházejí do hry, což zajišťuje okamžitou odezvu ovládání.
 

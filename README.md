@@ -139,8 +139,10 @@ Direct your message to a specific language at any time by prefixing it with the 
 | `german>>recuem para o ponto de extração` | German | `Rückzug zum Extraktionspunkt` |
 | `french>>vamos defender aqui` | French | `défendons cette position` |
 
-#### 4. Standard Outgoing Messages & Self-Translation Suppression
+#### 4. Standard Outgoing Messages & Local Original Message Option
 When typing a standard in-game chat message without `>>` (e.g. `need ammo`, `vamos lá`), your message is transmitted directly over vanilla multiplayer chat. With the **"Don't translate standard outgoing"** toggle enabled (ON by default in both the quick controls bar and Settings), Babel suppresses translating your own message back to you. If toggled OFF, Babel will process standard local messages through the incoming translation pipeline as well.
+
+Additionally, when sending messages with `>>` to be translated, the **"Leave original message in chat"** toggle (OFF by default in the quick controls bar) allows leaving a local copy of your original message in the in-game text chat widget so you retain a record of what you typed before the translation is broadcasted.
 
 #### 5. Tactical Quick Chat Shortcuts
 Press any configured quick chat hotkey (e.g., `NumPad 1`-`NumPad 9`) while playing to instantly broadcast preset callouts into multiplayer chat without opening the chat prompt. All keypresses seamlessly pass through to the game, ensuring your controls remain responsive.

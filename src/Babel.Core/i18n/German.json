@@ -30,6 +30,8 @@
   "Trans_DontTranslateStandardOutgoing_Tooltip": "Wenn aktiviert (Standard), werden eigene Nachrichten ohne '>>' nicht übersetzt.",
   "Trans_DontTranslateIncomingInTargetLanguage": "Eingehende Nachrichten in Zielsprache nicht übersetzen",
   "Trans_DontTranslateIncomingInTargetLanguage_Tooltip": "Wenn aktiviert (Standard), werden eingehende Nachrichten, die bereits in der Zielsprache verfasst sind, nicht übersetzt.",
+  "Trans_LeaveOriginalMessageInChat": "Ursprüngliche Nachricht im Chat behalten",
+  "Trans_LeaveOriginalMessageInChat_Tooltip": "Wenn aktiviert, verbleibt eine lokale Kopie Ihrer ursprünglichen Nachricht beim Senden übersetzter Nachrichten im Chat des Spiels.",
   "Trans_Btn_ExportLogs": "Protokolle exportieren",
   "Trans_Btn_ClearLogs": "Protokolle löschen",
   "Col_Time": "Zeit",

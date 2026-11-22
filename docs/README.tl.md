@@ -137,6 +137,9 @@ Direktang ipadala ang iyong mensahe sa isang partikular na wika anumang oras sa 
 #### 4. Karaniwang Papalabas na Mensahe at Pagpigil sa Sariling Pagsasalin
 Kapag nagta-type ng karaniwang mensahe sa chat nang walang `>>` (hal. `need ammo`, `tara na`), ang iyong mensahe ay direktang ipinapadala sa karaniwang chat ng multiplayer. Kapag naka-on ang opsyon na **"Huwag isalin ang karaniwang papalabas na mensahe"** (ON bilang default sa quick controls bar at Settings), pinipigilan ng Babel na isalin ang sarili mong mensahe pabalik sa iyo. Kung naka-OFF, ipoproseso rin ng Babel ang mga karaniwang lokal na mensahe sa pipeline ng papasok na pagsasalin.
 
+Bukod dito, kapag nagpapadala ng mga mensaheng may `>>` upang isalin, ang toggle na **"Iwanan ang orihinal na mensahe sa chat"** (naka-OFF bilang default sa quick controls bar) ay nagbibigay-daan sa pag-iwan ng lokal na kopya ng iyong orihinal na mensahe sa in-game text chat widget upang mapanatili mo ang talaan ng iyong na-type bago i-broadcast ang salin.
+
+
 #### 5. Mga Shortcut ng Taktikal na Mabilisang Chat
 Pindutin ang anumang na-configure na hotkey ng mabilisang chat (hal. `NumPad 1`-`NumPad 9`) habang naglalaro upang agad na mai-broadcast ang mga preset na callout sa multiplayer chat nang hindi binubuksan ang prompt ng chat. Ang lahat ng pagpindot sa key ay maayos na ipinapasa sa laro, tinitiyak na ang iyong mga kontrol ay nananatiling mabilis tumugon.
 

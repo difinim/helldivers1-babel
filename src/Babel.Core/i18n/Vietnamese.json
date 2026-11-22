@@ -30,6 +30,8 @@
   "Trans_DontTranslateStandardOutgoing_Tooltip": "Khi chọn (mặc định), tin nhắn của bạn không chứa '>>' sẽ không được dịch.",
   "Trans_DontTranslateIncomingInTargetLanguage": "Không dịch tin nhắn đến đã là ngôn ngữ đích",
   "Trans_DontTranslateIncomingInTargetLanguage_Tooltip": "Tin nhắn của đồng đội đã ở ngôn ngữ đích sẽ không được dịch lại vào chat.",
+  "Trans_LeaveOriginalMessageInChat": "Giữ tin nhắn gốc trong trò chuyện",
+  "Trans_LeaveOriginalMessageInChat_Tooltip": "Khi được chọn, sẽ giữ một bản sao cục bộ tin nhắn gốc của bạn trong cuộc trò chuyện trong trò chơi khi gửi tin nhắn dịch.",
   "Trans_Btn_ExportLogs": "Xuất nhật ký",
   "Trans_Btn_ClearLogs": "Xóa nhật ký",
   "Col_Time": "Thời gian",

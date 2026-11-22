@@ -30,6 +30,8 @@
   "Trans_DontTranslateStandardOutgoing_Tooltip": "İşaretlendiğinde (varsayılan), '>>' içermeyen kendi mesajlarınız çevrilmez.",
   "Trans_DontTranslateIncomingInTargetLanguage": "Hedef dildeki gelen mesajları çevirme",
   "Trans_DontTranslateIncomingInTargetLanguage_Tooltip": "Takım arkadaşlarınızın hedef dilinizde yazdığı mesajlar tekrar çevrilmez.",
+  "Trans_LeaveOriginalMessageInChat": "Orijinal mesajı sohbette bırak",
+  "Trans_LeaveOriginalMessageInChat_Tooltip": "İşaretlendiğinde, çevrilmiş mesajlar gönderilirken oyun içi sohbette orijinal mesajınızın yerel bir kopyası bırakılır.",
   "Trans_Btn_ExportLogs": "Kayıtları Dışa Aktar",
   "Trans_Btn_ClearLogs": "Kayıtları Temizle",
   "Col_Time": "Zaman",

@@ -142,6 +142,9 @@ Richten Sie Ihre Nachricht jederzeit gezielt an eine bestimmte Sprache, indem Si
 #### 4. Standardmäßige ausgehende Nachrichten & Unterdrückung der Selbstübersetzung
 Wenn Sie eine normale Spielchat-Nachricht ohne `>>` eingeben (z. B. `need ammo`, `vamos lá`), wird Ihre Nachricht unverändert über den normalen Mehrspieler-Chat gesendet. Wenn die Option **„Standardmäßige ausgehende Nachrichten nicht übersetzen“** aktiviert ist (standardmäßig AKTIV in der Schnellsteuerungsleiste und in den Einstellungen), unterdrückt Babel die Rückübersetzung Ihrer eigenen Nachricht an Sie selbst. Wenn sie deaktiviert ist, verarbeitet Babel auch normale lokale Nachrichten über die Pipeline für eingehende Übersetzungen.
 
+Wenn Sie Nachrichten mit `>>` zum Übersetzen senden, ermöglicht die Option **"Ursprüngliche Nachricht im Chat behalten"** (in der Schnellsteuerungsleiste standardmäßig deaktiviert), eine lokale Kopie Ihrer ursprünglichen Nachricht im Chatfenster des Spiels zu belassen, damit Sie nachvollziehen können, was Sie vor der Übertragung der Übersetzung getippt haben.
+
+
 #### 5. Taktische Schnell-Chat-Tastenkombinationen
 Drücken Sie während des Spielens eine beliebige konfigurierte Schnell-Chat-Taste (z. B. `Nummernblock 1`–`Nummernblock 9`), um vordefinierte Funksprüche sofort im Multiplayer-Chat zu senden, ohne das Chat-Eingabefeld zu öffnen. Alle Tastenanschläge werden nahtlos an das Spiel weitergeleitet, sodass Ihre Steuerung stets reaktionsschnell bleibt.
 

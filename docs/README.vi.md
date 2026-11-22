@@ -137,6 +137,9 @@ Gửi tin nhắn của bạn đến một ngôn ngữ cụ thể bất kỳ lúc
 #### 4. Tin nhắn đi thông thường & Triệt tiêu tự dịch
 Khi gõ tin nhắn trò chuyện thông thường trong game không có `>>` (ví dụ: `need ammo`, `vamos lá`), tin nhắn của bạn sẽ được gửi trực tiếp qua kênh chat nhiều người chơi nguyên bản. Khi tùy chọn **"Không dịch tin nhắn đi thông thường"** được bật (mặc định BẬT ở cả thanh điều khiển nhanh và Cài đặt), Babel sẽ triệt tiêu việc dịch ngược tin nhắn của chính bạn về cho bạn. Nếu tắt tùy chọn này, Babel cũng sẽ xử lý các tin nhắn thông thường cục bộ qua quy trình dịch tin nhắn đến.
 
+Ngoài ra, khi gửi tin nhắn có `>>` để dịch, nút chuyển đổi **"Giữ tin nhắn gốc trong trò chuyện"** (mặc định tắt trên thanh điều khiển nhanh) cho phép giữ lại một bản sao cục bộ của tin nhắn gốc trong khung trò chuyện trong trò chơi để bạn lưu lại nội dung đã nhập trước khi bản dịch được phát.
+
+
 #### 5. Phím tắt Chat nhanh chiến thuật
 Nhấn bất kỳ phím tắt chat nhanh nào đã cấu hình (ví dụ: `NumPad 1`-`NumPad 9`) trong khi chơi để phát ngay lập tức các khẩu lệnh cài sẵn vào chat nhiều người chơi mà không cần mở hộp thoại chat. Tất cả các lần nhấn phím đều được chuyển tiếp liền mạch tới game, đảm bảo trải nghiệm điều khiển của bạn luôn phản hồi tức thì.
 

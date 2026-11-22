@@ -142,6 +142,9 @@ Mesajınızın başına dil adını ve ardından `>>` ekleyerek mesajınızı is
 #### 4. Standart Giden Mesajlar ve Kendi Kendini Çevirmeyi Engelleme
 `>>` olmadan standart bir oyun içi sohbet mesajı yazarken (ör. `need ammo`, `hadi gidelim`), mesajınız doğrudan orijinal çok oyunculu sohbet üzerinden iletilir. **"Standart giden mesajları çevirme"** seçeneği etkinken (hem hızlı denetim çubuğunda hem de Ayarlar'da varsayılan olarak AÇIKTIR), Babel kendi mesajınızı tekrar size çevirmeyi engeller. KAPALI konuma getirilirse, Babel standart yerel mesajları da gelen çeviri hattı üzerinden işler.
 
+Ayrıca, çevrilmek üzere `>>` ile mesaj gönderirken, hızlı kontrol çubuğundaki **"Orijinal mesajı sohbette bırak"** geçişi (varsayılan olarak kapalıdır), çeviri yayınlanmadan önce ne yazdığınızın kaydını tutabilmeniz için oyun içi sohbet widget'ında orijinal mesajınızın yerel bir kopyasını bırakmanıza olanak tanır.
+
+
 #### 5. Taktiksel Hızlı Sohbet Kısayolları
 Sohbet satırını açmadan önceden ayarlanmış çağrıları çok oyunculu sohbete anında iletmek için oyun sırasında yapılandırılmış herhangi bir hızlı sohbet kısayol tuşuna (ör. `NumPad 1`-`NumPad 9`) basın. Kontrollerinizin yanıt vermeye devam etmesini sağlamak için tüm tuş basımları oyuna sorunsuz bir şekilde iletilir.
 

@@ -30,6 +30,8 @@
   "Trans_DontTranslateStandardOutgoing_Tooltip": "চিহ্নিত থাকলে (ডিফল্ট), '>>' ছাড়া আপনার নিজস্ব বার্তাগুলি অনুবাদ হবে না।",
   "Trans_DontTranslateIncomingInTargetLanguage": "লক্ষ্য ভাষায় থাকা আগত বার্তা অনুবাদ করবেন না",
   "Trans_DontTranslateIncomingInTargetLanguage_Tooltip": "দলের সহযোদ্ধাদের বার্তা যা ইতোমধ্যে আপনার লক্ষ্য ভাষায় আছে তা পুনরায় অনুবাদ হবে না।",
+  "Trans_LeaveOriginalMessageInChat": "চ্যাটে আসল বার্তা রাখুন",
+  "Trans_LeaveOriginalMessageInChat_Tooltip": "চেক করা থাকলে, অনুবাদিত বার্তা পাঠানোর সময় ইন-গেম টেক্সট চ্যাটে আপনার আসল বার্তার একটি স্থানীয় অনুলিপি রেখে দেয়।",
   "Trans_Btn_ExportLogs": "লগ রপ্তানি করুন",
   "Trans_Btn_ClearLogs": "লগ সাফ করুন",
   "Col_Time": "সময়",

@@ -137,6 +137,9 @@ Poți trimite un mesaj tradus într-o anumită limbă în orice moment prefixân
 #### 4. Mesaje de ieșire standard și suprimarea auto-traducerii
 Când tastezi un mesaj obișnuit în chat fără `>>` (de ex. `need ammo`, `haideți`), mesajul este trimis direct prin chat-ul standard din multiplayer. Când opțiunea **„Nu traduce mesajele de ieșire standard”** este activată (activă implicit atât în bara de control rapid, cât și în Setări), Babel suprimă retraducerea propriului mesaj către tine. Dacă dezactivezi această opțiune, Babel va procesa și mesajele locale trimise prin fluxul de traducere a mesajelor primite.
 
+În plus, la trimiterea mesajelor cu `>>` pentru traducere, comutatorul **"Păstrează mesajul original în chat"** (dezactivat implicit în bara de control rapid) permite păstrarea unei copii locale a mesajului original în fereastra de chat din joc, astfel încât să păstrați o evidență a ceea ce ați introdus înainte de difuzarea traducerii.
+
+
 #### 5. Scurtături tactice pentru Chat Rapid
 Apasă orice tastă rapidă configurată pentru Chat Rapid (de ex. `NumPad 1`–`NumPad 9`) în timpul jocului pentru a trimite instant mesaje predefinite în chat-ul echipei, fără a deschide caseta de introducere a textului. Toate apăsările de taste sunt transmise direct către joc, asigurând comenzi fluide și responsive.
 

@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 using System.Text.RegularExpressions;
 using Babel.Core.Models;
 using Babel.Core.Services;
@@ -12,30 +14,35 @@ namespace Babel.Core.Utilities;
 /// </summary>
 public static class IncomingTranslationHeuristics
 {
-    private static readonly HashSet<string> UniversalCallouts = new(StringComparer.OrdinalIgnoreCase)
+    private static readonly HashSet<string> UniversalAcronyms = new(StringComparer.OrdinalIgnoreCase)
     {
         // Common gamer greetings & farewells
-        "hi", "hello", "hey", "yo", "bye", "cya", "bb",
+        "hi", "hey", "yo", "bye", "cya", "bb", "gn", "gm", "wb",
 
         // Acknowledgments & confirmations
         "ok", "okay", "k", "kk", "yes", "no", "yep", "yeah", "nope", "nah",
 
         // Politeness & courtesy
-        "sorry", "sry", "pls", "plz", "please", "ty", "thx", "thanks", "thank you",
-        "np", "yw", "welcome",
+        "sorry", "sry", "pls", "plz", "ty", "thx", "thanks", "tyvm",
+        "np", "yw",
 
-        // Game callouts & performance
-        "gg", "ggs", "gj", "good job", "wp", "well played", "nice", "good", "great",
-        "bad", "fun", "cool", "ez",
-
-        // Helldivers gameplay callouts
-        "run", "help", "ammo", "revive", "res", "respawn", "go", "wait", "hold",
-        "ready", "rdy", "stop", "back", "careful", "watch out", "cover", "stay",
-        "clear", "done", "safe", "danger", "mine", "mines",
+        // Game callouts & performance shorthand
+        "gg", "ggs", "gj", "wp", "ez", "rdy", "dif", "diff", "o7", "gl", "hf", "glhf",
+        "rip", "ff", "n1", "gr8", "m8", "sec",
 
         // Acronyms & common chat shorthand
-        "lol", "lmao", "rofl", "omg", "wtf", "wth", "afk", "brb", "idk", "idc",
-        "dif", "diff", "dude", "man", "bro", "mate", "team"
+        "lol", "lmao", "rofl", "omg", "omfg", "wtf", "wth", "afk", "brb", "idk", "idc",
+        "tbh", "imo", "imho", "btw"
+    };
+
+    private static readonly HashSet<string> GameplayCallouts = new(StringComparer.OrdinalIgnoreCase)
+    {
+        // Helldivers gameplay callouts (English words)
+        "run", "help", "ammo", "revive", "res", "respawn", "go", "wait", "hold",
+        "ready", "stop", "back", "careful", "watch out", "cover", "stay",
+        "clear", "done", "safe", "danger", "mine", "mines",
+        "good job", "well played", "nice", "good", "great", "bad", "fun", "cool",
+        "dude", "man", "bro", "mate", "team", "thank you", "welcome", "please", "hello"
     };
 
     private static readonly HashSet<string> UniversalEmoticons = new(StringComparer.OrdinalIgnoreCase)
@@ -56,6 +63,76 @@ public static class IncomingTranslationHeuristics
     };
 
     /// <summary>
+    /// Returns true if the message is an acronym, abbreviation, text emoticon, or emoji/symbol.
+    /// These messages are language-neutral and must not be attributed to the user's target language,
+    /// preserving the last genuine conversational language for outgoing auto-replies.
+    /// </summary>
+    public static bool IsAcronymAbbreviationOrEmoji(string? message)
+    {
+        if (string.IsNullOrWhiteSpace(message)) return false;
+
+        string rawTrimmed = message.Trim();
+
+        // 1. Check if the message contains NO letters at all (e.g. "👍", "😂😂", "❤️", ":)", ":D", "???", "!!", "+1")
+        if (!ContainsLetters(rawTrimmed))
+        {
+            return true;
+        }
+
+        string lower = rawTrimmed.ToLowerInvariant();
+
+        // 2. Direct emoticon match across casing (e.g. "xd", "x-d", "o_o")
+        if (UniversalEmoticons.Contains(lower))
+        {
+            return true;
+        }
+
+        // 3. Direct universal acronym/abbreviation match (e.g. "gg", "lol", "ty", "afk", "brb")
+        if (UniversalAcronyms.Contains(lower))
+        {
+            return true;
+        }
+
+        // 4. Strip surrounding boundary punctuation (e.g. "gg!", "ty...", "xd!", "lol?")
+        string stripped = StripBoundaryPunctuation(lower);
+        if (!string.IsNullOrEmpty(stripped) && stripped != lower)
+        {
+            if (UniversalEmoticons.Contains(stripped) || UniversalAcronyms.Contains(stripped))
+            {
+                return true;
+            }
+        }
+
+        string toCheck = stripped.Length > 0 ? stripped : lower;
+
+        // 5. Repeated character acronyms (e.g. "loool", "sooorry", "okkk", "ggs", "yesss", "nooo")
+        if (IsRepeatedAcronymOrCallout(toCheck))
+        {
+            return true;
+        }
+
+        // 6. Laughter patterns (e.g. "hahaha", "hehe", "jajaja", "kkkk", "huehue")
+        if (IsLaughter(toCheck))
+        {
+            return true;
+        }
+
+        // 7. Multi-word acronym/emoticon combos (e.g. "gg :)", "lol ty", "ok ty")
+        var words = toCheck.Split((char[]?)null, StringSplitOptions.RemoveEmptyEntries);
+        if (words.Length > 1 && words.All(w =>
+            !ContainsLetters(w) ||
+            UniversalEmoticons.Contains(w) ||
+            UniversalAcronyms.Contains(w) ||
+            IsRepeatedAcronymOrCallout(w) ||
+            IsLaughter(w)))
+        {
+            return true;
+        }
+
+        return false;
+    }
+
+    /// <summary>
     /// Checks if an incoming message is a recognized universal callout, gamer shorthand, or emoticon
     /// that can be resolved locally at 0ms latency without consuming API quota.
     /// Comparisons are case-insensitive and tolerate surrounding boundary punctuation.
@@ -65,47 +142,34 @@ public static class IncomingTranslationHeuristics
         result = null;
         if (string.IsNullOrWhiteSpace(message)) return false;
 
-        bool isTargetEnglish = LanguageMatcher.IsSameLanguage(targetLanguage, "English");
-
         string rawTrimmed = message.Trim();
+
+        // 1. Language-neutral acronyms, abbreviations, emoticons, and emojis (resolved as "-" neutral across all target languages)
+        if (IsAcronymAbbreviationOrEmoji(rawTrimmed))
+        {
+            result = TranslationResult.Ok(rawTrimmed, "-", 0);
+            return true;
+        }
+
+        bool isTargetEnglish = LanguageMatcher.IsSameLanguage(targetLanguage, "English");
         string lower = rawTrimmed.ToLowerInvariant();
-
-        // 1. Direct emoticon match across casing (e.g. ":)", ":D", "XD", "-_-", "^^")
-        if (UniversalEmoticons.Contains(lower))
-        {
-            result = TranslationResult.Ok(rawTrimmed, targetLanguage, 0);
-            return true;
-        }
-
-        // 2. Direct callout match across casing (e.g. "GG", "ty", "ok", "sorry", "fun")
-        if (isTargetEnglish && UniversalCallouts.Contains(lower))
-        {
-            result = TranslationResult.Ok(rawTrimmed, targetLanguage, 0);
-            return true;
-        }
-
-        // 3. Strip surrounding boundary punctuation (e.g. "GG!", "ty...", "ok.", "sorry!", "XD!")
         string stripped = StripBoundaryPunctuation(lower);
-        if (!string.IsNullOrEmpty(stripped) && stripped != lower)
+        string toCheck = stripped.Length > 0 ? stripped : lower;
+
+        // 2. English gameplay callouts (e.g. "run", "help", "ammo", "watch out") when target language is English
+        if (isTargetEnglish)
         {
-            if (UniversalEmoticons.Contains(stripped))
+            if (GameplayCallouts.Contains(lower) || GameplayCallouts.Contains(toCheck))
             {
-                result = TranslationResult.Ok(rawTrimmed, targetLanguage, 0);
+                result = TranslationResult.Ok(rawTrimmed, "English", 0);
                 return true;
             }
 
-            if (isTargetEnglish && UniversalCallouts.Contains(stripped))
+            if (IsRepeatedGameplayCallout(toCheck))
             {
-                result = TranslationResult.Ok(rawTrimmed, targetLanguage, 0);
+                result = TranslationResult.Ok(rawTrimmed, "English", 0);
                 return true;
             }
-        }
-
-        // 4. Repeated character callouts (e.g. "ggs", "okkk", "yesss", "nooo", "sooorry")
-        if (isTargetEnglish && IsRepeatedCallout(stripped.Length > 0 ? stripped : lower))
-        {
-            result = TranslationResult.Ok(rawTrimmed, targetLanguage, 0);
-            return true;
         }
 
         return false;
@@ -130,6 +194,12 @@ public static class IncomingTranslationHeuristics
 
         if (AreMessagesSubstantiallyIdentical(cleanBody, originalMessage))
         {
+            // If the message is an acronym, abbreviation, or emoji, preserve it as language-neutral
+            if (IsAcronymAbbreviationOrEmoji(originalMessage))
+            {
+                return TranslationResult.Ok(cleanBody, "-", result.LatencyMs);
+            }
+
             bool isTargetEnglish = LanguageMatcher.IsSameLanguage(targetLanguage, "English");
 
             if (isTargetEnglish || !string.IsNullOrWhiteSpace(targetLanguage))
@@ -184,21 +254,66 @@ public static class IncomingTranslationHeuristics
         return string.Equals(strippedA, strippedB, StringComparison.OrdinalIgnoreCase);
     }
 
+    private static bool ContainsLetters(string s)
+    {
+        foreach (var rune in s.EnumerateRunes())
+        {
+            if (Rune.IsLetter(rune))
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
     private static string StripBoundaryPunctuation(string s)
     {
         return s.Trim('!', '?', '.', ',', '~', '*', ' ', '"', '\'');
     }
 
-    private static bool IsRepeatedCallout(string lower)
+    private static bool IsLaughter(string lower)
+    {
+        if (lower.Length < 2) return false;
+
+        // Matches laughter chains like "haha", "hahaha", "hehe", "hihi", "jaja", "jajaja", "huehue", "kkkk", "wwww"
+        if (Regex.IsMatch(lower, @"^(ha|he|hi|ho|ja|kk|hue|w)+h?a?$", RegexOptions.IgnoreCase))
+        {
+            return true;
+        }
+
+        if (Regex.IsMatch(lower, @"^[k5w]{3,}$", RegexOptions.IgnoreCase))
+        {
+            return true;
+        }
+
+        return false;
+    }
+
+    private static bool IsRepeatedAcronymOrCallout(string lower)
     {
         if (lower.Length < 3) return false;
 
-        // 1. Collapse characters repeated 3 or more times (e.g. "sooorry" -> "sorry", "yeees" -> "yes", "nooo" -> "no")
+        // 1. Collapse characters repeated 3 or more times (e.g. "loool" -> "lol", "sooorry" -> "sorry", "yeees" -> "yes")
         var collapsed3 = Regex.Replace(lower, @"(.)\1{2,}", "$1");
-        if (UniversalCallouts.Contains(collapsed3)) return true;
+        if (UniversalAcronyms.Contains(collapsed3) || UniversalEmoticons.Contains(collapsed3)) return true;
 
         // 2. Collapse all consecutive repeated characters (e.g. "okkk" -> "ok")
         var collapsedAll = Regex.Replace(lower, @"(.)\1+", "$1");
-        return UniversalCallouts.Contains(collapsedAll);
+        if (UniversalAcronyms.Contains(collapsedAll) || UniversalEmoticons.Contains(collapsedAll)) return true;
+
+        if (collapsedAll == "gg" || lower == "ggs") return true;
+
+        return false;
+    }
+
+    private static bool IsRepeatedGameplayCallout(string lower)
+    {
+        if (lower.Length < 3) return false;
+
+        var collapsed3 = Regex.Replace(lower, @"(.)\1{2,}", "$1");
+        if (GameplayCallouts.Contains(collapsed3)) return true;
+
+        var collapsedAll = Regex.Replace(lower, @"(.)\1+", "$1");
+        return GameplayCallouts.Contains(collapsedAll);
     }
 }

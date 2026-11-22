@@ -142,6 +142,9 @@ Richt uw bericht op elk moment op een specifieke taal door de naam van de taal g
 #### 4. Standaard uitgaande berichten & onderdrukking van zelfvertaling
 Wanneer u een standaard in-game chatbericht zonder `>>` typt (bijv. `need ammo`, `vamos lá`), wordt uw bericht rechtstreeks via de standaard multiplayer-chat verzonden. Met de optie **„Standaard uitgaande berichten niet vertalen”** ingeschakeld (standaard AAN in zowel de snelle bedieningsbalk als in Instellingen), voorkomt Babel dat uw eigen bericht naar uzelf wordt terugvertaald. Indien uitgeschakeld verwerkt Babel ook standaard lokale berichten via de pijplijn voor inkomende vertalingen.
 
+Bovendien kunt u bij het verzenden van berichten met `>>` om te vertalen met de schakelaar **"Origineel bericht in chat behouden"** (standaard uitgeschakeld in de snelle bedieningsbalk) een lokale kopie van uw originele bericht in de in-game chatwidget achterlaten, zodat u weet wat u hebt getypt voordat de vertaling wordt uitgezonden.
+
+
 #### 5. Tactische Snelle Chat-sneltoetsen
 Druk tijdens het spelen op een geconfigureerde sneltoets voor Snelle Chat (bijv. `Numpad 1`–`Numpad 9`) om direct vooraf ingestelde berichten naar de multiplayer-chat te verzenden zonder het chatvenster te openen. Alle toetsaanslagen worden naadloos doorgegeven aan het spel, zodat uw besturing altijd responsief blijft.
 

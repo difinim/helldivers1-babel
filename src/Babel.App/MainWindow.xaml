@@ -538,6 +538,7 @@
                                 <CheckBox Content="{DynamicResource Trans_OutgoingTranslation}" IsChecked="{Binding OutgoingEnabled}" Margin="0,0,16,0" VerticalAlignment="Center"/>
                                 <CheckBox Content="{DynamicResource Trans_DontTranslateStandardOutgoing}" IsChecked="{Binding DontTranslateStandardOutgoing}" ToolTip="{DynamicResource Trans_DontTranslateStandardOutgoing_Tooltip}" Margin="0,0,16,0" VerticalAlignment="Center"/>
                                 <CheckBox Content="{DynamicResource Trans_DontTranslateIncomingInTargetLanguage}" IsChecked="{Binding DontTranslateIncomingInTargetLanguage}" ToolTip="{DynamicResource Trans_DontTranslateIncomingInTargetLanguage_Tooltip}" Margin="0,0,16,0" VerticalAlignment="Center"/>
+                                <CheckBox Content="{DynamicResource Trans_LeaveOriginalMessageInChat}" IsChecked="{Binding LeaveOriginalMessageInChat}" ToolTip="{DynamicResource Trans_LeaveOriginalMessageInChat_Tooltip}" Margin="0,0,16,0" VerticalAlignment="Center"/>
                             </WrapPanel>
 
                             <StackPanel Grid.Column="3" Orientation="Horizontal" VerticalAlignment="Center">

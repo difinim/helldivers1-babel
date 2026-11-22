@@ -30,6 +30,8 @@
   "Trans_DontTranslateStandardOutgoing_Tooltip": "Если включено (по умолчанию), ваши сообщения без '>>' не переводятся.",
   "Trans_DontTranslateIncomingInTargetLanguage": "Не переводить входящие на целевом языке",
   "Trans_DontTranslateIncomingInTargetLanguage_Tooltip": "Если включено (по умолчанию), сообщения союзников, уже написанные на вашем целевом языке, не переводятся повторно.",
+  "Trans_LeaveOriginalMessageInChat": "Оставлять исходное сообщение в чате",
+  "Trans_LeaveOriginalMessageInChat_Tooltip": "Если включено, сохраняет локальную копию исходного сообщения в игровом чате при отправке переведенных сообщений.",
   "Trans_Btn_ExportLogs": "Экспорт журнала",
   "Trans_Btn_ClearLogs": "Очистить журнал",
   "Col_Time": "Время",

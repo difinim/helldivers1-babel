@@ -30,6 +30,8 @@
   "Trans_DontTranslateStandardOutgoing_Tooltip": "När markerat (standard) översätts inte dina egna meddelanden utan '>>'.",
   "Trans_DontTranslateIncomingInTargetLanguage": "Översätt inte inkommande som redan är på målspråket",
   "Trans_DontTranslateIncomingInTargetLanguage_Tooltip": "När markerat (standard) översätts inte meddelanden som redan är på ditt målspråk.",
+  "Trans_LeaveOriginalMessageInChat": "Behåll ursprungligt meddelande i chatten",
+  "Trans_LeaveOriginalMessageInChat_Tooltip": "Om markerad lämnas en lokal kopia av ditt ursprungliga meddelande i spelets chatt när översatta meddelanden skickas.",
   "Trans_Btn_ExportLogs": "Exportera loggar",
   "Trans_Btn_ClearLogs": "Rensa loggar",
   "Col_Time": "Tid",

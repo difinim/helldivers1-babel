@@ -30,6 +30,8 @@
   "Trans_DontTranslateStandardOutgoing_Tooltip": "勾选后（默认），不包含 '>>' 的自身消息将不会被翻译。",
   "Trans_DontTranslateIncomingInTargetLanguage": "不翻译已为目标语言的接收消息",
   "Trans_DontTranslateIncomingInTargetLanguage_Tooltip": "勾选后（默认），队友发送的已被识别为目标语言的消息将不会注入翻译。",
+  "Trans_LeaveOriginalMessageInChat": "在聊天中保留原始消息",
+  "Trans_LeaveOriginalMessageInChat_Tooltip": "勾选后，发送翻译消息时会在游戏内文本聊天中保留本地原始消息副本。",
   "Trans_Btn_ExportLogs": "导出日志",
   "Trans_Btn_ClearLogs": "清空日志",
   "Col_Time": "时间",

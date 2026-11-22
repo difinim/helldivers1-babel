@@ -30,6 +30,8 @@
   "Trans_DontTranslateStandardOutgoing_Tooltip": "Bila dicentang (default), pesan Anda sendiri tanpa '>>' tidak akan diterjemahkan.",
   "Trans_DontTranslateIncomingInTargetLanguage": "Jangan terjemahkan pesan masuk yang sudah dalam bahasa target",
   "Trans_DontTranslateIncomingInTargetLanguage_Tooltip": "Pesan rekan tim yang terdeteksi sudah dalam bahasa target tidak akan diterjemahkan lagi ke dalam obrolan.",
+  "Trans_LeaveOriginalMessageInChat": "Tinggalkan pesan asli di obrolan",
+  "Trans_LeaveOriginalMessageInChat_Tooltip": "Saat dicentang, meninggalkan salinan lokal pesan asli Anda di obrolan game saat mengirim pesan terjemahan.",
   "Trans_Btn_ExportLogs": "Ekspor Log",
   "Trans_Btn_ClearLogs": "Bersihkan Log",
   "Col_Time": "Waktu",

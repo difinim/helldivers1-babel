@@ -30,6 +30,8 @@
   "Trans_DontTranslateStandardOutgoing_Tooltip": "When checked (default), your own messages that do not contain '>>' are not translated.",
   "Trans_DontTranslateIncomingInTargetLanguage": "Don't translate incoming in target language",
   "Trans_DontTranslateIncomingInTargetLanguage_Tooltip": "When checked (default), incoming teammate messages detected to already be in your target language are not injected as translations into in-game chat.",
+  "Trans_LeaveOriginalMessageInChat": "Leave original message in chat",
+  "Trans_LeaveOriginalMessageInChat_Tooltip": "When checked, leaves a local copy of your original message in the in-game text chat when sending translated messages.",
   "Trans_Btn_ExportLogs": "Export Logs",
   "Trans_Btn_ClearLogs": "Clear Logs",
   "Col_Time": "Time",
