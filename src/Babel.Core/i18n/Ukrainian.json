@@ -30,6 +30,8 @@
   "Trans_DontTranslateStandardOutgoing_Tooltip": "Якщо позначено (за замовчуванням), власні повідомлення без '>>' не перекладаються.",
   "Trans_DontTranslateIncomingInTargetLanguage": "Не перекладати вхідні цільовою мовою",
   "Trans_DontTranslateIncomingInTargetLanguage_Tooltip": "Якщо позначено, повідомлення союзників, уже написані вашою цільовою мовою, не перекладаються.",
+  "Trans_LeaveOriginalMessageInChat": "Залишати початкове повідомлення в чаті",
+  "Trans_LeaveOriginalMessageInChat_Tooltip": "Якщо позначено, зберігає локальну копію початкового повідомлення в ігровому чаті під час надсилання перекладених повідомлень.",
   "Trans_Btn_ExportLogs": "Експорт журналу",
   "Trans_Btn_ClearLogs": "Очистити журнал",
   "Col_Time": "Час",

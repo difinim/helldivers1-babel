@@ -30,6 +30,8 @@
   "Trans_DontTranslateStandardOutgoing_Tooltip": "यदि चयनित है (डिफ़ॉल्ट), तो आपके बिना '>>' वाले संदेश अनुवादित नहीं होंगे।",
   "Trans_DontTranslateIncomingInTargetLanguage": "लक्ष्य भाषा में पहले से मौजूद संदेशों का अनुवाद न करें",
   "Trans_DontTranslateIncomingInTargetLanguage_Tooltip": "टीम के साथी के संदेश जो पहले से आपकी लक्ष्य भाषा में हैं, उन्हें दोबारा अनुवादित नहीं किया जाएगा।",
+  "Trans_LeaveOriginalMessageInChat": "चैट में मूल संदेश छोड़ें",
+  "Trans_LeaveOriginalMessageInChat_Tooltip": "चेक होने पर, अनुवादित संदेश भेजते समय इन-गेम टेक्स्ट चैट में आपके मूल संदेश की एक स्थानीय प्रति छोड़ देता है।",
   "Trans_Btn_ExportLogs": "लॉग्स निर्यात करें",
   "Trans_Btn_ClearLogs": "लॉग्स साफ़ करें",
   "Col_Time": "समय",

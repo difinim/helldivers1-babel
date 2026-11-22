@@ -30,6 +30,8 @@
   "Trans_DontTranslateStandardOutgoing_Tooltip": "Si coché (par défaut), vos propres messages sans '>>' ne sont pas traduits.",
   "Trans_DontTranslateIncomingInTargetLanguage": "Ne pas traduire les entrants déjà dans la langue cible",
   "Trans_DontTranslateIncomingInTargetLanguage_Tooltip": "Si coché (par défaut), les messages d'équipiers déjà dans votre langue cible ne sont pas traduits dans le chat.",
+  "Trans_LeaveOriginalMessageInChat": "Conserver le message original dans le chat",
+  "Trans_LeaveOriginalMessageInChat_Tooltip": "Si cette case est cochée, conserve une copie locale de votre message d'origine dans le chat du jeu lors de l'envoi de messages traduits.",
   "Trans_Btn_ExportLogs": "Exporter les journaux",
   "Trans_Btn_ClearLogs": "Effacer les journaux",
   "Col_Time": "Heure",

@@ -30,6 +30,8 @@
   "Trans_DontTranslateStandardOutgoing_Tooltip": "有効時（デフォルト）、「>>」を含まない自身のメッセージは翻訳されません。",
   "Trans_DontTranslateIncomingInTargetLanguage": "すでに翻訳先言語の受信メッセージを翻訳しない",
   "Trans_DontTranslateIncomingInTargetLanguage_Tooltip": "チームメイトのメッセージがすでにあなたの言語である場合、翻訳をチャットに送信しません。",
+  "Trans_LeaveOriginalMessageInChat": "チャットに元のメッセージを残す",
+  "Trans_LeaveOriginalMessageInChat_Tooltip": "チェックすると、翻訳メッセージ送信時にゲーム内チャットに元のメッセージのローカルコピーを残します。",
   "Trans_Btn_ExportLogs": "ログ出力",
   "Trans_Btn_ClearLogs": "ログ消去",
   "Col_Time": "時刻",

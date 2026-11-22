@@ -30,6 +30,8 @@
   "Trans_DontTranslateStandardOutgoing_Tooltip": "Όταν είναι επιλεγμένο (προεπιλογή), τα δικά σας μηνύματα χωρίς '>>' δεν μεταφράζονται.",
   "Trans_DontTranslateIncomingInTargetLanguage": "Να μην μεταφράζονται τα εισερχόμενα στη γλώσσα προορισμού",
   "Trans_DontTranslateIncomingInTargetLanguage_Tooltip": "Μηνύματα συμπαικτών που είναι ήδη στη γλώσσα προορισμού σας δεν μεταφράζονται εκ νέου.",
+  "Trans_LeaveOriginalMessageInChat": "Διατήρηση αρχικού μηνύματος στη συνομιλία",
+  "Trans_LeaveOriginalMessageInChat_Tooltip": "Όταν είναι επιλεγμένο, αφήνει ένα τοπικό αντίγραφο του αρχικού σας μηνύματος στη συνομιλία του παιχνιδιού κατά την αποστολή μεταφρασμένων μηνυμάτων.",
   "Trans_Btn_ExportLogs": "Εξαγωγή Καταγραφών",
   "Trans_Btn_ClearLogs": "Εκκαθάριση Καταγραφών",
   "Col_Time": "Ώρα",

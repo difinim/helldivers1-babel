@@ -30,6 +30,8 @@
   "Trans_DontTranslateStandardOutgoing_Tooltip": "Bekapcsolt állapotban a '>>' nélküli saját üzenetek nem kerülnek fordításra.",
   "Trans_DontTranslateIncomingInTargetLanguage": "Célnyelven érkező üzenetek kihagyása",
   "Trans_DontTranslateIncomingInTargetLanguage_Tooltip": "A csapattársak már célnyelven írt üzenetei nem kerülnek újrafordításra.",
+  "Trans_LeaveOriginalMessageInChat": "Eredeti üzenet megtartása a csevegésben",
+  "Trans_LeaveOriginalMessageInChat_Tooltip": "Ha be van jelölve, lefordított üzenetek küldésekor a játékbeli csevegésben megmarad az eredeti üzenet helyi másolata.",
   "Trans_Btn_ExportLogs": "Naplók exportálása",
   "Trans_Btn_ClearLogs": "Naplók törlése",
   "Col_Time": "Idő",

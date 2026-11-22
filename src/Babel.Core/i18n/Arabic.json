@@ -30,6 +30,8 @@
   "Trans_DontTranslateStandardOutgoing_Tooltip": "عند التفعيل (افتراضي)، لا يتم ترجمة رسائلك التي لا تحتوي على '>>'.",
   "Trans_DontTranslateIncomingInTargetLanguage": "عدم ترجمة الرسائل الواردة بنفس اللغة المستهدفة",
   "Trans_DontTranslateIncomingInTargetLanguage_Tooltip": "عند التفعيل، لا يتم حقن ترجمة للرسائل المكتوبة بالفعل بلغتك المستهدفة.",
+  "Trans_LeaveOriginalMessageInChat": "إبقاء الرسالة الأصلية في الدردشة",
+  "Trans_LeaveOriginalMessageInChat_Tooltip": "عند التحديد، يترك نسخة محلية من رسالتك الأصلية في دردشة اللعبة عند إرسال الرسائل المترجمة.",
   "Trans_Btn_ExportLogs": "تصدير السجلات",
   "Trans_Btn_ClearLogs": "مسح السجلات",
   "Col_Time": "الوقت",

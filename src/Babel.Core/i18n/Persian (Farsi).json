@@ -30,6 +30,8 @@
   "Trans_DontTranslateStandardOutgoing_Tooltip": "در صورت فعال بودن (پیش‌فرض)، پیام‌های خودتان که فاقد '>>' هستند ترجمه نمی‌شوند.",
   "Trans_DontTranslateIncomingInTargetLanguage": "پیام‌های ورودی با زبان مقصد ترجمه نشوند",
   "Trans_DontTranslateIncomingInTargetLanguage_Tooltip": "پیام‌های هم‌تیمی‌ها که هم‌اکنون به زبان مقصد شما هستند مجدداً ترجمه نمی‌شوند.",
+  "Trans_LeaveOriginalMessageInChat": "نگه داشتن پیام اصلی در چت",
+  "Trans_LeaveOriginalMessageInChat_Tooltip": "در صورت انتخاب، هنگام ارسال پیام‌های ترجمه‌شده یک نسخه محلی از پیام اصلی شما در چت بازی باقی می‌ماند.",
   "Trans_Btn_ExportLogs": "خروجی گزارش‌ها",
   "Trans_Btn_ClearLogs": "پاک‌سازی گزارش‌ها",
   "Col_Time": "زمان",

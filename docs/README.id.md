@@ -137,6 +137,9 @@ Tujukan pesan Anda ke bahasa tertentu kapan saja dengan mengawalinya dengan nama
 #### 4. Pesan Keluar Standar & Penekanan Terjemahan Sendiri
 Saat mengetik pesan obrolan standar tanpa `>>` (misalnya `need ammo`, `ayo maju`), pesan Anda dikirim langsung melalui obrolan biasa multipemain. Dengan opsi **"Jangan terjemahkan pesan keluar standar"** diaktifkan (AKTIF secara default di bilah kontrol cepat dan Pengaturan), Babel mencegah pesan Anda diterjemahkan kembali ke diri Anda sendiri. Jika dimatikan (OFF), Babel juga akan memproses pesan lokal standar melalui alur terjemahan masuk.
 
+Selain itu, saat mengirim pesan dengan `>>` untuk diterjemahkan, sakelar **"Tinggalkan pesan asli di obrolan"** (nonaktif secara default di bilah kontrol cepat) memungkinkan Anda meninggalkan salinan lokal pesan asli di obrolan game sehingga Anda menyimpan catatan apa yang Anda ketik sebelum terjemahan disiarkan.
+
+
 #### 5. Pintasan Obrolan Cepat Taktis
 Tekan tombol pintas obrolan cepat yang telah dikonfigurasi (misalnya `NumPad 1`-`NumPad 9`) saat bermain untuk langsung menyiarkan pesan taktis pratetap ke obrolan multipemain tanpa membuka kotak teks obrolan. Penekanan tombol diteruskan ke game secara mulus, menjaga kontrol Anda tetap responsif.
 

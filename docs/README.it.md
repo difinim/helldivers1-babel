@@ -142,6 +142,9 @@ Invia un messaggio in una lingua specifica in qualsiasi momento anteponendo il n
 #### 4. Messaggi Standard in Uscita e Soppressione dell'Auto-Traduzione
 Quando digiti un normale messaggio di chat in gioco senza `>>` (es. `need ammo`, `andiamo`), il tuo messaggio viene inviato direttamente tramite la chat multiplayer originale. Con l'opzione **"Non tradurre messaggi in uscita standard"** abilitata (attiva per impostazione predefinita sia nella barra rapida che nelle Impostazioni), Babel evita di tradurre e reinviare a te stesso il tuo stesso messaggio. Se disattivata, Babel elaborerà anche i tuoi messaggi locali standard attraverso la pipeline di traduzione in entrata.
 
+Inoltre, quando si inviano messaggi con `>>` da tradurre, l'opzione **"Mantieni il messaggio originale nella chat"** (disattivata per impostazione predefinita nella barra dei controlli rapidi) consente di lasciare una copia locale del messaggio originale nel widget della chat di gioco per conservare una traccia di ciò che è stato digitato prima della trasmissione della traduzione.
+
+
 #### 5. Scorciatoie di Chat Rapida Tattica
 Premi qualsiasi tasto di scelta rapida configurato per la Chat Rapida (es. `NumPad 1`-`NumPad 9`) durante la partita per inviare istantaneamente avvisi tattici nella chat multiplayer senza aprire il prompt di testo. Tutti i tasti continuano a essere inoltrati al gioco, garantendo la massima reattività dei comandi.
 

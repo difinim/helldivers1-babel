@@ -137,6 +137,9 @@ Tujukan mesej anda kepada bahasa tertentu pada bila-bila masa dengan meletakkan 
 #### 4. Mesej Keluar Biasa & Penindasan Terjemahan Sendiri
 Apabila menaip mesej sembang standard tanpa `>>` (cth. `need ammo`, `jom pergi`), mesej anda dihantar terus melalui sembang biasa berbilang pemain. Dengan pilihan **"Jangan terjemah mesej keluar biasa"** diaktifkan (HIDUP secara lalai dalam bar kawalan pantas dan Tetapan), Babel menindas terjemahan mesej anda kembali kepada anda. Jika dimatikan, Babel akan memproses mesej tempatan biasa melalui saluran terjemahan masuk juga.
 
+Selain itu, apabila menghantar mesej dengan `>>` untuk diterjemahkan, togol **"Kekalkan mesej asal dalam sembang"** (mati secara lalai dalam bar kawalan pantas) membolehkan salinan setempat mesej asal ditinggalkan dalam widget sembang permainan supaya anda menyimpan rekod apa yang ditaip sebelum terjemahan disiarkan.
+
+
 #### 5. Pintasan Sembang Pantas Taktikal
 Tekan sebarang kekunci pintas sembang pantas yang dikonfigurasikan (cth. `NumPad 1`-`NumPad 9`) semasa bermain untuk menyiarkan panggilan pratetap serta-merta ke dalam sembang berbilang pemain tanpa membuka ruang input sembang. Semua penekanan kekunci diteruskan secara lancar ke permainan, memastikan kawalan anda kekal responsif.
 

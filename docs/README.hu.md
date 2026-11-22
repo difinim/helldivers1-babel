@@ -142,6 +142,9 @@ Bármikor elküldheti üzenetét egy adott nyelvre, ha az üzenet elé a kíván
 #### 4. Standard kimenő üzenetek és az önfordítás elnyomása
 Amikor standard játékbeli csevegőüzenetet ír be `>>` nélkül (pl. `need ammo`, `gyerünk`), az üzenet közvetlenül az eredeti többjátékos csevegésen keresztül kerül elküldésre. A **"Standard kimenő üzenetek kihagyása"** opció bekapcsolásával (alapértelmezetten BE van kapcsolva mind a gyorsvezérlő sávban, mind a Beállításokban) a Babel megakadályozza, hogy a saját üzenete visszakerüljön önhöz fordításként. Ha KIKAPCSOLJA, a Babel a standard helyi üzeneteket is átfuttatja a bejövő fordítási folyamaton.
 
+Ezenkívül, ha `>>` jellel ellátott üzenetet küld fordításra, a gyorsvezérlő sávban található **"Eredeti üzenet megtartása a csevegésben"** kapcsoló (alapértelmezés szerint kikapcsolva) lehetővé teszi, hogy az eredeti üzenet helyi másolata megmaradjon a játékbeli csevegőfelületen, így rögzítve marad, amit a fordítás közvetítése előtt beírt.
+
+
 #### 5. Taktikai gyorscsevegési gyorsbillentyűk
 Nyomja meg a beállított gyorscsevegési gyorsbillentyűk egyikét (pl. `NumPad 1`-`NumPad 9`) játék közben, hogy a csevegőablak megnyitása nélkül azonnal közvetítse az előre beállított hívásokat a többjátékos csevegésbe. Minden billentyűleütés zökkenőmentesen továbbjut a játékba, így az irányítás teljesen gördülékeny marad.
 

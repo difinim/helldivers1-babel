@@ -30,6 +30,8 @@
   "Trans_DontTranslateStandardOutgoing_Tooltip": "Kapag may tsek (default), ang sarili mong mensahe na walang '>>' ay hindi isasalin.",
   "Trans_DontTranslateIncomingInTargetLanguage": "Huwag isalin ang papasok na nasa target na wika na",
   "Trans_DontTranslateIncomingInTargetLanguage_Tooltip": "Ang mga mensahe mula sa kakampi na nasa target na wika mo na ay hindi na muling isasalin.",
+  "Trans_LeaveOriginalMessageInChat": "Iwanan ang orihinal na mensahe sa chat",
+  "Trans_LeaveOriginalMessageInChat_Tooltip": "Kapag naka-check, nag-iiwan ng lokal na kopya ng iyong orihinal na mensahe sa in-game chat kapag nagpapadala ng mga isinaling mensahe.",
   "Trans_Btn_ExportLogs": "I-export ang Mga Log",
   "Trans_Btn_ClearLogs": "Linisin ang Mga Log",
   "Col_Time": "Oras",

@@ -30,6 +30,8 @@
   "Trans_DontTranslateStandardOutgoing_Tooltip": "Indien aangevinkt (standaard), worden eigen berichten zonder '>>' niet vertaald.",
   "Trans_DontTranslateIncomingInTargetLanguage": "Inkomende berichten in doeltaal niet vertalen",
   "Trans_DontTranslateIncomingInTargetLanguage_Tooltip": "Indien aangevinkt (standaard), worden berichten die al in de doeltaal zijn niet vertaald.",
+  "Trans_LeaveOriginalMessageInChat": "Origineel bericht in chat behouden",
+  "Trans_LeaveOriginalMessageInChat_Tooltip": "Indien aangevinkt, blijft een lokale kopie van je originele bericht in de game-chat staan bij het verzenden van vertaalde berichten.",
   "Trans_Btn_ExportLogs": "Logboeken exporteren",
   "Trans_Btn_ClearLogs": "Logboeken wissen",
   "Col_Time": "Tijd",

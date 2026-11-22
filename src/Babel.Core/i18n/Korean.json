@@ -30,6 +30,8 @@
   "Trans_DontTranslateStandardOutgoing_Tooltip": "선택 시(기본값), '>>'가 포함되지 않은 자신의 메시지는 번역되지 않습니다.",
   "Trans_DontTranslateIncomingInTargetLanguage": "이미 대상 언어인 수신 메시지 번역 안 함",
   "Trans_DontTranslateIncomingInTargetLanguage_Tooltip": "팀원의 메시지가 이미 설정된 대상 언어인 경우 다시 번역하지 않습니다.",
+  "Trans_LeaveOriginalMessageInChat": "채팅에 원본 메시지 유지",
+  "Trans_LeaveOriginalMessageInChat_Tooltip": "선택 시, 번역된 메시지를 보낼 때 게임 내 텍스트 채팅에 로컬 원본 메시지를 남깁니다.",
   "Trans_Btn_ExportLogs": "로그 내보내기",
   "Trans_Btn_ClearLogs": "로그 지우기",
   "Col_Time": "시간",

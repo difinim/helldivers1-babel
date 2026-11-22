@@ -142,6 +142,9 @@ Rikta ditt meddelande till ett specifikt språk när som helst genom att ange sp
 #### 4. Vanliga utgående meddelanden & ignorering av egen översättning
 När du skriver ett vanligt chattmeddelande i spelet utan `>>` (t.ex. `need ammo`, `vamos lá`), skickas ditt meddelande direkt via vanlig flerspelarchatt. Med alternativet **"Översätt inte vanliga utgående meddelanden"** aktiverat (PÅ som standard i både snabbkontrollfältet och Inställningar) förhindrar Babel att ditt eget meddelande översätts tillbaka till dig. Om det är avstängt behandlar Babel även vanliga lokala meddelanden genom den inkommande översättningspipelinen.
 
+Dessutom, när du skickar meddelanden med `>>` för översättning, kan reglaget **"Behåll ursprungligt meddelande i chatten"** (avstängt som standard i snabbkontrollfältet) lämna en lokal kopia av ditt ursprungliga meddelande i spelets chatt så att du behåller en historik över vad du skrev innan översättningen sänds.
+
+
 #### 5. Snabbtangenter för taktisk Snabbchatt
 Tryck på valfri konfigurerad snabbtangent för Snabbchatt (t.ex. `Numpad 1`–`Numpad 9`) medan du spelar för att omedelbart sända förinställda anrop till flerspelarchatten utan att öppna chattrutan. Alla tangenttryckningar skickas sömlöst vidare till spelet, vilket säkerställer att din spelkontroll förblir responsiv.
 

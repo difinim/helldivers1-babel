@@ -215,13 +215,20 @@ public class TranslationEngine : ITranslationEngine, IDisposable
 
             if (result.Success && !string.IsNullOrWhiteSpace(result.TranslatedText))
             {
+                if (IncomingTranslationHeuristics.IsAcronymAbbreviationOrEmoji(payload.Message))
+                {
+                    result = TranslationResult.Ok(result.TranslatedText, "-", result.LatencyMs);
+                }
+
                 BabelLog.Info("TranslationEngine", $"Incoming translation successful ({result.LatencyMs}ms) [{result.DetectedSourceLanguage} -> {_config.TargetLanguage}]: \"{result.TranslatedText}\"");
-                UpdateLastIncomingLanguage(result);
+                UpdateLastIncomingLanguage(result, payload.Message);
 
                 bool isSameLanguage = LanguageMatcher.IsSameLanguage(result.DetectedSourceLanguage, _config.TargetLanguage);
-                if (_config.DontTranslateIncomingInTargetLanguage && isSameLanguage)
+                bool isNeutralLanguage = result.DetectedSourceLanguage == "-";
+
+                if (_config.DontTranslateIncomingInTargetLanguage && (isSameLanguage || isNeutralLanguage))
                 {
-                    BabelLog.Info("TranslationEngine", $"Incoming message '{payload.Message}' is already in target language '{_config.TargetLanguage}' (detected: '{result.DetectedSourceLanguage}'). Suppressing in-game translation injection.");
+                    BabelLog.Info("TranslationEngine", $"Incoming message '{payload.Message}' is in target language or neutral. Suppressing in-game translation injection.");
                 }
                 else
                 {
@@ -312,6 +319,28 @@ public class TranslationEngine : ITranslationEngine, IDisposable
         if (string.IsNullOrWhiteSpace(textToTranslate))
         {
             return;
+        }
+
+        if (_config.LeaveOriginalMessageInChat)
+        {
+            string senderName = !string.IsNullOrWhiteSpace(payload.PlayerName)
+                ? payload.PlayerName
+                : (!string.IsNullOrWhiteSpace(LocalPlayerName) ? LocalPlayerName : "Player");
+            var playerColor = ColorDto.FromPlayerIndex(payload.PlayerIndex);
+
+            var injectPayload = new InjectChatMessagePayload
+            {
+                PlayerIndex = payload.PlayerIndex,
+                PlayerName = senderName,
+                R = playerColor.R,
+                G = playerColor.G,
+                B = playerColor.B,
+                Message = payload.Message,
+                PlaySound = false
+            };
+
+            var injectPacket = IpcPacket.Create(IpcPacketType.InjectChatMessage, injectPayload);
+            await _ipcServer.SendPacketAsync(injectPacket, ct).ConfigureAwait(false);
         }
 
         BabelLog.Info("TranslationEngine", $"Outgoing translation requested: \"{textToTranslate}\" -> Target: {targetLang}");
@@ -426,26 +455,20 @@ public class TranslationEngine : ITranslationEngine, IDisposable
         return (targetLang, msgPart);
     }
 
-    private void UpdateLastIncomingLanguage(TranslationResult result)
+    private void UpdateLastIncomingLanguage(TranslationResult result, string? originalMessage = null)
     {
-        if (!string.IsNullOrWhiteSpace(result.DetectedSourceLanguage))
+        if (!string.IsNullOrWhiteSpace(originalMessage) && IncomingTranslationHeuristics.IsAcronymAbbreviationOrEmoji(originalMessage))
         {
-            LastIncomingLanguage = result.DetectedSourceLanguage.Trim();
+            // Acronyms, abbreviations, emoticons, and emojis must NOT touch or overwrite the last detected language.
             return;
         }
 
-        if (!string.IsNullOrWhiteSpace(result.TranslatedText) && result.TranslatedText.StartsWith('('))
+        if (string.IsNullOrWhiteSpace(result.DetectedSourceLanguage) || result.DetectedSourceLanguage == "-")
         {
-            int closeParen = result.TranslatedText.IndexOf(')');
-            if (closeParen > 1)
-            {
-                string extracted = result.TranslatedText.Substring(1, closeParen - 1).Trim();
-                if (!string.IsNullOrWhiteSpace(extracted))
-                {
-                    LastIncomingLanguage = extracted;
-                }
-            }
+            return;
         }
+
+        LastIncomingLanguage = result.DetectedSourceLanguage.Trim();
     }
 
     private static string FormatIncomingTranslation(TranslationResult result)
@@ -455,7 +478,7 @@ public class TranslationEngine : ITranslationEngine, IDisposable
             return result.TranslatedText;
         }
 
-        if (!string.IsNullOrWhiteSpace(result.DetectedSourceLanguage))
+        if (!string.IsNullOrWhiteSpace(result.DetectedSourceLanguage) && result.DetectedSourceLanguage != "-")
         {
             return $"({result.DetectedSourceLanguage}): {result.TranslatedText}";
         }

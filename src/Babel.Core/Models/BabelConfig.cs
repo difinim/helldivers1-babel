@@ -35,6 +35,7 @@ public class BabelConfig
     public string OutgoingPrefix { get; set; } = ">>";
     public bool DontTranslateStandardOutgoing { get; set; } = true;
     public bool DontTranslateIncomingInTargetLanguage { get; set; } = true;
+    public bool LeaveOriginalMessageInChat { get; set; } = false;
     public bool SoundAlertEnabled { get; set; } = true;
     public double TimeoutSeconds { get; set; } = 5.0;
     public string GlobalPauseHotkey { get; set; } = "Ctrl+F10";

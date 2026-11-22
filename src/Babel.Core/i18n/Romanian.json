@@ -30,6 +30,8 @@
   "Trans_DontTranslateStandardOutgoing_Tooltip": "Când este bifat (implicit), mesajele proprii fără '>>' nu sunt traduse.",
   "Trans_DontTranslateIncomingInTargetLanguage": "Nu traduce mesajele primite deja în limba țintă",
   "Trans_DontTranslateIncomingInTargetLanguage_Tooltip": "Când este bifat (implicit), mesajele coechipierilor detectate în limba țintă nu sunt traduse.",
+  "Trans_LeaveOriginalMessageInChat": "Păstrează mesajul original în chat",
+  "Trans_LeaveOriginalMessageInChat_Tooltip": "Când este bifat, lasă o copie locală a mesajului original în chat-ul jocului la trimiterea mesajelor traduse.",
   "Trans_Btn_ExportLogs": "Exportă Jurnale",
   "Trans_Btn_ClearLogs": "Șterge Jurnale",
   "Col_Time": "Oră",

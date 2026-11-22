@@ -569,6 +569,17 @@ public class MainViewModel : INotifyPropertyChanged
         }
     }
 
+    public bool LeaveOriginalMessageInChat
+    {
+        get => _config.LeaveOriginalMessageInChat;
+        set
+        {
+            _config.LeaveOriginalMessageInChat = value;
+            OnPropertyChanged();
+            SaveConfig();
+        }
+    }
+
     public string GeminiApiKey
     {
         get => _config.ApiKeys.GetValueOrDefault("Gemini", "");
@@ -1492,6 +1503,7 @@ public class MainViewModel : INotifyPropertyChanged
         OutgoingEnabled = defaults.OutgoingTranslationEnabled;
         DontTranslateStandardOutgoing = defaults.DontTranslateStandardOutgoing;
         DontTranslateIncomingInTargetLanguage = defaults.DontTranslateIncomingInTargetLanguage;
+        LeaveOriginalMessageInChat = defaults.LeaveOriginalMessageInChat;
         _config.OutgoingPrefix = defaults.OutgoingPrefix;
         _config.SoundAlertEnabled = defaults.SoundAlertEnabled;
 

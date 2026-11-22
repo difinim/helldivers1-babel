@@ -30,6 +30,8 @@
   "Trans_DontTranslateStandardOutgoing_Tooltip": "Apabila ditandakan (lalai), mesej anda tanpa '>>' tidak akan diterjemahkan.",
   "Trans_DontTranslateIncomingInTargetLanguage": "Jangan terjemah mesej masuk yang sudah dalam bahasa sasaran",
   "Trans_DontTranslateIncomingInTargetLanguage_Tooltip": "Mesej rakan sepasukan yang sudah dalam bahasa sasaran anda tidak akan diterjemahkan semula.",
+  "Trans_LeaveOriginalMessageInChat": "Kekalkan mesej asal dalam sembang",
+  "Trans_LeaveOriginalMessageInChat_Tooltip": "Apabila ditandakan, meninggalkan salinan setempat mesej asal anda dalam sembang permainan semasa menghantar mesej terjemahan.",
   "Trans_Btn_ExportLogs": "Eksport Log",
   "Trans_Btn_ClearLogs": "Kosongkan Log",
   "Col_Time": "Masa",

@@ -249,6 +249,90 @@ public class TranslationEngineTests
     }
 
     [Fact]
+    public async Task OutgoingMessage_WhenLeaveOriginalMessageInChatEnabled_SendsInjectChatMessagePacketWithRawMessage()
+    {
+        var mockIpc = new MockIpcServer();
+        var mockProvider = new MockTranslationProvider
+        {
+            TranslateFunc = (req, cfg) => TranslationResult.Ok($"[ES]: {req.Text}", "Spanish", 60)
+        };
+        var config = new BabelConfig
+        {
+            OutgoingTranslationEnabled = true,
+            OutgoingPrefix = ">>",
+            LeaveOriginalMessageInChat = true
+        };
+
+        using var engine = new TranslationEngine(mockIpc, config, mockProvider);
+
+        var outgoingPayload = new OutgoingChatMessagePayload
+        {
+            PlayerIndex = 2,
+            PlayerName = "FreedomFighter",
+            Message = "spanish>>Follow me to the objective!"
+        };
+        var packet = IpcPacket.Create(IpcPacketType.ChatMessageOutgoing, outgoingPayload);
+
+        await engine.HandlePacketAsync(packet);
+
+        // 1. Verify InjectChatMessage packet was dispatched locally for the raw original message
+        var injectPacket = mockIpc.SentPackets.FirstOrDefault(p => p.Type == IpcPacketType.InjectChatMessage);
+        Assert.NotNull(injectPacket);
+        var injectPayload = injectPacket.DeserializePayload<InjectChatMessagePayload>();
+        Assert.NotNull(injectPayload);
+        Assert.Equal(2, injectPayload.PlayerIndex);
+        Assert.Equal("FreedomFighter", injectPayload.PlayerName);
+        Assert.Equal("spanish>>Follow me to the objective!", injectPayload.Message);
+        Assert.False(injectPayload.PlaySound);
+        var expectedColor = ColorDto.FromPlayerIndex(2);
+        Assert.Equal(expectedColor.R, injectPayload.R);
+        Assert.Equal(expectedColor.G, injectPayload.G);
+        Assert.Equal(expectedColor.B, injectPayload.B);
+
+        // 2. Verify ExecuteChatBroadcast was also sent for the translated text
+        var broadcastPacket = mockIpc.SentPackets.FirstOrDefault(p => p.Type == IpcPacketType.ExecuteChatBroadcast);
+        Assert.NotNull(broadcastPacket);
+        var broadcastPayload = broadcastPacket.DeserializePayload<ExecuteBroadcastPayload>();
+        Assert.NotNull(broadcastPayload);
+        Assert.Equal("[ES]: Follow me to the objective!", broadcastPayload.Message);
+    }
+
+    [Fact]
+    public async Task OutgoingMessage_WhenLeaveOriginalMessageInChatDisabled_DoesNotSendInjectChatMessagePacket()
+    {
+        var mockIpc = new MockIpcServer();
+        var mockProvider = new MockTranslationProvider
+        {
+            TranslateFunc = (req, cfg) => TranslationResult.Ok($"[ES]: {req.Text}", "Spanish", 60)
+        };
+        var config = new BabelConfig
+        {
+            OutgoingTranslationEnabled = true,
+            OutgoingPrefix = ">>",
+            LeaveOriginalMessageInChat = false
+        };
+
+        using var engine = new TranslationEngine(mockIpc, config, mockProvider);
+
+        var outgoingPayload = new OutgoingChatMessagePayload
+        {
+            PlayerIndex = 1,
+            PlayerName = "Helldiver",
+            Message = ">>Retreat now!"
+        };
+        var packet = IpcPacket.Create(IpcPacketType.ChatMessageOutgoing, outgoingPayload);
+
+        await engine.HandlePacketAsync(packet);
+
+        // Verify NO InjectChatMessage packet is sent when option is disabled
+        Assert.DoesNotContain(mockIpc.SentPackets, p => p.Type == IpcPacketType.InjectChatMessage);
+
+        // Verify ExecuteChatBroadcast was still sent
+        var broadcastPacket = mockIpc.SentPackets.FirstOrDefault(p => p.Type == IpcPacketType.ExecuteChatBroadcast);
+        Assert.NotNull(broadcastPacket);
+    }
+
+    [Fact]
     public async Task OutgoingMessage_WhenPaused_ShouldNotTranslateOrBroadcast()
     {
         var mockIpc = new MockIpcServer();
@@ -916,10 +1000,10 @@ public class TranslationEngineTests
         // Suppressed from in-game chat injection!
         Assert.DoesNotContain(mockIpc.SentPackets, p => p.Type == IpcPacketType.InjectChatMessage);
 
-        // Event fired with 0ms latency and English detected
+        // Event fired with 0ms latency and language-neutral detected
         Assert.NotNull(receivedChat);
         Assert.NotNull(receivedResult);
-        Assert.Equal("English", receivedResult.DetectedSourceLanguage);
+        Assert.Equal("-", receivedResult.DetectedSourceLanguage);
         Assert.Equal(0, receivedResult.LatencyMs);
         Assert.Equal("GG!", receivedResult.TranslatedText);
     }
@@ -969,5 +1053,104 @@ public class TranslationEngineTests
         Assert.Equal("English", receivedResult.DetectedSourceLanguage);
         Assert.Equal("watch top left", receivedResult.TranslatedText);
         Assert.Equal("English", engine.LastIncomingLanguage);
+    }
+
+    [Fact]
+    public async Task IncomingMessage_AcronymOrEmoji_PreservesLastIncomingLanguageAndEnablesCorrectAutoReply()
+    {
+        var mockIpc = new MockIpcServer();
+        var mockProvider = new MockTranslationProvider
+        {
+            TranslateFunc = (req, cfg) =>
+            {
+                if (req.IsOutgoing)
+                {
+                    return TranslationResult.Ok("let's go", req.TargetLanguage, 50);
+                }
+                return TranslationResult.Ok("cuidado no canto superior esquerdo", "English", 80);
+            }
+        };
+
+        var config = new BabelConfig
+        {
+            IncomingTranslationEnabled = true,
+            OutgoingTranslationEnabled = true,
+            TargetLanguage = "Portuguese (PT-BR)"
+        };
+
+        using var engine = new TranslationEngine(mockIpc, config, mockProvider);
+
+        // 1. Teammate sends English message
+        var msg1 = new IncomingChatMessagePayload
+        {
+            PlayerIndex = 2,
+            PlayerName = "Boris",
+            Message = "watch top left"
+        };
+        await engine.HandlePacketAsync(IpcPacket.Create(IpcPacketType.ChatMessageIncoming, msg1));
+
+        Assert.Equal("English", engine.LastIncomingLanguage);
+
+        // 2. Teammate sends acronyms, emoticons, and emojis
+        string[] neutralMessages = new[] { "XD", "gg", "lol", ":)", "👍" };
+        foreach (var neutral in neutralMessages)
+        {
+            var msgNeutral = new IncomingChatMessagePayload
+            {
+                PlayerIndex = 2,
+                PlayerName = "Boris",
+                Message = neutral
+            };
+            await engine.HandlePacketAsync(IpcPacket.Create(IpcPacketType.ChatMessageIncoming, msgNeutral));
+
+            // CRITICAL: LastIncomingLanguage must remain English, NOT overwritten by Portuguese (PT-BR)
+            Assert.Equal("English", engine.LastIncomingLanguage);
+        }
+
+        // 3. User auto-replies with >> operator
+        var outgoingPayload = new OutgoingChatMessagePayload
+        {
+            PlayerIndex = 1,
+            PlayerName = "LocalPlayer",
+            Message = ">>vamos nessa"
+        };
+        await engine.HandlePacketAsync(IpcPacket.Create(IpcPacketType.ChatMessageOutgoing, outgoingPayload));
+
+        // The outgoing request should target English (the preserved last language), NOT Portuguese
+        var outgoingReq = mockProvider.ReceivedRequests.LastOrDefault(r => r.IsOutgoing);
+        Assert.NotNull(outgoingReq);
+        Assert.Equal("English", outgoingReq.TargetLanguage);
+        Assert.Equal("vamos nessa", outgoingReq.Text);
+
+        // Verify broadcast packet was sent with translated English text
+        var broadcast = mockIpc.SentPackets.LastOrDefault(p => p.Type == IpcPacketType.ExecuteChatBroadcast);
+        Assert.NotNull(broadcast);
+        var broadcastPayload = broadcast.DeserializePayload<ExecuteBroadcastPayload>();
+        Assert.Equal("let's go", broadcastPayload?.Message);
+    }
+
+    [Fact]
+    public async Task IncomingMessage_InitialMessageIsAcronymOrEmoji_DoesNotSetTargetLanguage()
+    {
+        var mockIpc = new MockIpcServer();
+        var mockProvider = new MockTranslationProvider();
+        var config = new BabelConfig
+        {
+            IncomingTranslationEnabled = true,
+            TargetLanguage = "Portuguese (PT-BR)"
+        };
+
+        using var engine = new TranslationEngine(mockIpc, config, mockProvider);
+
+        var msg = new IncomingChatMessagePayload
+        {
+            PlayerIndex = 2,
+            PlayerName = "Boris",
+            Message = "gg"
+        };
+        await engine.HandlePacketAsync(IpcPacket.Create(IpcPacketType.ChatMessageIncoming, msg));
+
+        // Initial neutral message should leave LastIncomingLanguage empty, not Portuguese
+        Assert.Equal(string.Empty, engine.LastIncomingLanguage);
     }
 }

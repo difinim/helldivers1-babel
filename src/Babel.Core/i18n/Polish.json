@@ -30,6 +30,8 @@
   "Trans_DontTranslateStandardOutgoing_Tooltip": "Gdy zaznaczone (domyślnie), własne wiadomości bez '>>' nie są tłumaczone.",
   "Trans_DontTranslateIncomingInTargetLanguage": "Nie tłumacz przychodzących w języku docelowym",
   "Trans_DontTranslateIncomingInTargetLanguage_Tooltip": "Gdy zaznaczone, wiadomości sojuszników będące już w Twoim języku docelowym nie są tłumaczone.",
+  "Trans_LeaveOriginalMessageInChat": "Pozostaw oryginalną wiadomość na czacie",
+  "Trans_LeaveOriginalMessageInChat_Tooltip": "Gdy zaznaczone, pozostawia lokalną kopię oryginalnej wiadomości na czacie gry podczas wysyłania przetłumaczonych wiadomości.",
   "Trans_Btn_ExportLogs": "Eksportuj dzienniki",
   "Trans_Btn_ClearLogs": "Wyczyść dzienniki",
   "Col_Time": "Czas",

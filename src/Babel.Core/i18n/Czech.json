@@ -30,6 +30,8 @@
   "Trans_DontTranslateStandardOutgoing_Tooltip": "Při zaškrtnutí (výchozí) se vlastní zprávy bez '>>' nepřekládají.",
   "Trans_DontTranslateIncomingInTargetLanguage": "Nepřekládat příchozí v cílovém jazyce",
   "Trans_DontTranslateIncomingInTargetLanguage_Tooltip": "Zprávy spoluhráčů, které již jsou ve vašem cílovém jazyce, se nepřekládají.",
+  "Trans_LeaveOriginalMessageInChat": "Ponechat původní zprávu v chatu",
+  "Trans_LeaveOriginalMessageInChat_Tooltip": "Je-li zaškrtnuto, ponechá místní kopii původní zprávy v herním chatu při odesílání přeložených zpráv.",
   "Trans_Btn_ExportLogs": "Exportovat protokoly",
   "Trans_Btn_ClearLogs": "Vymazat protokoly",
   "Col_Time": "Čas",
