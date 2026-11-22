@@ -202,5 +202,6 @@
   "Trans_MsgDetails_CopyOriginal": "Sao chép bản gốc",
   "Trans_MsgDetails_CopyTranslated": "Sao chép bản dịch",
   "Trans_MsgDetails_CopyFormatted": "Sao chép dòng đã định dạng",
-  "Menu_ViewDetails": "Xem chi tiết tin nhắn"
+  "Menu_ViewDetails": "Xem chi tiết tin nhắn",
+  "Menu_ExportSelectedLogs": "Xuất nhật ký đã chọn"
 }

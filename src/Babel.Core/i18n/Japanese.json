@@ -202,5 +202,6 @@
   "Trans_MsgDetails_CopyOriginal": "原文をコピー",
   "Trans_MsgDetails_CopyTranslated": "訳文をコピー",
   "Trans_MsgDetails_CopyFormatted": "書式設定済み行をコピー",
-  "Menu_ViewDetails": "メッセージの詳細を表示"
+  "Menu_ViewDetails": "メッセージの詳細を表示",
+  "Menu_ExportSelectedLogs": "選択したログを出力"
 }

@@ -202,5 +202,6 @@
   "Trans_MsgDetails_CopyOriginal": "Копіювати оригінал",
   "Trans_MsgDetails_CopyTranslated": "Копіювати переклад",
   "Trans_MsgDetails_CopyFormatted": "Копіювати форматований рядок",
-  "Menu_ViewDetails": "Переглянути деталі повідомлення"
+  "Menu_ViewDetails": "Переглянути деталі повідомлення",
+  "Menu_ExportSelectedLogs": "Експорт вибраного журналу"
 }

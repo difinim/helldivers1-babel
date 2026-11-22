@@ -202,5 +202,6 @@
   "Trans_MsgDetails_CopyOriginal": "मूल कॉपी करें",
   "Trans_MsgDetails_CopyTranslated": "अनुवाद कॉपी करें",
   "Trans_MsgDetails_CopyFormatted": "स्वरूपित पंक्ति कॉपी करें",
-  "Menu_ViewDetails": "संदेश विवरण देखें"
+  "Menu_ViewDetails": "संदेश विवरण देखें",
+  "Menu_ExportSelectedLogs": "चयनित लॉग्स निर्यात करें"
 }

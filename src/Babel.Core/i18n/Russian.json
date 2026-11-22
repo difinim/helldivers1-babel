@@ -202,5 +202,6 @@
   "Trans_MsgDetails_CopyOriginal": "Копировать оригинал",
   "Trans_MsgDetails_CopyTranslated": "Копировать перевод",
   "Trans_MsgDetails_CopyFormatted": "Копировать форматированную строку",
-  "Menu_ViewDetails": "Просмотреть детали сообщения"
+  "Menu_ViewDetails": "Просмотреть детали сообщения",
+  "Menu_ExportSelectedLogs": "Экспорт выбранных записей"
 }

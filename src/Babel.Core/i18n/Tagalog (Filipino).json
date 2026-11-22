@@ -202,5 +202,6 @@
   "Trans_MsgDetails_CopyOriginal": "Kopyahin ang Orihinal",
   "Trans_MsgDetails_CopyTranslated": "Kopyahin ang Pagsasalin",
   "Trans_MsgDetails_CopyFormatted": "Kopyahin ang Naka-format na Linya",
-  "Menu_ViewDetails": "Tingnan ang mga Detalye ng Mensahe"
+  "Menu_ViewDetails": "Tingnan ang mga Detalye ng Mensahe",
+  "Menu_ExportSelectedLogs": "I-export ang Mga Napiling Log"
 }

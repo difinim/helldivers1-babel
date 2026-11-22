@@ -202,5 +202,6 @@
   "Trans_MsgDetails_CopyOriginal": "کپی متن اصلی",
   "Trans_MsgDetails_CopyTranslated": "کپی متن ترجمه‌شده",
   "Trans_MsgDetails_CopyFormatted": "کپی سطر قالب‌بندی‌شده",
-  "Menu_ViewDetails": "مشاهده جزئیات پیام"
+  "Menu_ViewDetails": "مشاهده جزئیات پیام",
+  "Menu_ExportSelectedLogs": "خروجی گزارش‌های انتخاب‌شده"
 }

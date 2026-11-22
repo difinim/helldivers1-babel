@@ -202,5 +202,6 @@
   "Trans_MsgDetails_CopyOriginal": "Copiază originalul",
   "Trans_MsgDetails_CopyTranslated": "Copiază traducerea",
   "Trans_MsgDetails_CopyFormatted": "Copiază linia formatată",
-  "Menu_ViewDetails": "Vizualizează detaliile mesajului"
+  "Menu_ViewDetails": "Vizualizează detaliile mesajului",
+  "Menu_ExportSelectedLogs": "Exportă Jurnalele Selectate"
 }

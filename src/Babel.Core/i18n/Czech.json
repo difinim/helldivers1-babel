@@ -202,5 +202,6 @@
   "Trans_MsgDetails_CopyOriginal": "Kopírovat originál",
   "Trans_MsgDetails_CopyTranslated": "Kopírovat překlad",
   "Trans_MsgDetails_CopyFormatted": "Kopírovat formátovaný řádek",
-  "Menu_ViewDetails": "Zobrazit podrobnosti zprávy"
+  "Menu_ViewDetails": "Zobrazit podrobnosti zprávy",
+  "Menu_ExportSelectedLogs": "Exportovat vybrané protokoly"
 }

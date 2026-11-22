@@ -202,5 +202,6 @@
   "Trans_MsgDetails_CopyOriginal": "Kopiera original",
   "Trans_MsgDetails_CopyTranslated": "Kopiera översättning",
   "Trans_MsgDetails_CopyFormatted": "Kopiera formaterad rad",
-  "Menu_ViewDetails": "Visa meddelandedetaljer"
+  "Menu_ViewDetails": "Visa meddelandedetaljer",
+  "Menu_ExportSelectedLogs": "Exportera markerade loggar"
 }
